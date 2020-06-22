@@ -800,7 +800,7 @@ Working on new Css by taleev
 .demoGraphicFieldLabel{
 	-fx-background-color:#ffffff;
 	-fx-border-width: 0.0;
-	-fx-text-fill : #black;
+	-fx-text-fill : #000000;
 	-fx-font-size: 1em;
 }
 
@@ -1316,11 +1316,6 @@ Working on new Css by taleev
 
 .headerFooter{
 	-fx-background-color: #FFFFFF;
-	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.4) , 5.0, 0.0 , 0.0 , 0.0 );
-}
-
-.demographicFooter{
-	-fx-background-color: #020F59;
 	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.4) , 5.0, 0.0 , 0.0 , 0.0 );
 }
 
@@ -2158,16 +2153,16 @@ Working on new Css by taleev
 }
 .dialog-pane .button:hover{
 	-fx-background-color:#FFFFFF;
-	/*-fx-border-color:#020F59;
+	-fx-border-color:#020F59;
 	-fx-text-fill: #020F59;
 	-fx-font-size: 12px;
 	-fx-wrap-text: true;
-	-fx-cursor:hand; */
+	-fx-cursor:hand;
 }
 
 .dialog-pane:header .header-panel {
 	-fx-background-color: #FFFFFF;
-	/*-fx-background-insets: 1;*/
+	-fx-background-insets: 1;
 }
 
 .schedulerMsg{
@@ -2233,7 +2228,7 @@ Working on new Css by taleev
 .alertBox{
 	-fx-background-color: #FFFFFF;
 	-fx-background-insets: 1.5;
-	-fx-effect: dropshadow(three-pass-box, grey, 1, 0, 0, 0);
+	-fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 1);
 }
 .dialog-pane:header .header-panel .label{
 	-fx-text-fill: #020F59;

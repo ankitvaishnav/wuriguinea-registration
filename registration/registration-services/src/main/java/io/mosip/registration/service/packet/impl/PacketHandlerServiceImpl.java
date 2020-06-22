@@ -5,25 +5,36 @@ import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_NAME;
 import static io.mosip.registration.exception.RegistrationExceptionConstants.REG_PACKET_CREATION_ERROR_CODE;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import io.mosip.kernel.auditmanager.entity.Audit;
 import io.mosip.kernel.core.exception.ExceptionUtils;
+import io.mosip.kernel.core.idobjectvalidator.exception.IdObjectIOException;
+import io.mosip.kernel.core.idobjectvalidator.exception.IdObjectValidationFailedException;
+import io.mosip.kernel.core.idobjectvalidator.exception.InvalidIdSchemaException;
+import io.mosip.kernel.core.idobjectvalidator.spi.IdObjectValidator;
 import io.mosip.kernel.core.logger.spi.Logger;
-import io.mosip.kernel.core.util.DateUtils;
+import io.mosip.kernel.packetmanager.constants.PacketManagerConstants;
+import io.mosip.kernel.packetmanager.dto.AuditDto;
+import io.mosip.kernel.packetmanager.dto.BiometricsDto;
+import io.mosip.kernel.packetmanager.dto.DocumentDto;
+import io.mosip.kernel.packetmanager.dto.SimpleDto;
+import io.mosip.kernel.packetmanager.dto.metadata.BiometricsException;
+import io.mosip.kernel.packetmanager.dto.metadata.DeviceMetaInfo;
+import io.mosip.kernel.packetmanager.dto.metadata.DigitalId;
+import io.mosip.kernel.packetmanager.exception.PacketCreatorException;
+import io.mosip.kernel.packetmanager.spi.PacketCreator;
 import io.mosip.registration.audit.AuditManagerService;
-import io.mosip.registration.builder.Builder;
 import io.mosip.registration.config.AppConfig;
 import io.mosip.registration.constants.AuditEvent;
 import io.mosip.registration.constants.AuditReferenceIdTypes;
@@ -41,24 +52,11 @@ import io.mosip.registration.dto.RegistrationDTO;
 import io.mosip.registration.dto.ResponseDTO;
 import io.mosip.registration.dto.SuccessResponseDTO;
 import io.mosip.registration.dto.UiSchemaDTO;
-import io.mosip.registration.dto.json.metadata.CustomDigitalId;
-import io.mosip.registration.dto.json.metadata.RegisteredDevice;
 import io.mosip.registration.dto.response.SchemaDto;
-import io.mosip.registration.entity.AuditLogControl;
 import io.mosip.registration.entity.KeyStore;
 import io.mosip.registration.exception.RegBaseCheckedException;
 import io.mosip.registration.exception.RegistrationExceptionConstants;
 import io.mosip.registration.mdm.service.impl.MosipBioDeviceManager;
-import io.mosip.kernel.packetmanager.spi.PacketCreator;
-import io.mosip.kernel.packetmanager.constants.PacketManagerConstants;
-import io.mosip.kernel.packetmanager.dto.AuditDto;
-import io.mosip.kernel.packetmanager.dto.BiometricsDto;
-import io.mosip.kernel.packetmanager.dto.DocumentDto;
-import io.mosip.kernel.packetmanager.dto.SimpleDto;
-import io.mosip.kernel.packetmanager.dto.metadata.BiometricsException;
-import io.mosip.kernel.packetmanager.dto.metadata.DeviceMetaInfo;
-import io.mosip.kernel.packetmanager.dto.metadata.DigitalId;
-import io.mosip.kernel.packetmanager.exception.PacketCreatorException;
 import io.mosip.registration.service.BaseService;
 import io.mosip.registration.service.IdentitySchemaService;
 import io.mosip.registration.service.external.StorageService;
@@ -66,6 +64,7 @@ import io.mosip.registration.service.packet.PacketHandlerService;
 import io.mosip.registration.update.SoftwareUpdateHandler;
 import io.mosip.registration.util.checksum.CheckSumUtil;
 import io.mosip.registration.util.healthcheck.RegistrationSystemPropertiesChecker;
+import io.mosip.registration.validator.RegIdObjectMasterDataValidator;
 
 /**
  * The implementation class of {@link PacketHandlerService} to handle the
@@ -109,7 +108,14 @@ public class PacketHandlerServiceImpl extends BaseService implements PacketHandl
 	private AuditDAO auditDAO;
 	
 	@Autowired
-	private SoftwareUpdateHandler softwareUpdateHandler;	
+	private SoftwareUpdateHandler softwareUpdateHandler;
+	
+	@Autowired
+	@Qualifier("schema")
+	private IdObjectValidator idObjectValidator;
+	
+	@Autowired
+	private RegIdObjectMasterDataValidator regIdObjectMasterDataValidator;
 	
 
 	/*
@@ -135,12 +141,14 @@ public class PacketHandlerServiceImpl extends BaseService implements PacketHandl
 		
 		try {			
 			SchemaDto schema = identitySchemaService.getIdentitySchema(registrationDTO.getIdSchemaVersion());			
-			//TODO validate idObject with IDSchema
-						
+					
 			packetCreator.initialize();				
 			setDemographics(registrationDTO, schema);
 			setDocuments(registrationDTO.getDocuments());
 			setBiometrics(registrationDTO.getBiometrics(), registrationDTO.getBiometricExceptions(), schema);
+			
+			validateIdObject(schema.getSchemaJson(), packetCreator.getIdentityObject(), registrationDTO.getRegistrationCategory());
+			
 			setOtherDetails(registrationDTO);			
 			packetCreator.setAcknowledgement(registrationDTO.getAcknowledgeReceiptName(), registrationDTO.getAcknowledgeReceipt());			
 			collectAudits();
@@ -262,11 +270,12 @@ public class PacketHandlerServiceImpl extends BaseService implements PacketHandl
 	private void collectAudits() {
 		List<AuditDto> list = new ArrayList<>();
 		List<Audit> audits = auditDAO.getAudits(auditLogControlDAO.getLatestRegistrationAuditDates());
-		for(Audit audit : audits) {
+		for (Audit audit : audits) {
 			AuditDto dto = new AuditDto();
 			dto.setActionTimeStamp(audit.getActionTimeStamp());
-			dto.setApplicationId(audit.getApplicationId());
-			dto.setApplicationName(audit.getApplicationName());
+			dto.setApplicationId(!audit.getApplicationId().equalsIgnoreCase("null") ? audit.getApplicationId() : null);
+			dto.setApplicationName(
+					!audit.getApplicationName().equalsIgnoreCase("null") ? audit.getApplicationName() : null);
 			dto.setCreatedBy(audit.getCreatedBy());
 			dto.setDescription(audit.getDescription());
 			dto.setEventId(audit.getEventId());
@@ -281,7 +290,6 @@ public class PacketHandlerServiceImpl extends BaseService implements PacketHandl
 			dto.setSessionUserId(audit.getSessionUserId());
 			dto.setSessionUserName(audit.getSessionUserName());
 			list.add(dto);
-			break; //TODO - need to fix the audits issue
 		}
 		packetCreator.setAudits(list);
 	}
@@ -307,7 +315,7 @@ public class PacketHandlerServiceImpl extends BaseService implements PacketHandl
 		this.packetCreator.setRegisteredDeviceDetails(capturedRegisteredDevices);
 	}
 	
-	private void createAuditLog(RegistrationDTO registrationDTO) {
+	/*private void createAuditLog(RegistrationDTO registrationDTO) {
 		auditLogControlDAO.save(Builder.build(AuditLogControl.class)
 				.with(auditLogControl -> auditLogControl.setAuditLogFromDateTime(registrationDTO.getAuditLogStartTime()))
 				.with(auditLogControl -> auditLogControl.setAuditLogToDateTime(registrationDTO.getAuditLogEndTime()))
@@ -316,7 +324,7 @@ public class PacketHandlerServiceImpl extends BaseService implements PacketHandl
 				.with(auditLogControl -> auditLogControl.setCrDtime(Timestamp.valueOf(DateUtils.getUTCCurrentDateTime())))
 				.with(auditLogControl -> auditLogControl.setCrBy(SessionContext.userContext().getUserId()))
 				.get());
-	}
+	}*/
 	
 	private void setOtherDetails(RegistrationDTO registrationDTO) {
 		packetCreator.setMetaInfo(PacketManagerConstants.META_CLIENT_VERSION, 
@@ -324,7 +332,7 @@ public class PacketHandlerServiceImpl extends BaseService implements PacketHandl
 		packetCreator.setMetaInfo(PacketManagerConstants.META_REGISTRATION_TYPE, 
 				registrationDTO.getRegistrationMetaDataDTO().getRegistrationCategory());
 		packetCreator.setMetaInfo(PacketManagerConstants.META_PRE_REGISTRATION_ID, 
-				registrationDTO.getRegistrationMetaDataDTO().getPreviousRID());
+				registrationDTO.getPreRegistrationId());
 		packetCreator.setMetaInfo(PacketManagerConstants.META_MACHINE_ID, 
 				(String) ApplicationContext.map().get(RegistrationConstants.USER_STATION_ID));
 		packetCreator.setMetaInfo(PacketManagerConstants.META_CENTER_ID, 
@@ -370,5 +378,27 @@ public class PacketHandlerServiceImpl extends BaseService implements PacketHandl
 			return result.get().getId();
 		
 		return null;
+	}
+	
+	private void validateIdObject(String schemaJson, Object idObject, String category) throws RegBaseCheckedException {
+		LOGGER.debug(LOG_PKT_HANLDER, APPLICATION_NAME, APPLICATION_ID, "validateIdObject invoked >>>>> " + category);
+		//LOGGER.debug(LOG_PKT_HANLDER, APPLICATION_NAME, APPLICATION_ID, "idObject >>>>> " + idObject);
+		try {
+			switch (category) {
+			case RegistrationConstants.PACKET_TYPE_UPDATE:
+				idObjectValidator.validateIdObject(schemaJson, idObject, Arrays.asList("UIN", "IDSchemaVersion"));
+				break;
+			case RegistrationConstants.PACKET_TYPE_LOST:
+				idObjectValidator.validateIdObject(schemaJson, idObject, Arrays.asList("IDSchemaVersion"));
+				break;
+			case RegistrationConstants.PACKET_TYPE_NEW:
+				idObjectValidator.validateIdObject(schemaJson, idObject);
+				break;
+			}
+			regIdObjectMasterDataValidator.validateIdObject(idObject);
+		} catch (IdObjectValidationFailedException | IdObjectIOException | InvalidIdSchemaException e) {
+			LOGGER.error(LOG_PKT_HANLDER, APPLICATION_NAME, APPLICATION_ID, ExceptionUtils.getStackTrace(e));
+			throw new RegBaseCheckedException(e.getErrorCode(), e.getErrorText());
+		}		
 	}
 }
