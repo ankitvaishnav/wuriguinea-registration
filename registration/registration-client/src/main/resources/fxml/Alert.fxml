@@ -59,7 +59,7 @@
                   <Insets />
                </opaqueInsets>
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="20.0" />
                </padding>
                <HBox.margin>
                   <Insets />

@@ -71,6 +71,7 @@ import io.mosip.registration.exception.RegBaseCheckedException;
 import io.mosip.registration.exception.RegBaseUncheckedException;
 import io.mosip.registration.mdm.dto.CaptureResponseDto;
 import io.mosip.kernel.packetmanager.constants.PacketManagerConstants;
+import io.mosip.kernel.packetmanager.dto.BiometricsDto;
 import io.mosip.registration.scheduler.SchedulerUtil;
 import io.mosip.registration.service.IdentitySchemaService;
 import io.mosip.registration.service.bio.BioService;
@@ -918,12 +919,13 @@ public class BaseController {
 	 */
 	protected void clearAllValues() {
 		if ((boolean) SessionContext.map().get(RegistrationConstants.ONBOARD_USER)) {
-			((BiometricDTO) SessionContext.map().get(RegistrationConstants.USER_ONBOARD_DATA))
-					.setOperatorBiometricDTO(createBiometricInfoDTO());
-			biometricExceptionController.clearSession();
-			fingerPrintCaptureController.clearFingerPrintDTO();
-			irisCaptureController.clearIrisData();
+			//((BiometricDTO) SessionContext.map().get(RegistrationConstants.USER_ONBOARD_DATA))
+			//		.setOperatorBiometricDTO(createBiometricInfoDTO());
+			//biometricExceptionController.clearSession();
+			//fingerPrintCaptureController.clearFingerPrintDTO();
+			//irisCaptureController.clearIrisData();
 			// faceCaptureController.clearPhoto(RegistrationConstants.APPLICANT_IMAGE);
+			guardianBiometricsController.clearCapturedBioData();
 		} else {
 			if (SessionContext.map().get(RegistrationConstants.REGISTRATION_DATA) != null) {
 				((RegistrationDTO) SessionContext.map().get(RegistrationConstants.REGISTRATION_DATA)).getBiometricDTO()
@@ -1008,9 +1010,9 @@ public class BaseController {
 	 *
 	 * @return the biometric DTO from session
 	 */
-	protected BiometricDTO getBiometricDTOFromSession() {
+	/*protected BiometricDTO getBiometricDTOFromSession() {
 		return (BiometricDTO) SessionContext.map().get(RegistrationConstants.USER_ONBOARD_DATA);
-	}
+	}*/
 
 	/**
 	 * to return to the next page based on the current page and action for User
@@ -1138,8 +1140,8 @@ public class BaseController {
 
 			ResponseDTO response = null;
 			try {
-				response = userOnboardService
-						.validate((BiometricDTO) SessionContext.map().get(RegistrationConstants.USER_ONBOARD_DATA));
+				response = userOnboardService.validateWithIDAuthAndSave(userOnboardService.getAllBiometrics());
+				
 			} catch (RegBaseCheckedException checkedException) {
 				LOGGER.error(LoggerConstants.LOG_REG_BASE, APPLICATION_NAME, APPLICATION_ID,
 						ExceptionUtils.getStackTrace(checkedException));
@@ -1185,8 +1187,8 @@ public class BaseController {
 	 * 
 	 */
 	protected void getCurrentPage(Pane pageId, String notTosShow, String show) {
-
-		LOGGER.info(LoggerConstants.LOG_REG_BASE, APPLICATION_NAME, APPLICATION_ID, "Navigating to next page");
+		LOGGER.info(LoggerConstants.LOG_REG_BASE, APPLICATION_NAME, APPLICATION_ID, pageId ==null ? "null" : pageId.getId());
+		LOGGER.info(LoggerConstants.LOG_REG_BASE, APPLICATION_NAME, APPLICATION_ID, "Navigating from current page >> " + notTosShow + " to show : " + show);
 
 		if (notTosShow != null) {
 			((Pane) pageId.lookup(RegistrationConstants.HASH + notTosShow)).setVisible(false);
@@ -1195,7 +1197,7 @@ public class BaseController {
 			((Pane) pageId.lookup(RegistrationConstants.HASH + show)).setVisible(true);
 		}
 
-		LOGGER.info(LoggerConstants.LOG_REG_BASE, APPLICATION_NAME, APPLICATION_ID, "Navigated to next page");
+		LOGGER.info(LoggerConstants.LOG_REG_BASE, APPLICATION_NAME, APPLICATION_ID, "Navigated to next page >> " + show);
 	}
 
 	/**
@@ -1454,7 +1456,7 @@ public class BaseController {
 		LOGGER.info(LoggerConstants.LOG_REG_BASE, RegistrationConstants.APPLICATION_NAME,
 				RegistrationConstants.APPLICATION_ID, "Fetching value from application Context");
 
-		return (String) applicationContext.getApplicationMap().get(key);
+		return applicationContext.getApplicationMap().containsKey(key) ? (String) applicationContext.getApplicationMap().get(key) : null;
 	}
 
 	/**
@@ -1502,7 +1504,7 @@ public class BaseController {
 
 	protected List<BiometricExceptionDTO> getIrisExceptions() {
 		if ((boolean) SessionContext.map().get(RegistrationConstants.ONBOARD_USER)) {
-			return getBiometricDTOFromSession().getOperatorBiometricDTO().getBiometricExceptionDTO();
+			return null;//return getBiometricDTOFromSession().getOperatorBiometricDTO().getBiometricExceptionDTO();
 		} else if (getRegistrationDTOFromSession().isUpdateUINNonBiometric()
 				|| (SessionContext.map().get(RegistrationConstants.IS_Child) != null
 						&& (boolean) SessionContext.map().get(RegistrationConstants.IS_Child))) {
@@ -1682,7 +1684,7 @@ public class BaseController {
 		this.isAckOpened = isAckOpened;
 	}
 
-	public void loadUIElementsFromSchema() {
+	public void loadUIElementsFromSchema() throws RegBaseCheckedException {
 
 		try {
 			List<UiSchemaDTO> schemaFields = identitySchemaService.getLatestEffectiveUISchema();
@@ -1708,6 +1710,7 @@ public class BaseController {
 		} catch (RegBaseCheckedException e) {
 			LOGGER.error(LoggerConstants.LOG_REG_BASE, APPLICATION_NAME, APPLICATION_ID,
 					ExceptionUtils.getStackTrace(e));
+			throw e;
 		}
 	}
 
@@ -1716,10 +1719,10 @@ public class BaseController {
 		return entry;
 	}
 
-	protected HashMap<Entry<String, String>, HashMap<String, List<List<String>>>> getconfigureAndNonConfiguredBioAttributes(
+	protected Map<Entry<String, String>, Map<String, List<List<String>>>> getconfigureAndNonConfiguredBioAttributes(
 			List<Entry<String, List<String>>> entryListConstantAttributes) {
 
-		HashMap<Entry<String, String>, HashMap<String, List<List<String>>>> mapToProcess = new HashMap<>();
+		Map<Entry<String, String>, Map<String, List<List<String>>>> mapToProcess = new HashMap<>();
 
 		for (Entry<String, String> uiSchemaSubType : getMapOfbiometricSubtypes().entrySet()) {
 
@@ -1975,5 +1978,31 @@ public class BaseController {
 				progressBar.getStyleClass().add(RegistrationConstants.PROGRESS_BAR_RED);
 			}
 		}
+	}
+	
+	
+	//TODO - based on configuration
+	public Map<Entry<String, String>, Map<String, List<List<String>>>> getOnboardUserMap() {
+		Map<Entry<String, String>, Map<String, List<List<String>>>> mapToProcess = new HashMap<>();
+		
+		Map<String, String> labels = new HashMap<>();
+		labels.put("OPERATOR", "Supervisor / Officer Biometrics");
+				
+		HashMap<String, List<List<String>>> subMap = new HashMap<String, List<List<String>>>();
+		subMap.put(RegistrationConstants.FINGERPRINT_SLAB_LEFT, Arrays.asList(
+				RegistrationConstants.leftHandUiAttributes, Arrays.asList()));
+		subMap.put(RegistrationConstants.FINGERPRINT_SLAB_RIGHT, Arrays.asList(
+				RegistrationConstants.rightHandUiAttributes, Arrays.asList()));
+		subMap.put(RegistrationConstants.FINGERPRINT_SLAB_THUMBS, Arrays.asList(
+				RegistrationConstants.twoThumbsUiAttributes, Arrays.asList()));
+		subMap.put(RegistrationConstants.IRIS_DOUBLE, Arrays.asList(
+				RegistrationConstants.eyesUiAttributes, Arrays.asList()));
+		subMap.put(RegistrationConstants.FACE, Arrays.asList(
+				RegistrationConstants.faceUiAttributes, Arrays.asList()));
+		
+		for(Entry<String, String> entry : labels.entrySet()) {
+			mapToProcess.put(entry, subMap);
+		}
+		return mapToProcess;
 	}
 }

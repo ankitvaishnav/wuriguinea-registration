@@ -13,8 +13,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import io.mosip.kernel.core.cbeffutil.jaxbclasses.SingleType;
 import io.mosip.kernel.core.exception.ExceptionUtils;
 import io.mosip.kernel.core.logger.spi.Logger;
+import io.mosip.kernel.packetmanager.dto.BiometricsDto;
 import io.mosip.registration.config.AppConfig;
 import io.mosip.registration.constants.AuditEvent;
 import io.mosip.registration.constants.AuditReferenceIdTypes;
@@ -38,7 +40,9 @@ import io.mosip.registration.dto.UserDTO;
 import io.mosip.registration.dto.biometric.FaceDetailsDTO;
 import io.mosip.registration.dto.biometric.FingerprintDetailsDTO;
 import io.mosip.registration.dto.biometric.IrisDetailsDTO;
+import io.mosip.registration.entity.BiometricType;
 import io.mosip.registration.exception.RegBaseCheckedException;
+import io.mosip.registration.mdm.dto.MDMRequestDto;
 import io.mosip.registration.mdm.dto.RequestDetail;
 import io.mosip.registration.service.bio.BioService;
 import io.mosip.registration.service.login.LoginService;
@@ -60,9 +64,9 @@ import javafx.stage.Stage;
 /**
  * Class for Operator Authentication
  *
- *
- *
- *
+ * 
+ * 
+ * 
  */
 @Controller
 public class AuthenticationController extends BaseController implements Initializable {
@@ -170,11 +174,11 @@ public class AuthenticationController extends BaseController implements Initiali
 
 	@Autowired
 	private BioService bioService;
-
+	
 	private int fingerPrintAuthCount;
 	private int irisPrintAuthCount;
 	private int facePrintAuthCount;
-
+	
 	@FXML
 	private Label authCounter;
 
@@ -333,6 +337,8 @@ public class AuthenticationController extends BaseController implements Initiali
 				fpUserId.getText().isEmpty() ? RegistrationConstants.AUDIT_DEFAULT_USER : fpUserId.getText(),
 				AuditReferenceIdTypes.USER_ID.getReferenceTypeId());
 
+		authCounter = new Label();
+		
 		LOGGER.info("REGISTRATION - OPERATOR_AUTHENTICATION", APPLICATION_NAME, APPLICATION_ID,
 				"Validating Fingerprint for Fingerprint based Authentication");
 
@@ -341,10 +347,13 @@ public class AuthenticationController extends BaseController implements Initiali
 				if (fetchUserRole(fpUserId.getText())) {
 					try {
 						if (captureAndValidateFP(fpUserId.getText(),
-								new RequestDetail("Staging", "Registration",
-										RegistrationConstants.FINGERPRINT_SLAB_LEFT,
-										(String) getValueFromApplicationContext(RegistrationConstants.CAPTURE_TIME_OUT),
-										1, (String) getValueFromApplicationContext(RegistrationConstants.FINGERPRINT_AUTHENTICATION_THRESHHOLD), null))) {
+								new MDMRequestDto(RegistrationConstants.FINGERPRINT_SLAB_LEFT, null, "Registration",
+										"Staging",
+										io.mosip.registration.context.ApplicationContext.getIntValueFromApplicationMap(
+												RegistrationConstants.CAPTURE_TIME_OUT),
+										1,
+										io.mosip.registration.context.ApplicationContext.getIntValueFromApplicationMap(
+												RegistrationConstants.FINGERPRINT_AUTHENTICATION_THRESHHOLD)))) {
 							userAuthenticationTypeListValidation.remove(0);
 							userNameField = fpUserId.getText();
 							if (!isEODAuthentication) {
@@ -355,7 +364,10 @@ public class AuthenticationController extends BaseController implements Initiali
 							generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.FINGER_PRINT_MATCH);
 						}
 					} catch (RegBaseCheckedException | IOException exception) {
-						generateAlert(RegistrationConstants.ALERT_INFORMATION, RegistrationUIConstants.getMessageLanguageSpecific(exception.getMessage().substring(0, 3)+RegistrationConstants.UNDER_SCORE+RegistrationConstants.MESSAGE.toUpperCase()));
+						generateAlert(RegistrationConstants.ALERT_INFORMATION,
+								RegistrationUIConstants.getMessageLanguageSpecific(
+										exception.getMessage().substring(0, 3) + RegistrationConstants.UNDER_SCORE
+												+ RegistrationConstants.MESSAGE.toUpperCase()));
 					}
 				} else {
 					generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.USER_NOT_AUTHORIZED);
@@ -365,10 +377,12 @@ public class AuthenticationController extends BaseController implements Initiali
 			}
 		} else {
 			try {
-				if (captureAndValidateFP(fpUserId.getText(), new RequestDetail("Staging", "Registration",
-						RegistrationConstants.FINGERPRINT_SLAB_LEFT,
-						(String) getValueFromApplicationContext(RegistrationConstants.CAPTURE_TIME_OUT),
-						1, "60", null))) {
+				if (captureAndValidateFP(fpUserId.getText(),
+						new MDMRequestDto(RegistrationConstants.FINGERPRINT_SLAB_LEFT, null, "Registration", "Staging",
+								io.mosip.registration.context.ApplicationContext
+										.getIntValueFromApplicationMap(RegistrationConstants.CAPTURE_TIME_OUT),
+								1, io.mosip.registration.context.ApplicationContext.getIntValueFromApplicationMap(
+										RegistrationConstants.FINGERPRINT_AUTHENTICATION_THRESHHOLD)))) {
 					userAuthenticationTypeListValidation.remove(0);
 					loadNextScreen();
 				} else {
@@ -380,7 +394,7 @@ public class AuthenticationController extends BaseController implements Initiali
 								+ RegistrationConstants.UNDER_SCORE + RegistrationConstants.MESSAGE.toUpperCase()));
 			}
 		}
-		authCounter.setText(++fingerPrintAuthCount+"");
+		authCounter.setText(++fingerPrintAuthCount + "");
 	}
 
 	/**
@@ -393,6 +407,8 @@ public class AuthenticationController extends BaseController implements Initiali
 				irisUserId.getText().isEmpty() ? RegistrationConstants.AUDIT_DEFAULT_USER : irisUserId.getText(),
 				AuditReferenceIdTypes.USER_ID.getReferenceTypeId());
 
+		authCounter = new Label();
+		
 		LOGGER.info("REGISTRATION - OPERATOR_AUTHENTICATION", APPLICATION_NAME, APPLICATION_ID,
 				"Validating Iris for Iris based Authentication");
 
@@ -448,7 +464,7 @@ public class AuthenticationController extends BaseController implements Initiali
 
 	/**
 	 * to validate the face in case of face based authentication
-	 *
+	 * 
 	 * @throws IOException
 	 * @throws RegBaseCheckedException
 	 */
@@ -459,6 +475,8 @@ public class AuthenticationController extends BaseController implements Initiali
 				faceUserId.getText().isEmpty() ? RegistrationConstants.AUDIT_DEFAULT_USER : faceUserId.getText(),
 				AuditReferenceIdTypes.USER_ID.getReferenceTypeId());
 
+		authCounter = new Label();
+		
 		LOGGER.info("REGISTRATION - OPERATOR_AUTHENTICATION", APPLICATION_NAME, APPLICATION_ID,
 				"Validating Face for Face based Authentication");
 		try {
@@ -494,14 +512,14 @@ public class AuthenticationController extends BaseController implements Initiali
 					RegistrationUIConstants.getMessageLanguageSpecific(exception.getMessage().substring(0, 3)
 							+ RegistrationConstants.UNDER_SCORE + RegistrationConstants.MESSAGE.toUpperCase()));
 		}
-
+		
 		authCounter.setText(++facePrintAuthCount+"");
 
 	}
 
 	/**
 	 * to get the configured modes of authentication
-	 *
+	 * 
 	 * @throws RegBaseCheckedException
 	 */
 	private void getAuthenticationModes(String authType) throws RegBaseCheckedException {
@@ -562,6 +580,7 @@ public class AuthenticationController extends BaseController implements Initiali
 		LOGGER.info("REGISTRATION - OPERATOR_AUTHENTICATION", APPLICATION_NAME, APPLICATION_ID,
 				"Loading next authentication screen");
 		try {
+			Set<String> roleSet = new HashSet<>(SessionContext.userContext().getRoles());
 			Boolean toogleBioException = false;
 			if (!SessionContext.userMap().isEmpty()) {
 				if (SessionContext.userMap().get(RegistrationConstants.IS_LOW_QUALITY_BIOMETRICS) == null) {
@@ -570,7 +589,7 @@ public class AuthenticationController extends BaseController implements Initiali
 				toogleBioException = (Boolean) SessionContext.userContext().getUserMap()
 						.get(RegistrationConstants.TOGGLE_BIO_METRIC_EXCEPTION)
 						|| (Boolean) SessionContext.userContext().getUserMap()
-						.get(RegistrationConstants.IS_LOW_QUALITY_BIOMETRICS);
+								.get(RegistrationConstants.IS_LOW_QUALITY_BIOMETRICS);
 			}
 
 			if (!userAuthenticationTypeList.isEmpty()) {
@@ -585,11 +604,11 @@ public class AuthenticationController extends BaseController implements Initiali
 						getValueFromApplicationContext(RegistrationConstants.FINGERPRINT_DISABLE_FLAG))
 						&& authenticationType.equalsIgnoreCase(RegistrationConstants.FINGERPRINT))
 						|| (RegistrationConstants.DISABLE.equalsIgnoreCase(
-						getValueFromApplicationContext(RegistrationConstants.IRIS_DISABLE_FLAG))
-						&& authenticationType.equalsIgnoreCase(RegistrationConstants.IRIS))
+								getValueFromApplicationContext(RegistrationConstants.IRIS_DISABLE_FLAG))
+								&& authenticationType.equalsIgnoreCase(RegistrationConstants.IRIS))
 						|| (RegistrationConstants.DISABLE.equalsIgnoreCase(
-						getValueFromApplicationContext(RegistrationConstants.FACE_DISABLE_FLAG))
-						&& authenticationType.equalsIgnoreCase(RegistrationConstants.FACE))) {
+								getValueFromApplicationContext(RegistrationConstants.FACE_DISABLE_FLAG))
+								&& authenticationType.equalsIgnoreCase(RegistrationConstants.FACE))) {
 
 					enableErrorPage();
 					if (!isEODAuthentication) {
@@ -608,9 +627,10 @@ public class AuthenticationController extends BaseController implements Initiali
 					 * Check whether the biometric exceptions are enabled and supervisor
 					 * authentication is required
 					 */
-					if ((toogleBioException != null && toogleBioException.booleanValue())
+					if (!getRegistrationDTOFromSession().getBiometricExceptions().isEmpty()
 							&& RegistrationConstants.ENABLE.equalsIgnoreCase(
-							getValueFromApplicationContext(RegistrationConstants.SUPERVISOR_AUTH_CONFIG))) {
+									getValueFromApplicationContext(RegistrationConstants.SUPERVISOR_AUTH_CONFIG))
+							&& !roleSet.contains(RegistrationConstants.SUPERVISOR)) {
 						authCount = 0;
 						isSupervisor = true;
 						getAuthenticationModes(ProcessNames.EXCEPTION.getType());
@@ -634,7 +654,7 @@ public class AuthenticationController extends BaseController implements Initiali
 
 	/**
 	 * to enable the respective authentication mode
-	 *
+	 * 
 	 * @param loginMode - name of authentication mode
 	 */
 	public void loadAuthenticationScreen(String loginMode) {
@@ -648,23 +668,23 @@ public class AuthenticationController extends BaseController implements Initiali
 		irisBasedLogin.setVisible(false);
 
 		switch (loginMode.toUpperCase()) {
-			case RegistrationConstants.OTP:
-				enableOTP();
-				break;
-			case RegistrationConstants.PWORD:
-				enablePWD();
-				break;
-			case RegistrationConstants.FINGERPRINT_UPPERCASE:
-				enableFingerPrint();
-				break;
-			case RegistrationConstants.IRIS:
-				enableIris();
-				break;
-			case RegistrationConstants.FACE:
-				enableFace();
-				break;
-			default:
-				enablePWD();
+		case RegistrationConstants.OTP:
+			enableOTP();
+			break;
+		case RegistrationConstants.PWORD:
+			enablePWD();
+			break;
+		case RegistrationConstants.FINGERPRINT_UPPERCASE:
+			enableFingerPrint();
+			break;
+		case RegistrationConstants.IRIS:
+			enableIris();
+			break;
+		case RegistrationConstants.FACE:
+			enableFace();
+			break;
+		default:
+			enablePWD();
 		}
 
 		userAuthenticationTypeList.remove(RegistrationConstants.PARAM_ZERO);
@@ -813,7 +833,7 @@ public class AuthenticationController extends BaseController implements Initiali
 
 	/**
 	 * to check the role of supervisor in case of biometric exception
-	 *
+	 * 
 	 * @param userId - username entered by the supervisor in the authentication
 	 *               screen
 	 * @return boolean variable "true", if the person is authenticated as supervisor
@@ -834,34 +854,36 @@ public class AuthenticationController extends BaseController implements Initiali
 
 	/**
 	 * to capture and validate the fingerprint for authentication
-	 *
+	 * 
 	 * @param userId - username entered in the textfield
 	 * @return true/false after validating fingerprint
 	 * @throws IOException
 	 * @throws RegBaseCheckedException
 	 */
-	private boolean captureAndValidateFP(String userId, RequestDetail requestDetail)
+	private boolean captureAndValidateFP(String userId, MDMRequestDto mdmRequestDto)
 			throws RegBaseCheckedException, IOException {
-		AuthenticationValidatorDTO authenticationValidatorDTO = bioService.getFingerPrintAuthenticationDto(userId,
-				requestDetail);
-		List<FingerprintDetailsDTO> fingerPrintDetailsDTOs = authenticationValidatorDTO.getFingerPrintDetails();
+		
+		List<BiometricsDto> biometrics = bioService.captureModalityForAuth(mdmRequestDto);		
+		//AuthenticationValidatorDTO authenticationValidatorDTO = bioService.getFingerPrintAuthenticationDto(userId,requestDetail);
+		//List<FingerprintDetailsDTO> fingerPrintDetailsDTOs = authenticationValidatorDTO.getFingerPrintDetails();
 		boolean fpMatchStatus;
 		if (!isEODAuthentication) {
 			if (isSupervisor) {
 				RegistrationDTO registrationDTO = (RegistrationDTO) SessionContext.getInstance().getMapObject()
 						.get(RegistrationConstants.REGISTRATION_DATA);
-				registrationDTO.getBiometricDTO().getSupervisorBiometricDTO()
-						.setFingerprintDetailsDTO(fingerPrintDetailsDTOs);
+				//registrationDTO.getBiometricDTO().getSupervisorBiometricDTO().setFingerprintDetailsDTO(fingerPrintDetailsDTOs);
+				registrationDTO.addSupervisorBiometrics(biometrics);				
 			} else {
 				RegistrationDTO registrationDTO = (RegistrationDTO) SessionContext.getInstance().getMapObject()
 						.get(RegistrationConstants.REGISTRATION_DATA);
-				registrationDTO.getBiometricDTO().getOperatorBiometricDTO()
-						.setFingerprintDetailsDTO(fingerPrintDetailsDTOs);
+				//registrationDTO.getBiometricDTO().getOperatorBiometricDTO().setFingerprintDetailsDTO(fingerPrintDetailsDTOs);
+				registrationDTO.addOfficerBiometrics(biometrics);
 			}
 		}
-		FingerprintDetailsDTO fingerPrintDetailsDto = fingerPrintDetailsDTOs.get(0);
-		fpMatchStatus = bioService.validateFingerPrint(authenticationValidatorDTO);
-		if (fpMatchStatus) {
+		//FingerprintDetailsDTO fingerPrintDetailsDto = fingerPrintDetailsDTOs.get(0);
+		//fpMatchStatus = bioService.validateFingerPrint(authenticationValidatorDTO);
+		fpMatchStatus = authenticationService.authValidator(userId, SingleType.FINGER.value(), biometrics);
+		/*if (fpMatchStatus) {
 			if (isSupervisor) {
 				fingerPrintDetailsDto.setFingerprintImageName(
 						"supervisor".concat(fingerPrintDetailsDto.getFingerType()).concat(".jpg"));
@@ -869,67 +891,91 @@ public class AuthenticationController extends BaseController implements Initiali
 				fingerPrintDetailsDto.setFingerprintImageName(
 						"officer".concat(fingerPrintDetailsDto.getFingerType()).concat(".jpg"));
 			}
-		}
+		}*/
 
 		return fpMatchStatus;
 	}
 
 	/**
 	 * to capture and validate the iris for authentication
-	 *
+	 * 
 	 * @param userId - username entered in the textfield
 	 * @return true/false after validating iris
 	 * @throws IOException
 	 */
 	private boolean captureAndValidateIris(String userId) throws RegBaseCheckedException, IOException {
-		AuthenticationValidatorDTO authenticationValidatorDTO = bioService.getIrisAuthenticationDto(userId,
-				new RequestDetail(RegistrationConstants.IRIS_DOUBLE,
-						getValueFromApplicationContext(RegistrationConstants.CAPTURE_TIME_OUT), 2,
-						getValueFromApplicationContext(RegistrationConstants.IRIS_THRESHOLD), null));
-		List<IrisDetailsDTO> irisDetailsDTOs = authenticationValidatorDTO.getIrisDetails();
+		MDMRequestDto mdmRequestDto = new MDMRequestDto(RegistrationConstants.IRIS_DOUBLE, null, "Registration",
+				"Staging",
+				io.mosip.registration.context.ApplicationContext
+						.getIntValueFromApplicationMap(RegistrationConstants.CAPTURE_TIME_OUT),
+				2, io.mosip.registration.context.ApplicationContext
+						.getIntValueFromApplicationMap(RegistrationConstants.IRIS_THRESHOLD));
+		List<BiometricsDto> biometrics = bioService.captureModalityForAuth(mdmRequestDto);
+
+		/*
+		 * AuthenticationValidatorDTO authenticationValidatorDTO =
+		 * bioService.getIrisAuthenticationDto(userId, new
+		 * RequestDetail(RegistrationConstants.IRIS_DOUBLE,
+		 * getValueFromApplicationContext(RegistrationConstants.CAPTURE_TIME_OUT), 2,
+		 * getValueFromApplicationContext(RegistrationConstants.IRIS_THRESHOLD), null));
+		 * List<IrisDetailsDTO> irisDetailsDTOs =
+		 * authenticationValidatorDTO.getIrisDetails();
+		 */
 		if (!isEODAuthentication) {
 			if (isSupervisor) {
 				RegistrationDTO registrationDTO = (RegistrationDTO) SessionContext.getInstance().getMapObject()
 						.get(RegistrationConstants.REGISTRATION_DATA);
-				registrationDTO.getBiometricDTO().getSupervisorBiometricDTO().setIrisDetailsDTO(irisDetailsDTOs);
-				SessionContext.getInstance().getMapObject().get(RegistrationConstants.REGISTRATION_DATA);
+				// registrationDTO.getBiometricDTO().getSupervisorBiometricDTO().setIrisDetailsDTO(irisDetailsDTOs);
+				// SessionContext.getInstance().getMapObject().get(RegistrationConstants.REGISTRATION_DATA);
+				registrationDTO.addSupervisorBiometrics(biometrics);
 			} else {
 				RegistrationDTO registrationDTO = (RegistrationDTO) SessionContext.getInstance().getMapObject()
 						.get(RegistrationConstants.REGISTRATION_DATA);
-				registrationDTO.getBiometricDTO().getOperatorBiometricDTO().setIrisDetailsDTO(irisDetailsDTOs);
+				// registrationDTO.getBiometricDTO().getOperatorBiometricDTO().setIrisDetailsDTO(irisDetailsDTOs);
+				registrationDTO.addOfficerBiometrics(biometrics);
 			}
 		}
-		boolean irisMatchStatus = bioService.validateIris(authenticationValidatorDTO);
-		return irisMatchStatus;
+		// boolean irisMatchStatus =
+		// bioService.validateIris(authenticationValidatorDTO);
+		return authenticationService.authValidator(userId, SingleType.IRIS.value(), biometrics);
 	}
 
 	/**
 	 * to capture and validate the iris for authentication
-	 *
+	 * 
 	 * @param userId - username entered in the textfield
 	 * @return true/false after validating face
 	 * @throws IOException
 	 * @throws RegBaseCheckedException
 	 */
 	private boolean captureAndValidateFace(String userId) throws RegBaseCheckedException, IOException {
-		AuthenticationValidatorDTO authenticationValidatorDTO = bioService.getFaceAuthenticationDto(userId,
+		MDMRequestDto mdmRequestDto = new MDMRequestDto(RegistrationConstants.FACE_FULLFACE, null, "Registration", "Staging", 
+				io.mosip.registration.context.ApplicationContext
+				.getIntValueFromApplicationMap(RegistrationConstants.CAPTURE_TIME_OUT), 1, io.mosip.registration.context.ApplicationContext
+				.getIntValueFromApplicationMap(RegistrationConstants.FACE_THRESHOLD));
+		List<BiometricsDto> biometrics = bioService.captureModalityForAuth(mdmRequestDto);
+		
+		/*AuthenticationValidatorDTO authenticationValidatorDTO = bioService.getFaceAuthenticationDto(userId,
 				new RequestDetail(RegistrationConstants.FACE_FULLFACE,
 						getValueFromApplicationContext(RegistrationConstants.CAPTURE_TIME_OUT), 1,
 						getValueFromApplicationContext(RegistrationConstants.FACE_THRESHOLD), null));
-		FaceDetailsDTO faceDetailsDTO = authenticationValidatorDTO.getFaceDetail();
+		FaceDetailsDTO faceDetailsDTO = authenticationValidatorDTO.getFaceDetail();*/
 		if (!isEODAuthentication) {
 			if (isSupervisor) {
 				RegistrationDTO registrationDTO = (RegistrationDTO) SessionContext.getInstance().getMapObject()
 						.get(RegistrationConstants.REGISTRATION_DATA);
-				registrationDTO.getBiometricDTO().getSupervisorBiometricDTO().setFace(faceDetailsDTO);
-				SessionContext.getInstance().getMapObject().get(RegistrationConstants.REGISTRATION_DATA);
+				//registrationDTO.getBiometricDTO().getSupervisorBiometricDTO().setFace(faceDetailsDTO);
+				//SessionContext.getInstance().getMapObject().get(RegistrationConstants.REGISTRATION_DATA);
+				registrationDTO.addSupervisorBiometrics(biometrics);
 			} else {
 				RegistrationDTO registrationDTO = (RegistrationDTO) SessionContext.getInstance().getMapObject()
 						.get(RegistrationConstants.REGISTRATION_DATA);
-				registrationDTO.getBiometricDTO().getOperatorBiometricDTO().setFace(faceDetailsDTO);
+				//registrationDTO.getBiometricDTO().getOperatorBiometricDTO().setFace(faceDetailsDTO);
+				registrationDTO.addOfficerBiometrics(biometrics);
 			}
 		}
-		return bioService.validateFace(authenticationValidatorDTO);
+		//return bioService.validateFace(authenticationValidatorDTO);
+		return authenticationService.authValidator(userId, SingleType.FACE.value(), biometrics);
 	}
 
 	/**
@@ -944,7 +990,7 @@ public class AuthenticationController extends BaseController implements Initiali
 
 	/**
 	 * event class to exit from authentication window. pop up window.
-	 *
+	 * 
 	 * @param event - the action event
 	 */
 	public void exitWindow(ActionEvent event) {
@@ -955,7 +1001,7 @@ public class AuthenticationController extends BaseController implements Initiali
 
 	/**
 	 * Setting the init method to the Basecontroller
-	 *
+	 * 
 	 * @param parentControllerObj - Parent Controller name
 	 * @param authType            - Authentication Type
 	 * @throws RegBaseCheckedException
@@ -994,7 +1040,7 @@ public class AuthenticationController extends BaseController implements Initiali
 		int FingerPrintAuthCount=0;
 		int IrisPrintAuthCount=0;
 		int FacePrintAuthCount=0;
-
+		
 		setImageOnHover();
 
 		irisImageView.setImage(
@@ -1009,7 +1055,7 @@ public class AuthenticationController extends BaseController implements Initiali
 		if (getRegistrationDTOFromSession() != null
 				&& getRegistrationDTOFromSession().getRegistrationMetaDataDTO().getRegistrationCategory() != null
 				&& getRegistrationDTOFromSession().getRegistrationMetaDataDTO().getRegistrationCategory()
-				.equals(RegistrationConstants.PACKET_TYPE_LOST)) {
+						.equals(RegistrationConstants.PACKET_TYPE_LOST)) {
 			registrationNavlabel.setText(
 					ApplicationContext.applicationLanguageBundle().getString(RegistrationConstants.LOSTUINLBL));
 		}
@@ -1055,22 +1101,22 @@ public class AuthenticationController extends BaseController implements Initiali
 		}
 
 		switch (userAuthenticationTypeListValidation.get(0).toUpperCase()) {
-			case RegistrationConstants.OTP:
-				validateOTP();
-				break;
-			case RegistrationConstants.PWORD:
-				validatePwd();
-				break;
-			case RegistrationConstants.FINGERPRINT_UPPERCASE:
-				validateFingerprint();
-				break;
-			case RegistrationConstants.IRIS:
-				validateIris();
-				break;
-			case RegistrationConstants.FACE:
-				validateFace();
-				break;
-			default:
+		case RegistrationConstants.OTP:
+			validateOTP();
+			break;
+		case RegistrationConstants.PWORD:
+			validatePwd();
+			break;
+		case RegistrationConstants.FINGERPRINT_UPPERCASE:
+			validateFingerprint();
+			break;
+		case RegistrationConstants.IRIS:
+			validateIris();
+			break;
+		case RegistrationConstants.FACE:
+			validateFace();
+			break;
+		default:
 
 		}
 
@@ -1078,7 +1124,7 @@ public class AuthenticationController extends BaseController implements Initiali
 
 	/**
 	 * This method will remove the auth method from list
-	 *
+	 * 
 	 * @param authList    authentication list
 	 * @param disableFlag configuration flag
 	 * @param authCode    auth mode
