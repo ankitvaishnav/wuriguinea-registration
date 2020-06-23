@@ -401,16 +401,17 @@
 	-fx-pref-width: 228.0px;
 }
 
-.loginTextStyle{
+/*.loginTextStyle{
 	-fx-pref-height: 39.0px;
 	-fx-pref-width: 221.0px;
-}
+}*/
 
 .hyperLinkStyle{
 	-fx-text-fill: #020F59;
 	-fx-underline: false;
 	-fx-border-color: transparent;
 	-fx-font-size : 12.0px;
+
 }
 
 .loginSubmitStyle{
@@ -504,6 +505,7 @@
 .operatorAuthenticationAnchorPaneStyle{
 	-fx-pref-height: 550.0px;
 	-fx-pref-width: 850.0px;
+
 }
 .operatorAuthenticationAnchorPane{
 	-fx-pref-height: 600.0px;
@@ -577,10 +579,8 @@ Working on new Css by taleev
 .loginTextStyle{
 	-fx-pref-height: 35.0px;
 	-fx-pref-width: 312.0px;
-	-fx-border-width: 0.0 0.0 2.0 0.0;
-	-fx-border-color: #020F59;
-	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.3) , 5.0, 0.0 , 0.0 , 1.0 );
-
+	-fx-border-width: 0.2 0.5 2.0 0.5;
+	-fx-border-color: #BCE0FD #BCE0FD #020F59 #BCE0FD;
 }
 
 .searchBoxTextStyle{
@@ -655,7 +655,7 @@ Working on new Css by taleev
 }
 
 .registrationFooter{
-	-fx-background-color:#FFFFFF;
+	-fx-background-color:#020F59;
 	-fx-pref-height: 40.0px;
 	-fx-pref-width: 1290.0px;
 	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.4) , 5.0, 0.0 , 0.0 , 0.0 );
@@ -697,13 +697,13 @@ Working on new Css by taleev
 
 .documentContentButton{
 	-fx-border-width: 1.0 1.0 1.0 1.0;
-	-fx-border-color: #BCE0FD;
-	-fx-background-color : #FFFFFF;
+	-fx-border-color: #020F59;
+	-fx-background-color : #BCE0FD;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 	-fx-font-size : 1.2em;
 }
 .documentContentButton:hover {
-	-fx-background-color:#BCE0FD;
+	-fx-background-color:#FFFFFF;
 	-fx-border-color: #020F59;
 	-fx-text-fill: #020F59;
 }
@@ -715,7 +715,7 @@ Working on new Css by taleev
 .documentContentButton:disabled {
 	-fx-background-color: #BCE0FD;
 	-fx-border-color: #BCE0FD;
-	-fx-text-fill: #666666;
+	-fx-text-fill: #999EBC;
 }
 
 .contiuneButton{
@@ -742,7 +742,7 @@ Working on new Css by taleev
 .contiuneButton:disabled {
 	-fx-background-color: #BCE0FD;
 	-fx-border-color: #BCE0FD;
-	-fx-text-fill: #C9C9C9;
+	-fx-text-fill: #999EBC;
 }
 
 .backButton{
@@ -752,6 +752,7 @@ Working on new Css by taleev
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 	-fx-font-size: 1.2em;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
+	-fx-text-alignment: center;
 	-fx-text-fill: #020F59;
 }
 
@@ -800,7 +801,7 @@ Working on new Css by taleev
 .demoGraphicFieldLabel{
 	-fx-background-color:#ffffff;
 	-fx-border-width: 0.0;
-	-fx-text-fill : #000000;
+	-fx-text-fill : black;
 	-fx-font-size: 1em;
 }
 
@@ -994,7 +995,6 @@ Working on new Css by taleev
 	-fx-border-width : 5.0 5.0 5.0 5.0;
 	-fx-padding : -2.5;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
-
 }
 
 .IrisPanesSelected{
@@ -1319,6 +1319,11 @@ Working on new Css by taleev
 	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.4) , 5.0, 0.0 , 0.0 , 0.0 );
 }
 
+.bottomFooter{
+	-fx-background-color: #020F59;
+	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.4) , 5.0, 0.0 , 0.0 , 0.0 );
+}
+
 .headerTexts{
 	-fx-font-size : 1.2em;
 }
@@ -1468,7 +1473,7 @@ Working on new Css by taleev
 .approveButton:disabled {
 	-fx-background-color: #BCE0FD;
 	-fx-border-color: #BCE0FD;
-	-fx-text-fill: #666666;
+	-fx-text-fill: #999EBC;
 }
 
 .rejectButton{
@@ -1538,7 +1543,7 @@ Working on new Css by taleev
 /*Acknowledgement page design starts */
 .templateHeading {
 	-fx-font-size: 18.0px;
-	-fx-text-fill: #BCE0FD;
+	-fx-text-fill: #020F59;
 	-fx-font-family: Roboto;
 }
 .ackBackButton{
@@ -1563,12 +1568,12 @@ Working on new Css by taleev
 	-fx-border-width: 1.0 1.0 1.0 1.0;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 	-fx-background-color: #BCE0FD;
-	-fx-text-fill: white;
+	-fx-text-fill: #020F59;
 	-fx-font-family: Roboto;
 }
 .ackPageButton:hover {
-	-fx-background-color:#BCE0FD;
-	-fx-border-color: #BCE0FD;
+	-fx-background-color:#FFFFFF;
+	-fx-border-color: #020F59;
 }
 
 .ackPageButton:pressed {
@@ -1961,25 +1966,25 @@ Working on new Css by taleev
 	-fx-font-weight: lighter;
 }
 .onboardScanBtn{
-	-fx-background-color : #FFFFFF;
+	-fx-background-color : #BCE0FD;
 	-fx-text-fill: #020F59;
 	-fx-border-color: #020F59;
 	-fx-font-size: 12.0px;
 }
 .onboardScanBtn:hover {
-	-fx-background-color:#020F59;
+	-fx-background-color:#FFFFFF;
 	-fx-border-color: #020F59;
-	-fx-text-fill: #FFFFFF;
+	-fx-text-fill: #020F59;
 }
 .onboardScanBtn:pressed {
-	-fx-background-color:#020F59;
+	-fx-background-color:#BCE0FD;
 	-fx-border-color: #020F59;
-	-fx-text-fill: #FFFFFF;
+	-fx-text-fill: #020F59;
 }
 .onboardScanBtn:disabled {
 	-fx-background-color: #C9C9C9;
 	-fx-border-color: #C9C9C9;
-	-fx-text-fill: #666666;
+	-fx-text-fill: #999EBC;
 }
 
 .userOnboardHeader{
@@ -1987,7 +1992,7 @@ Working on new Css by taleev
 	-fx-effect: dropshadow( three-pass-box , #020F59 , 1.0, 0.0 , 0.0 , 0.0 );
 }
 .userOnboardFooter{
-	-fx-background-color: #FFFFFF;
+	-fx-background-color: #020F59;
 	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.4) , 5.0, 0.0 , 0.0 , 0.0 );
 }
 .onboardInfoDetailsName{
@@ -2146,23 +2151,28 @@ Working on new Css by taleev
 .dialog-pane .button{
 	-fx-background-color:#BCE0FD;
 	-fx-text-fill: #020F59;
-	-fx-pref-height: 30.0px;
+	/*-fx-pref-height: 30.0px;
 	-fx-pref-width: 50.0px;
 	-fx-wrap-text: true;
-	-fx-cursor:hand;
+	-fx-cursor:hand; */
 }
 .dialog-pane .button:hover{
 	-fx-background-color:#FFFFFF;
 	-fx-border-color:#020F59;
 	-fx-text-fill: #020F59;
 	-fx-font-size: 12px;
+	/*-fx-max-width: 90px;
+	-fx-max-height: 45px;
+	/*-fx-border-color:#020F59;
+	-fx-text-fill: #020F59;
+	-fx-font-size: 12px;
 	-fx-wrap-text: true;
-	-fx-cursor:hand;
+	-fx-cursor:hand; */
 }
 
 .dialog-pane:header .header-panel {
 	-fx-background-color: #FFFFFF;
-	-fx-background-insets: 1;
+	/*-fx-background-insets: 1;*/
 }
 
 .schedulerMsg{
@@ -2228,7 +2238,7 @@ Working on new Css by taleev
 .alertBox{
 	-fx-background-color: #FFFFFF;
 	-fx-background-insets: 1.5;
-	-fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 1);
+	-fx-effect: dropshadow(three-pass-box, grey, 1, 0, 0, 0);
 }
 .dialog-pane:header .header-panel .label{
 	-fx-text-fill: #020F59;
@@ -2245,6 +2255,7 @@ Working on new Css by taleev
 	-fx-text-fill:#020F59;
 	-fx-font-size:28.0px;
 }
+
 .alertContext{
 	-fx-text-fill:#666666;
 	-fx-font-size:14.0px;
