@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping>
+          <factory-entry name="registration-client" />
+        </datasource-mapping>
+        <naming-strategy-map />
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <webroots />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
@@ -10,10 +30,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: io.mosip.kernel:kernel-biosdk-provider:0.9-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: io.mosip.kernel:kernel-biometrics-api:0.9-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: io.mosip.mock.sdk:mock-sdk:0.9-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: io.mosip.kernel:kernel-idobjectvalidator:1.0.9-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="registration-services" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.18" level="project" />
     <orderEntry type="library" name="Maven: org.mvel:mvel2:2.4.7.Final" level="project" />
@@ -50,9 +66,6 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-actuator:2.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator-autoconfigure:2.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator:2.0.2.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: io.micrometer:micrometer-core:1.0.4" level="project" />
-    <orderEntry type="library" name="Maven: org.hdrhistogram:HdrHistogram:2.1.10" level="project" />
-    <orderEntry type="library" name="Maven: org.latencyutils:LatencyUtils:2.0.3" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-web:3.6.2" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-web-common:3.6.2" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-auth-common:3.6.2" level="project" />
@@ -125,7 +138,7 @@
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.5.31" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:8.5.31" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.0.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: com.h2database:h2:1.4.197" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.h2database:h2:1.4.197" level="project" />
     <orderEntry type="library" name="Maven: io.mosip.kernel:kernel-auditmanager-api:1.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.modelmapper:modelmapper:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: io.mosip.kernel:kernel-keygenerator-bouncycastle:1.0.6" level="project" />
@@ -330,6 +343,12 @@
     </orderEntry>
     <orderEntry type="library" name="Maven: io.mosip.kernel:kernel-idgenerator-rid:1.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.2.2" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-core:1.4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.hdrhistogram:HdrHistogram:2.1.12" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.latencyutils:LatencyUtils:2.0.3" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-registry-prometheus:1.4.2" level="project" />
+    <orderEntry type="library" name="Maven: io.prometheus:simpleclient_common:0.8.1" level="project" />
+    <orderEntry type="library" name="Maven: io.prometheus:simpleclient:0.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: io.mosip.kernel:kernel-idvalidator-rid:1.0.6" level="project" />

@@ -37,7 +37,7 @@ public class AlertController extends BaseController implements Initializable {
 	private ImageView alertImage;
 	@FXML
 	private Label header;
-	@FXML
+		@FXML
 	private Label context;
 	@FXML
 	public Hyperlink exit;
