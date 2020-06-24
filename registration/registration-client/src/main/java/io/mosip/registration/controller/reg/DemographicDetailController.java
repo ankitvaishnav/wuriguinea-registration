@@ -220,17 +220,6 @@ public class DemographicDetailController extends BaseController {
 			parentFlow = parentFlowPane.getChildren();
 			int position = parentFlow.size() - 1;
 
-            // for (Entry<String, UiSchemaDTO> entry :
-            // validation.getValidationMap().entrySet()) {
-            //
-            // if (isDemographicField(entry.getValue())) {
-            // GridPane mainGridPane = addContent(entry.getValue());
-            // parentFlow.add(mainGridPane);
-            // position++;
-            // positionTracker.put(mainGridPane.getId(), position);
-            // }
-            // }
-
             Iterator<Entry<String, UiSchemaDTO>> iterator = validation.getValidationMap().entrySet().iterator();
             while (iterator.hasNext()) {
                 UiSchemaDTO left = null;
@@ -257,9 +246,6 @@ public class DemographicDetailController extends BaseController {
 
 			addFirstOrderAddress(listOfComboBoxWithObject.get(orderOfAddress.get(0)), 1,
 					applicationContext.getApplicationLanguage());
-//			addFirstOrderAddress(
-//					listOfComboBoxWithObject.get(orderOfAddress.get(0) + RegistrationConstants.LOCAL_LANGUAGE), 1,
-//					applicationContext.getLocalLanguage());
 
 			populateDropDowns();
 
@@ -342,9 +328,6 @@ public class DemographicDetailController extends BaseController {
             gridPane.addColumn(2, secondary);
 			gridPane.setId(right.getId() + "ParentGridPane");
         }
-
-//         gridPane.setId(schemaDTO.getId() + "ParentGridPane");
-
         return gridPane;
     }
 
@@ -579,9 +562,6 @@ public class DemographicDetailController extends BaseController {
 		hB.setSpacing(20);
 
 		vbox.getChildren().add(validationMessage);
-//		if (primaryLanguage.equals(secondaryLanguage)) {
-//			vbox.setDisable(true);
-//		}
 
 		if (listOfTextField.get(fieldName) != null)
 			fxUtils.populateLocalFieldWithFocus(parentFlowPane, listOfTextField.get(fieldName), field,
@@ -636,16 +616,11 @@ public class DemographicDetailController extends BaseController {
 					listOfComboBoxWithObject.get("gender").getItems()
 					.addAll(masterSyncService.getGenderDtls(ApplicationContext.applicationLanguage()).stream()
 							.filter(v -> !v.getCode().equals("OTH")).collect(Collectors.toList()));
-//					listOfComboBoxWithObject.get("genderLocalLanguage").getItems()
-//					.addAll(masterSyncService.getGenderDtls(ApplicationContext.localLanguage()).stream()
-//							.filter(v -> !v.getCode().equals("OTH")).collect(Collectors.toList()));
 					break;
 
 				case "residencestatus":
 					listOfComboBoxWithObject.get("residenceStatus").getItems()
 					.addAll(masterSyncService.getIndividualType(ApplicationContext.applicationLanguage()));
-//					listOfComboBoxWithObject.get("residenceStatusLocalLanguage").getItems()
-//					.addAll(masterSyncService.getIndividualType(ApplicationContext.localLanguage()));
 					break;
 
 				default:
@@ -944,8 +919,6 @@ public class DemographicDetailController extends BaseController {
 
 			for (int i = p + 1; i < size; i++) {
 				listOfComboBoxWithObject.get(orderOfAddress.get(i)).getItems().clear();
-//				listOfComboBoxWithObject.get(orderOfAddress.get(i) + RegistrationConstants.LOCAL_LANGUAGE).getItems()
-//						.clear();
 			}
 		} catch (RuntimeException runtimeException) {
 			LOGGER.error(" falied due to invalid field", APPLICATION_NAME, RegistrationConstants.APPLICATION_ID,
@@ -1062,15 +1035,6 @@ public class DemographicDetailController extends BaseController {
 					}
 				}
 			}
-
-			/*
-			 * if (SessionContext.map().get(RegistrationConstants.IS_Child) != null) {
-			 * boolean isChild = (boolean)
-			 * SessionContext.map().get(RegistrationConstants.IS_Child);
-			 * parentDetailPane.setDisable(!isChild); parentDetailPane.setVisible(isChild);
-			 * }
-			 */
-
 			preRegistrationId.setText(registrationDTO.getPreRegistrationId());
 
 		} catch (RuntimeException runtimeException) {
@@ -1078,7 +1042,6 @@ public class DemographicDetailController extends BaseController {
 					RegistrationConstants.APPLICATION_ID,
 					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
 		}
-
 	}
 
 	/**
@@ -1209,13 +1172,8 @@ public class DemographicDetailController extends BaseController {
 		saveDetail();
 
 		if (registrationController.validateDemographicPane(parentFlowPane)) {
-			//saveDetail();
 
 			guardianBiometricsController.populateBiometricPage(false);
-			/*
-			 * SessionContext.map().put("demographicDetail", false);
-			 * SessionContext.map().put("documentScan", true);
-			 */
 
 			documentScanController.populateDocumentCategories();
 
@@ -1242,18 +1200,14 @@ public class DemographicDetailController extends BaseController {
 			GenericDto selectedLocationHierarchy = srcLocationHierarchy.getSelectionModel().getSelectedItem();
 			if (selectedLocationHierarchy != null) {
 				destLocationHierarchy.getItems().clear();
-//				destLocationHierarchyInLocal.getItems().clear();
 
 				if (selectedLocationHierarchy.getCode().equalsIgnoreCase(RegistrationConstants.AUDIT_DEFAULT_USER)) {
 					destLocationHierarchy.getItems().add(selectedLocationHierarchy);
-//					destLocationHierarchyInLocal.getItems().add(selectedLocationHierarchy);
+
 				} else {
 
 					List<GenericDto> locations = masterSync.findProvianceByHierarchyCode(
 							selectedLocationHierarchy.getCode(), selectedLocationHierarchy.getLangCode());
-
-//					List<GenericDto> locationsSecondary = masterSync.findProvianceByHierarchyCode(
-//							selectedLocationHierarchy.getCode(), ApplicationContext.localLanguage());
 
 					if (locations.isEmpty()) {
 						GenericDto lC = new GenericDto();
@@ -1265,16 +1219,6 @@ public class DemographicDetailController extends BaseController {
 					} else {
 						destLocationHierarchy.getItems().addAll(locations);
 					}
-
-//					if (locationsSecondary.isEmpty()) {
-//						GenericDto lC = new GenericDto();
-//						lC.setCode(RegistrationConstants.AUDIT_DEFAULT_USER);
-//						lC.setName(RegistrationConstants.AUDIT_DEFAULT_USER);
-//						lC.setLangCode(ApplicationContext.localLanguage());
-//						destLocationHierarchyInLocal.getItems().add(lC);
-//					} else {
-//						destLocationHierarchyInLocal.getItems().addAll(locationsSecondary);
-//					}
 				}
 			}
 		} catch (RuntimeException | RegBaseCheckedException runtimeException) {
@@ -1286,12 +1230,4 @@ public class DemographicDetailController extends BaseController {
 				RegistrationConstants.APPLICATION_ID, RegistrationConstants.APPLICATION_NAME,
 				"Retrieving and populating of location by selected hirerachy ended");
 	}
-
-	/*
-	 * private void updateBioPageFlow(String flag, String pageId) { if
-	 * (RegistrationConstants.DISABLE.equalsIgnoreCase(String.valueOf(
-	 * ApplicationContext.map().get(flag)))) { updatePageFlow(pageId, false); } else
-	 * { updatePageFlow(pageId, true); } }
-	 */
-
 }
