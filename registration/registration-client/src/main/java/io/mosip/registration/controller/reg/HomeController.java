@@ -26,81 +26,80 @@ import javafx.scene.layout.GridPane;
 
 /**
  * Class for Home Page
- * 
+ *
  * @author Sravya Surampalli
  * @since 1.0.0
- *
  */
 @Component
 public class HomeController extends BaseController implements Initializable {
-	/**
-	 * Instance of {@link Logger}
-	 */
-	private static final Logger LOGGER = AppConfig.getLogger(HomeController.class);
+    /**
+     * Instance of {@link Logger}
+     */
+    private static final Logger LOGGER = AppConfig.getLogger(HomeController.class);
 
-	@FXML
-	private GridPane mainBox;
-	@FXML
-	public GridPane homeContent;
+    @FXML
+    private GridPane mainBox;
+    @FXML
+    public GridPane homeContent;
 
-	/**
-	 * Building Home screen on Login success
-	 */
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+    /**
+     * Building Home screen on Login success
+     */
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
 
-		try {
+        try {
 
-			LOGGER.info("REGISTRATION - REGSITRATION_HOME_PAGE_LAYOUT", APPLICATION_NAME, APPLICATION_ID,
-					"Constructing Registration Home Page");
+            LOGGER.info("REGISTRATION - REGSITRATION_HOME_PAGE_LAYOUT", APPLICATION_NAME, APPLICATION_ID,
+                    "Constructing Registration Home Page");
 
-			if ((boolean) SessionContext.map().get(RegistrationConstants.ONBOARD_USER)
-					&& !(boolean) SessionContext.map()
-							.get(RegistrationConstants.ONBOARD_USER_UPDATE)) {
-				auditFactory.audit(AuditEvent.NAV_ON_BOARD_USER, Components.NAVIGATION, APPLICATION_NAME,
-						AuditReferenceIdTypes.APPLICATION_ID.getReferenceTypeId());
-				try {
-					GridPane onboard = BaseController
-							.load(getClass().getResource(RegistrationConstants.USER_ONBOARD));
-					getScene(onboard);
-				} catch (IOException ioException) {
-					LOGGER.error("REGISTRATION - ONBOARD_USER - HOMECONTROLLER",
-							APPLICATION_NAME, APPLICATION_ID,
-							ioException.getMessage() + ExceptionUtils.getStackTrace(ioException));
-					
-					generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.UNABLE_LOAD_HOME_PAGE);
-				}
-			} else {
-				auditFactory.audit(AuditEvent.NAV_HOME, Components.NAVIGATION, SessionContext.userContext().getUserId(),
-						AuditReferenceIdTypes.USER_ID.getReferenceTypeId());
+            if ((boolean) SessionContext.map().get(RegistrationConstants.ONBOARD_USER)
+                    && !(boolean) SessionContext.map()
+                    .get(RegistrationConstants.ONBOARD_USER_UPDATE)) {
+                auditFactory.audit(AuditEvent.NAV_ON_BOARD_USER, Components.NAVIGATION, APPLICATION_NAME,
+                        AuditReferenceIdTypes.APPLICATION_ID.getReferenceTypeId());
+                try {
+                    GridPane onboard = BaseController
+                            .load(getClass().getResource(RegistrationConstants.USER_ONBOARD));
+                    getScene(onboard);
+                } catch (IOException ioException) {
+                    LOGGER.error("REGISTRATION - ONBOARD_USER - HOMECONTROLLER",
+                            APPLICATION_NAME, APPLICATION_ID,
+                            ioException.getMessage() + ExceptionUtils.getStackTrace(ioException));
 
-				if ((boolean) SessionContext.map()
-						.get(RegistrationConstants.ONBOARD_USER_UPDATE)) {
-					clearOnboardData();
-				}
-				homeContent.setVisible(true);
-				getScene(mainBox);
-			}			
-		} catch (RuntimeException ioException) {
+                    generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.UNABLE_LOAD_HOME_PAGE);
+                }
+            } else {
+                auditFactory.audit(AuditEvent.NAV_HOME, Components.NAVIGATION, SessionContext.userContext().getUserId(),
+                        AuditReferenceIdTypes.USER_ID.getReferenceTypeId());
 
-			LOGGER.error(LoggerConstants.LOG_REG_HOME, APPLICATION_NAME, APPLICATION_ID,
-					ioException.getMessage() + ExceptionUtils.getStackTrace(ioException));
+                if ((boolean) SessionContext.map()
+                        .get(RegistrationConstants.ONBOARD_USER_UPDATE)) {
+                    clearOnboardData();
+                }
+                homeContent.setVisible(true);
+                getScene(mainBox);
+            }
+        } catch (RuntimeException ioException) {
 
-			generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.UNABLE_LOAD_HOME_PAGE);
-		}
-	}
+            LOGGER.error(LoggerConstants.LOG_REG_HOME, APPLICATION_NAME, APPLICATION_ID,
+                    ioException.getMessage() + ExceptionUtils.getStackTrace(ioException));
 
-	/**
-	 * @return the mainBox
-	 */
-	public GridPane getMainBox() {
-		return mainBox;
-	}
+            generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.UNABLE_LOAD_HOME_PAGE);
+        }
+    }
 
-	/**
-	 * @param mainBox the mainBox to set
-	 */
-	public void setMainBox(GridPane mainBox) {
-		this.mainBox = mainBox;
-	}
+    /**
+     * @return the mainBox
+     */
+    public GridPane getMainBox() {
+        return mainBox;
+    }
+
+    /**
+     * @param mainBox the mainBox to set
+     */
+    public void setMainBox(GridPane mainBox) {
+        this.mainBox = mainBox;
+    }
 }

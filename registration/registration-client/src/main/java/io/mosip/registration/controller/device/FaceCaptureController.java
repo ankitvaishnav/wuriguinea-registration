@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.IOUtils;
-import org.joda.*;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;
 import org.springframework.beans.factory.annotation.Autowired;
