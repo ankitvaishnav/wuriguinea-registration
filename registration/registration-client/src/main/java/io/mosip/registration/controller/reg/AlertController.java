@@ -84,7 +84,7 @@ public class AlertController extends BaseController implements Initializable {
             header.setText(RegistrationUIConstants.SUCCESS);
             alertImage.setImage(image);
             contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.SUCCESS.toUpperCase());
-            header.setStyle("-fx-text-fill:#008000");
+            header.setStyle("-fx-text-fill:#3BA700");
         } else if (split.length > 1 && split[1].contains(RegistrationConstants.ERROR.toUpperCase())) {
             image = new Image(RegistrationConstants.FAILURE_IMG_PTH);
             header.setText(RegistrationUIConstants.ALERT_FAILED_LABEL);
