@@ -613,6 +613,7 @@ public class DemographicDetailController extends BaseController {
 			for(String k : listOfComboBoxWithObject.keySet()) {
 				switch (k.toLowerCase()) {
 				case "gender":
+
 					listOfComboBoxWithObject.get("gender").getItems()
 					.addAll(masterSyncService.getGenderDtls(ApplicationContext.applicationLanguage()).stream()
 							.filter(v -> !v.getCode().equals("OTH")).collect(Collectors.toList()));
