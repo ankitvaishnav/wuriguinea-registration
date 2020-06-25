@@ -32,102 +32,102 @@ import javafx.stage.Stage;
 @Component
 public class AlertController extends BaseController implements Initializable {
 
-	private static final Logger LOGGER = AppConfig.getLogger(AlertController.class);
-	@FXML
-	private ImageView alertImage;
-	@FXML
-	private Label header;
-		@FXML
-	private Label context;
-	@FXML
-	public Hyperlink exit;
-	@FXML
-	private HBox alertHbox;
-	@FXML
-	private VBox imageVbox;
-	@FXML
-	private VBox contextVbox;
-	@FXML
-	private GridPane alertGridPane;
-	@Autowired
-	private ScanPopUpViewController scanPopUpViewController;
-	@Autowired
-	private RegistrationApprovalController registrationApprovalController;
+    private static final Logger LOGGER = AppConfig.getLogger(AlertController.class);
+    @FXML
+    private ImageView alertImage;
+    @FXML
+    private Label header;
+    @FXML
+    private Label context;
+    @FXML
+    public Hyperlink exit;
+    @FXML
+    private HBox alertHbox;
+    @FXML
+    private VBox imageVbox;
+    @FXML
+    private VBox contextVbox;
+    @FXML
+    private GridPane alertGridPane;
+    @Autowired
+    private ScanPopUpViewController scanPopUpViewController;
+    @Autowired
+    private RegistrationApprovalController registrationApprovalController;
 
-	/**
-	 * @return the alertGridPane
-	 */
-	public GridPane getAlertGridPane() {
-		return alertGridPane;
-	}
+    /**
+     * @return the alertGridPane
+     */
+    public GridPane getAlertGridPane() {
+        return alertGridPane;
+    }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		fXComponents.getScene().getRoot().setDisable(true);
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        fXComponents.getScene().getRoot().setDisable(true);
 
-		if (scanPopUpViewController.getPopupStage() != null && scanPopUpViewController.getPopupStage().isShowing()) {
-			scanPopUpViewController.getPopupStage().getScene().getRoot().setDisable(true);
-		} else if (registrationApprovalController.getPrimaryStage() != null
-				&& registrationApprovalController.getPrimaryStage().isShowing()) {
-			registrationApprovalController.getPrimaryStage().getScene().getRoot().setDisable(true);
-		}
-	}
+        if (scanPopUpViewController.getPopupStage() != null && scanPopUpViewController.getPopupStage().isShowing()) {
+            scanPopUpViewController.getPopupStage().getScene().getRoot().setDisable(true);
+        } else if (registrationApprovalController.getPrimaryStage() != null
+                && registrationApprovalController.getPrimaryStage().isShowing()) {
+            registrationApprovalController.getPrimaryStage().getScene().getRoot().setDisable(true);
+        }
+    }
 
-	public void generateAlertResponse(String title, String contextString) {
-		LOGGER.info(LOG_ALERT_GENERATION, APPLICATION_NAME, APPLICATION_ID, "Alert generation has been started");
+    public void generateAlertResponse(String title, String contextString) {
+        LOGGER.info(LOG_ALERT_GENERATION, APPLICATION_NAME, APPLICATION_ID, "Alert generation has been started");
 
-		String[] split = contextString.split(RegistrationConstants.SPLITTER);
-		String contextSecondMsg = RegistrationConstants.EMPTY;
-		Image image;
-		if (split.length > 1 && split[1].contains(RegistrationConstants.SUCCESS.toUpperCase())) {
-			image = new Image(RegistrationConstants.SUCCESS_IMG_PTH);
-			header.setText(RegistrationUIConstants.SUCCESS);
-			alertImage.setImage(image);
-			contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.SUCCESS.toUpperCase());
-		} else if (split.length > 1 && split[1].contains(RegistrationConstants.ERROR.toUpperCase())) {
-			image = new Image(RegistrationConstants.FAILURE_IMG_PTH);
-			header.setText(RegistrationUIConstants.ALERT_FAILED_LABEL);
-			alertImage.setImage(image);
-			contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.ERROR.toUpperCase());
-		} else {
-			header.setText(RegistrationUIConstants.ALERT_NOTE_LABEL);
-			alertImage.setDisable(false);
-			alertImage.setVisible(false);
-			imageVbox.setVisible(false);
-			contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.INFO);
-		}
-		context.setText(split[0].trim() + contextSecondMsg);
+        String[] split = contextString.split(RegistrationConstants.SPLITTER);
+        String contextSecondMsg = RegistrationConstants.EMPTY;
+        Image image;
+        if (split.length > 1 && split[1].contains(RegistrationConstants.SUCCESS.toUpperCase())) {
+            image = new Image(RegistrationConstants.SUCCESS_IMG_PTH);
+            header.setText(RegistrationUIConstants.SUCCESS);
+            alertImage.setImage(image);
+            contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.SUCCESS.toUpperCase());
+            header.setStyle("-fx-text-fill:#3BA700");
+        } else if (split.length > 1 && split[1].contains(RegistrationConstants.ERROR.toUpperCase())) {
+            image = new Image(RegistrationConstants.FAILURE_IMG_PTH);
+            header.setText(RegistrationUIConstants.ALERT_FAILED_LABEL);
+            alertImage.setImage(image);
+            contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.ERROR.toUpperCase());
+            header.setStyle("-fx-text-fill:#FF0000");
+        } else {
+            header.setText(RegistrationUIConstants.ALERT_NOTE_LABEL);
+            alertImage.setDisable(false);
+            alertImage.setVisible(false);
+            imageVbox.setVisible(false);
+            contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.INFO);
+        }
+        context.setText(split[0].trim() + contextSecondMsg);
 
-		if (context.getText().length() > 50) {
-			imageVbox.setAlignment(Pos.TOP_CENTER);
-		}
+        if (context.getText().length() > 50) {
+            imageVbox.setAlignment(Pos.TOP_CENTER);
+        }
+        LOGGER.info(LOG_ALERT_GENERATION, APPLICATION_NAME, APPLICATION_ID, "Alert generation has been ended");
 
-		LOGGER.info(LOG_ALERT_GENERATION, APPLICATION_NAME, APPLICATION_ID, "Alert generation has been ended");
+    }
 
-	}
+    private String gettingSecondErrorMessage(String[] split, String splitter) {
+        StringBuilder errorMessage = new StringBuilder();
+        for (int i = 1; i < split.length; i++) {
+            errorMessage = errorMessage.append(split[i].replaceAll(splitter, RegistrationConstants.SPACE));
+        }
+        return errorMessage.toString();
+    }
 
-	private String gettingSecondErrorMessage(String[] split, String splitter) {
-		StringBuilder errorMessage = new StringBuilder();
-		for (int i = 1; i < split.length; i++) {
-			errorMessage = errorMessage.append(split[i].replaceAll(splitter, RegistrationConstants.SPACE));
-		}
-		return errorMessage.toString();
-	}
+    @FXML
+    public void alertWindowExit() {
+        LOGGER.info(LOG_ALERT_GENERATION, APPLICATION_NAME, APPLICATION_ID, "Alert closing has been started");
 
-	@FXML
-	public void alertWindowExit() {
-		LOGGER.info(LOG_ALERT_GENERATION, APPLICATION_NAME, APPLICATION_ID, "Alert closing has been started");
-
-		Stage stage = (Stage) exit.getScene().getWindow();
-		stage.close();
-		fXComponents.getScene().getRoot().setDisable(false);
-		if (scanPopUpViewController.getPopupStage() != null && scanPopUpViewController.getPopupStage().isShowing()) {
-			scanPopUpViewController.getPopupStage().getScene().getRoot().setDisable(false);
-		} else if (registrationApprovalController.getPrimaryStage() != null
-				&& registrationApprovalController.getPrimaryStage().isShowing()) {
-			registrationApprovalController.getPrimaryStage().getScene().getRoot().setDisable(false);
-		}
-		LOGGER.info(LOG_ALERT_GENERATION, APPLICATION_NAME, APPLICATION_ID, "Alert closing has been ended");
-
-	}
+        Stage stage = (Stage) exit.getScene().getWindow();
+        stage.close();
+        fXComponents.getScene().getRoot().setDisable(false);
+        if (scanPopUpViewController.getPopupStage() != null && scanPopUpViewController.getPopupStage().isShowing()) {
+            scanPopUpViewController.getPopupStage().getScene().getRoot().setDisable(false);
+        } else if (registrationApprovalController.getPrimaryStage() != null
+                && registrationApprovalController.getPrimaryStage().isShowing()) {
+            registrationApprovalController.getPrimaryStage().getScene().getRoot().setDisable(false);
+        }
+        LOGGER.info(LOG_ALERT_GENERATION, APPLICATION_NAME, APPLICATION_ID, "Alert closing has been ended");
+    }
 }
