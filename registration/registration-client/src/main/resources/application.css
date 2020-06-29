@@ -1,7 +1,7 @@
 #virtualKeyboard {
 	-fx-background-color: white;
 	-fx-border-width:1.0 1.0 1.0 1.0;
-	-fx-border-color: #020F59;
+	-fx-border-color: #BCE0FD;
 	-fx-background-radius: 6.0,5.0;
 	-fx-font-size : 15.0px;
 }
@@ -12,7 +12,7 @@
 
 #imageParent{
 	-fx-border-width:1.0 1.0 1.0 1.0;
-	-fx-border-color: #020F59;
+	-fx-border-color: #BCE0FD;
 }
 
 .scanPageLabel{
@@ -82,7 +82,7 @@
 	-fx-background-radius: 21.0,21.0,21.0,21.0;
 	-fx-background-color: #020F59;
 	-fx-border-radius: 21.0,21.0,21.0,21.0;
-	-fx-border-color: #020F59;
+	-fx-border-color: #BCE0FD;
 	-fx-pref-height: 25.0px;
 	-fx-pref-width: 25.0px;
 }
@@ -91,7 +91,7 @@
 	-fx-background-radius: 21.0,21.0,21.0,21.0;
 	-fx-background-color: #020F59;
 	-fx-border-radius: 21.0,21.0,21.0,21.0;
-	-fx-border-color: #020F59;
+	-fx-border-color: #BCE0FD;
 	-fx-Opacity: 0.4;
 	-fx-pref-height: 20.0px;
 	-fx-pref-width: 55.0px;
@@ -183,7 +183,7 @@
 
 .sendNotificationPane {
 	-fx-border-width: 1.0 1.0 1.0 1.0;
-	-fx-border-color: #020F59;
+	-fx-border-color: #BCE0FD;
 }
 
 #anchor-pane-registration{
@@ -230,7 +230,7 @@
 
 #common-hbox{
 	-fx-border-width: 1.0;
-	-fx-border-color: #020F59;
+	-fx-border-color: #BCE0FD;
 }
 
 #commonHeader {
@@ -661,7 +661,6 @@ Working on new Css by taleev
 	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.4) , 5.0, 0.0 , 0.0 , 0.0 );
 }
 
-
 .trackerHighlighter{
 	-fx-font-size : 1.2em;
 	-fx-text-fill : #020F59;
@@ -675,7 +674,7 @@ Working on new Css by taleev
 
 .demoGraphicPaneContentButton{
 	-fx-border-width: 1.0 1.0 1.0 1.0;
-	-fx-border-color: #020F59;
+	-fx-border-color: #BCE0FD;
 	-fx-background-color : #BCE0FD;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 	-fx-font-size : 1.1em;
@@ -700,7 +699,7 @@ Working on new Css by taleev
 
 .documentContentButton{
 	-fx-border-width: 1.0 1.0 1.0 1.0;
-	-fx-border-color: #020F59;
+	-fx-border-color: #BCE0FD;
 	-fx-background-color : #BCE0FD;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 	-fx-font-size : 1.2em;
@@ -874,7 +873,6 @@ Working on new Css by taleev
 	-fx-font-size: 1em;
 }
 
-
 .demographicCombobox{
 	-fx-background-color:#FFFFFF;
 	-fx-border-width: 0.0 0.0 1.0 0.0;
@@ -883,7 +881,6 @@ Working on new Css by taleev
 	-fx-pref-height: 10.0px;
 	-fx-pref-width: 190.0px;
 }
-
 .demographicComboboxFocused{
 	-fx-background-color:#ffffff;
 	-fx-border-width: 0.0 0.0 1.0 0.0;
@@ -903,12 +900,9 @@ Working on new Css by taleev
 	-fx-text-fill: #000000;
 }
 
-
-
 .demographicCombobox .combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled {
 	-fx-background-color: #FFFFFF;
 	-fx-text-fill: #000000;
-
 }
 
 .demographicCombobox .combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:hover {
@@ -930,7 +924,6 @@ Working on new Css by taleev
 	-fx-border-color: #020F59;
 	-fx-font-size: 1.2em;
 }
-
 
 #docPreviewImgViewPane{
 	-fx-border-width : 1.0;
@@ -985,7 +978,7 @@ Working on new Css by taleev
 
 .biometricPaneSelected{
 	-fx-background-color : #F0F0F0;
-	-fx-border-color : #020F59;
+	-fx-border-color : #F0F0F0;
 	-fx-border-width : 5;
 	-fx-padding : -2.5;
 	-fx-border-radius: 3,3,3,3;
@@ -1010,7 +1003,7 @@ Working on new Css by taleev
 
 .IrisPanes:focused{
 	-fx-background-color : #F0F0F0;
-	-fx-border-color : #020F59;
+	-fx-border-color : #F0F0F0;
 	-fx-border-width : 5.0 5.0 5.0 5.0;
 	-fx-padding : -2.5;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
@@ -1027,7 +1020,7 @@ Working on new Css by taleev
 
 
 .bioIris{
-	-fx-border-color : #020F59;
+	-fx-border-color : #F0F0F0;
 	-fx-border-width : 5.0;
 }
 
@@ -1045,14 +1038,14 @@ Working on new Css by taleev
 
 .photoCapturePanes{
 	-fx-background-color : #F0F0F0;
-	-fx-border-color : #FFFFFF;
+	-fx-border-color : #F0F0F0;
 	-fx-border-width : 5.0;
 	-fx-padding : -2.5;
 }
 
 .photoCapturePanes:focused{
 	-fx-background-color : #F0F0F0;
-	-fx-border-color : #020F59;
+	-fx-border-color : #F0F0F0;
 	-fx-border-width : 5.0;
 	-fx-padding : -2.5;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
@@ -1072,30 +1065,31 @@ Working on new Css by taleev
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 }
 
-
 .qualityBox{
 	-fx-pref-height: 200.0px;
 	-fx-pref-width: 250.0px;
+	-fx-text-fill : #020F59;
 }
 
 .threshHoldLabel{
-	-fx-tex-fill : #020F59;
+	-fx-text-fill : #020F59;
 	-fx-font-size : 15.0px;
 }
 
 .qualityLabel{
-	-fx-tex-fill : #020F59;
+	-fx-text-fill : #020F59;
 	-fx-font-size : 15.0px;
 }
 
 .attemptsLabel{
-	-fx-tex-fill : #020F59;
+	-fx-text-fill : #020F59;
 	-fx-font-size : 15.0px;
 }
 
 .exceptionLabel{
-	-fx-tex-fill : #020F59;
+	-fx-text-fill : #020F59;
 	-fx-font-size : 15.0px;
+
 }
 
 .qualityBoxLabel{
@@ -1106,6 +1100,7 @@ Working on new Css by taleev
 .paneHeader{
 	-fx-text-fill: #020F59;
 	-fx-font-size : 22.0px;
+	-fx-text-fill : #020F59;
 }
 
 .authenticationBiometricSubPane{
@@ -1137,22 +1132,22 @@ Working on new Css by taleev
 }
 
 .scanButton{
-	-fx-background-color:#FFFFFF;
+	-fx-background-color:#BCE0FD;
 	-fx-border-width: 1.0 1.0 1.0 1.0;
 	-fx-border-color: #BCE0FD;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 	-fx-pref-height: 2.0px;
 	-fx-pref-width: 120.0px;
-	-fx-text-fill: #BCE0FD;
+	-fx-text-fill: #020F59;
 }
 .scanButton:hover {
-	-fx-background-color:#BCE0FD;
-	-fx-border-color: #BCE0FD;
+	-fx-background-color:#FFFFFF;
+	-fx-border-color: #020F59;
 	-fx-text-fill: #020F59;
 }
 .scanButton:pressed {
 	-fx-background-color:#BCE0FD;
-	-fx-border-color: #BCE0FD;
+	-fx-border-color: #020F59;
 	-fx-text-fill: #020F59;
 }
 
@@ -1345,6 +1340,7 @@ Working on new Css by taleev
 
 .headerTexts{
 	-fx-font-size : 1.2em;
+	-fx-text-fill: #020F59;
 }
 
 .headerPageTracker{
@@ -1395,6 +1391,7 @@ Working on new Css by taleev
 	-fx-background-color : #FFFFFF;
 	-fx-padding : 0.0 0.0 0.0 0.0;
 	-fx-text-fill: #020F59;
+	-fx-font-size : 15.0px;
 }
 .mainHeader{
 	-fx-text-fill : #020F59;
@@ -1462,7 +1459,7 @@ Working on new Css by taleev
 }
 
 .updateUinCheckBoxCommon .check-box:selected > .box > .mark {
-	-fx-background-color: #BCE0FD;
+	-fx-background-color: #020F59;
 }
 .updateUinCheckBoxSelected{
 	-fx-background-color : #BCE0FD;
@@ -1997,7 +1994,7 @@ Working on new Css by taleev
 .onboardScanBtn{
 	-fx-background-color : #BCE0FD;
 	-fx-text-fill: #020F59;
-	-fx-border-color: #020F59;
+	-fx-border-color: #BCE0FD;
 	-fx-font-size: 12.0px;
 }
 .onboardScanBtn:hover {

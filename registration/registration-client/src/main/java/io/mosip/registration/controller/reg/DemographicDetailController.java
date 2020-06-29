@@ -306,7 +306,7 @@ public class DemographicDetailController extends BaseController {
 
 		gridPane.addColumn(0, primary);
 
-		gridPane.addColumn(2, secondary);
+		gridPane.addColumn(0, secondary);
 
 		gridPane.setId(schemaDTO.getId() + "ParentGridPane");
 
@@ -325,7 +325,7 @@ public class DemographicDetailController extends BaseController {
         }
         if (right != null) {
             GridPane secondary = subGridPane(right, "");
-            gridPane.addColumn(2, secondary);
+            gridPane.addColumn(0, secondary);
 			gridPane.setId(right.getId() + "ParentGridPane");
         }
         return gridPane;
@@ -1164,7 +1164,6 @@ public class DemographicDetailController extends BaseController {
 	 */
 	@FXML
 	private void next() throws InvalidApplicantArgumentException, ParseException {
-
 		if (preRegistrationId.getText().isEmpty()) {
 			preRegistrationId.clear();
 		}
