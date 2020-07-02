@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -665,9 +668,10 @@ public class DemographicDetailController extends BaseController {
 
 	/**
 	 * To restrict the user not to eavcdnter any values other than integer values.
+	 * To Hide the Parent information when the the age is above 18
 	 */
 	private void ageBasedOperation(Pane parentPane, TextField ageField, Label dobMessage, TextField dd, TextField mm,
-			TextField yyyy) {
+								   TextField yyyy) {
 		try {
 			LOGGER.debug(RegistrationConstants.REGISTRATION_CONTROLLER, APPLICATION_NAME,
 					RegistrationConstants.APPLICATION_ID, "Validating the age given by age field");
@@ -679,6 +683,34 @@ public class DemographicDetailController extends BaseController {
 					}
 				}
 			});
+			ageField.textProperty().addListener(new ChangeListener<String>() {
+				@Override
+				public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+					//System.out.println("Age changed");
+					int age = 0;
+					try {
+						age = Integer.parseInt(newValue);
+					} catch (NumberFormatException nfe) {
+						age = 0;
+					}
+					((TextField)parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianFirstName"))).setText("");
+					((TextField)parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianLastName"))).setText("");
+					((TextField)parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianUIN"))).setText("");
+					((TextField)parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianRID"))).setText("");
+
+					if(age < RegistrationConstants.MajorityAge){
+						parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianFirstName"+RegistrationConstants.Parent)).setVisible(true);
+						parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianLastName"+RegistrationConstants.Parent)).setVisible(true);
+						parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianUIN"+RegistrationConstants.Parent)).setVisible(true);
+						parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianRID"+RegistrationConstants.Parent)).setVisible(true);
+					} else {
+						parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianFirstName"+RegistrationConstants.Parent)).setVisible(false);
+						parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianLastName"+RegistrationConstants.Parent)).setVisible(false);
+						parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianUIN"+RegistrationConstants.Parent)).setVisible(false);
+						parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianRID"+RegistrationConstants.Parent)).setVisible(false);
+					}
+				}
+			});
 			LOGGER.debug(RegistrationConstants.REGISTRATION_CONTROLLER, APPLICATION_NAME,
 					RegistrationConstants.APPLICATION_ID, "Validating the age given by age field");
 		} catch (RuntimeException runtimeException) {
@@ -687,7 +719,6 @@ public class DemographicDetailController extends BaseController {
 					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
 		}
 	}
-	
 	/**
 	 * Gets the age.
 	 *
@@ -1164,7 +1195,6 @@ public class DemographicDetailController extends BaseController {
 	 */
 	@FXML
 	private void next() throws InvalidApplicantArgumentException, ParseException {
-
 		if (preRegistrationId.getText().isEmpty()) {
 			preRegistrationId.clear();
 		}

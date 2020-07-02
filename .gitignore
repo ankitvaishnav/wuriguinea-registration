@@ -2,3 +2,7 @@ db
 logs
 .idea
 /*.log
+/registration/*.iml
+/registration/registration-client/*.iml
+/registration/registration-libs/registration-libs.iml
+/registration/registration-services/registration-services.iml

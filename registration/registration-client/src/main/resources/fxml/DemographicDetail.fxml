@@ -115,16 +115,14 @@
 																		<GridPane fx:id="languageLabelParentPane" prefHeight="40.0" prefWidth="${scrollParentPane.width}">
 																			<children>
 																				<GridPane GridPane.columnIndex="1">
-																					<!--<children>
+																					<!--children>
 																						<HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="1">
 																							<children>
-
 																								<Label styleClass="demographicLangHeader" text="%language-" />
 																								<Label styleClass="demographicLangHeader" text="%language" />
-
 																							</children>
 																						</HBox>
-																					</children>-->
+																					</children-->
 																					<columnConstraints>
 																						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="100.0" prefWidth="100.0" />
 																					</columnConstraints>
@@ -135,15 +133,13 @@
 																					</rowConstraints>
 																				</GridPane>
 																				<GridPane GridPane.columnIndex="2">
-																					<!--
-																					<children>
+																					<!--children>
 																						<HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
 																							<children>
 																								<Label fx:id="languageLabelLocalLanguage" styleClass="demographicLangHeader" text="%language" />
 																							</children>
 																						</HBox>
-																					</children>
-																					-->
+																					</children-->
 																					<columnConstraints>
 																						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
 																						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0" prefWidth="100.0" />
