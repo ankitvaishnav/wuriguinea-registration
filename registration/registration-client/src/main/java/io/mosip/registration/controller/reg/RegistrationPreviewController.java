@@ -75,13 +75,13 @@ public class RegistrationPreviewController extends BaseController implements Ini
 
 	@Autowired
 	private FingerPrintCaptureController fingerPrintCaptureController;
-
+	
 	@Autowired
 	private GuardianBiometricsController guardianBiometricsController;
-
+	
 	@Autowired
 	private IrisCaptureController irisCaptureController;
-
+	
 	@FXML
 	private Text registrationNavlabel;
 
@@ -120,7 +120,7 @@ public class RegistrationPreviewController extends BaseController implements Ini
 		if (getRegistrationDTOFromSession() != null
 				&& getRegistrationDTOFromSession().getRegistrationMetaDataDTO().getRegistrationCategory() != null
 				&& getRegistrationDTOFromSession().getRegistrationMetaDataDTO().getRegistrationCategory()
-				.equals(RegistrationConstants.PACKET_TYPE_LOST)) {
+						.equals(RegistrationConstants.PACKET_TYPE_LOST)) {
 
 			registrationNavlabel.setText(
 					ApplicationContext.applicationLanguageBundle().getString(RegistrationConstants.LOSTUINLBL));
@@ -136,9 +136,9 @@ public class RegistrationPreviewController extends BaseController implements Ini
 //
 //			updateUINFlowMethod();
 //		}
-		registrationController.showCurrentPage(RegistrationConstants.REGISTRATION_PREVIEW,
-				getPageByAction(RegistrationConstants.REGISTRATION_PREVIEW, RegistrationConstants.PREVIOUS));
-		guardianBiometricsController.populateBiometricPage(false);
+			registrationController.showCurrentPage(RegistrationConstants.REGISTRATION_PREVIEW,
+					getPageByAction(RegistrationConstants.REGISTRATION_PREVIEW, RegistrationConstants.PREVIOUS));
+			guardianBiometricsController.populateBiometricPage(false);
 	/*	} else {
 			registrationController.showCurrentPage(RegistrationConstants.REGISTRATION_PREVIEW,
 					getPageByAction(RegistrationConstants.REGISTRATION_PREVIEW, RegistrationConstants.PREVIOUS));
@@ -290,10 +290,10 @@ public class RegistrationPreviewController extends BaseController implements Ini
 			SessionContext.map().put(RegistrationConstants.UIN_UPDATE_REGISTRATIONPREVIEW, false);
 			SessionContext.map().put(RegistrationConstants.UIN_UPDATE_DEMOGRAPHICDETAIL, true);
 			//registrationController.showUINUpdateCurrentPage();
-		}
-		registrationController.showCurrentPage(RegistrationConstants.REGISTRATION_PREVIEW,
-				RegistrationConstants.DEMOGRAPHIC_DETAIL);
-
+		} 
+			registrationController.showCurrentPage(RegistrationConstants.REGISTRATION_PREVIEW,
+					RegistrationConstants.DEMOGRAPHIC_DETAIL);
+		
 	}
 
 	public void modifyDocuments() {
@@ -331,7 +331,7 @@ public class RegistrationPreviewController extends BaseController implements Ini
 		//fingerPrintCaptureController.initializeCaptureCount();
 		//irisCaptureController.initializeCaptureCount();
 		guardianBiometricsController.populateBiometricPage(false);
-
+		
 		if (getRegistrationDTOFromSession().getSelectionListDTO() != null) {
 			SessionContext.map().put(RegistrationConstants.UIN_UPDATE_REGISTRATIONPREVIEW, false);
 

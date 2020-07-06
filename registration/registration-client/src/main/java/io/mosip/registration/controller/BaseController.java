@@ -1684,7 +1684,7 @@ public class BaseController {
 		this.isAckOpened = isAckOpened;
 	}
 
-	public void loadUIElementsFromSchema() throws RegBaseCheckedException {
+	public void loadUIElementsFromSchema() {
 
 		try {
 			List<UiSchemaDTO> schemaFields = identitySchemaService.getLatestEffectiveUISchema();
@@ -1710,7 +1710,6 @@ public class BaseController {
 		} catch (RegBaseCheckedException e) {
 			LOGGER.error(LoggerConstants.LOG_REG_BASE, APPLICATION_NAME, APPLICATION_ID,
 					ExceptionUtils.getStackTrace(e));
-			throw e;
 		}
 	}
 
