@@ -114,7 +114,7 @@
    <bottom>
 		<HBox id="footer-section">
 			<children>
-				<Label text="%mosip.io" />
+				<Label text="%wuri.guinea" />
 				<Label text="  " />
 				<Label text="%regClientVersion" />
 				<Label text=" : " />

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import io.mosip.kernel.core.exception.ExceptionUtils;
 import io.mosip.kernel.core.logger.spi.Logger;
 import io.mosip.kernel.core.util.DateUtils;
-import io.mosip.kernel.packetmanager.constants.Biometric;
 import io.mosip.kernel.packetmanager.dto.BiometricsDto;
 import io.mosip.registration.config.AppConfig;
 import io.mosip.registration.constants.RegistrationConstants;
@@ -314,7 +313,7 @@ public class UserOnboardDAOImpl implements UserOnboardDAO {
 			biometrics.forEach( dto -> {
 				UserBiometric bioMetrics = new UserBiometric();
 				UserBiometricId biometricId = new UserBiometricId();
-				biometricId.setBioAttributeCode(dto.getBioAttribute());
+				biometricId.setBioAttributeCode(dto.getModalityName());
 				biometricId.setBioTypeCode(getBioAttribute(dto.getBioAttribute()));
 				biometricId.setUsrId(SessionContext.userContext().getUserId());
 				bioMetrics.setBioIsoImage(dto.getAttributeISO());
@@ -354,8 +353,17 @@ public class UserOnboardDAOImpl implements UserOnboardDAO {
 	 */
 	private String getBioAttribute(String bioAttribute) {
 
-		Biometric bioType = Biometric.getBiometricByAttribute(bioAttribute);
-		return bioType.getSingleType().value();
+		if (bioAttribute.contains("LF")
+				|| bioAttribute.contains("RF")
+
+				|| bioAttribute.contains(RegistrationConstants.FINGERPRINT_SLAB_THUMBS)) {
+			bioAttribute = "FINGER";
+		} else if (bioAttribute.contains("L_IRIS")||bioAttribute.contains("R_IRIS")) {
+			bioAttribute = "IRIS";
+		} else {
+			bioAttribute = "FACE";
+		}
+		return bioAttribute;
 
 	}
 
