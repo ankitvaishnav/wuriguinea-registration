@@ -17,7 +17,7 @@
 		<RowConstraints minHeight="10.0" percentHeight="6.0" prefHeight="30.0" vgrow="SOMETIMES" />
 	</rowConstraints>
 	<children>
-		<GridPane styleClass="headerFooter" GridPane.rowIndex="4">
+		<GridPane styleClass="bottomFooter" GridPane.rowIndex="4">
 			<children>
             <GridPane GridPane.columnIndex="1">
               <columnConstraints>
@@ -41,26 +41,26 @@
                     </rowConstraints>
                      <children>
                         <Button fx:id="backBtn" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#goToPreviousPage" styleClass="backButton" text="%back" GridPane.valignment="TOP">
-                         <graphic>
+                         <!--graphic>
                               <ImageView fx:id="backImageView" fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/arrowLeft.png" />
                                  </image>
                               </ImageView>
-                           </graphic>
+                           </graphic-->
                         </Button>
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <children>
                      <Button fx:id="operatorAuthContinue" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#goToNextPage" styleClass="contiuneButton" text="%continue" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                      <graphic>
+                      <!--graphic>
                               <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/arrowRight.png" />
                                  </image>
                               </ImageView>
-                           </graphic>
+                           </graphic-->
                      </Button>
                      </children>
                      <columnConstraints>
