@@ -8,6 +8,7 @@ import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -21,9 +22,18 @@ import org.mvel2.MVEL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import io.mosip.kernel.biometrics.constant.BiometricFunction;
+import io.mosip.kernel.biometrics.constant.BiometricType;
+import io.mosip.kernel.biosdk.provider.factory.BioAPIFactory;
+import io.mosip.kernel.core.bioapi.exception.BiometricException;
+import io.mosip.kernel.core.cbeffutil.entity.BDBInfo;
+import io.mosip.kernel.core.cbeffutil.entity.BIR;
+import io.mosip.kernel.core.cbeffutil.entity.BIR.BIRBuilder;
+import io.mosip.kernel.core.cbeffutil.jaxbclasses.PurposeType;
+import io.mosip.kernel.core.cbeffutil.jaxbclasses.RegistryIDType;
+import io.mosip.kernel.core.cbeffutil.jaxbclasses.SingleType;
 import io.mosip.kernel.core.exception.ExceptionUtils;
 import io.mosip.kernel.core.logger.spi.Logger;
-import io.mosip.kernel.packetmanager.constants.Biometric;
 import io.mosip.kernel.packetmanager.constants.PacketManagerConstants;
 import io.mosip.kernel.packetmanager.dto.BiometricsDto;
 import io.mosip.registration.config.AppConfig;
@@ -35,12 +45,13 @@ import io.mosip.registration.controller.BaseController;
 import io.mosip.registration.controller.FXUtils;
 import io.mosip.registration.controller.reg.RegistrationController;
 import io.mosip.registration.controller.reg.UserOnboardParentController;
+import io.mosip.registration.dao.UserDetailDAO;
 import io.mosip.registration.dto.UiSchemaDTO;
 import io.mosip.registration.dto.mastersync.BiometricAttributeDto;
+import io.mosip.registration.entity.UserBiometric;
 import io.mosip.registration.exception.RegBaseCheckedException;
 import io.mosip.registration.exception.RegBaseUncheckedException;
 import io.mosip.registration.mdm.dto.MDMRequestDto;
-import io.mosip.registration.mdm.service.impl.MosipBioDeviceManagerDuplicate;
 import io.mosip.registration.service.bio.BioService;
 import io.mosip.registration.service.operator.UserOnboardService;
 import io.mosip.registration.service.sync.MasterSyncService;
@@ -276,8 +287,14 @@ public class GuardianBiometricsController extends BaseController /* implements I
 	@Autowired
 	private UserOnboardParentController userOnboardParentController;
 
+
+	
 	@Autowired
-	private MosipBioDeviceManagerDuplicate mosipBioDeviceManger;
+	private BioAPIFactory bioAPIFactory;
+	
+	@Autowired
+	private UserDetailDAO userDetailDAO;
+
 
 	/*
 	 * (non-Javadoc)
@@ -340,12 +357,12 @@ public class GuardianBiometricsController extends BaseController /* implements I
 			registrationNavlabel.setVisible(false);
 			backButton.setVisible(false);
 			gheaderfooter.setVisible(false);
-			continueBtn.setText("Valider");
+			continueBtn.setText("SAVE");
 		} else {
 			registrationNavlabel.setVisible(true);
 			backButton.setVisible(true);
 			gheaderfooter.setVisible(true);
-			continueBtn.setText("Continuer");
+			continueBtn.setText("CONTINUE");
 		}
 
 		ContentHeader.getChildren().clear();
@@ -426,9 +443,7 @@ public class GuardianBiometricsController extends BaseController /* implements I
 				userOnboardService.addOperatorBiometricException(currentSubType, checkBox.getId());
 			else
 				getRegistrationDTOFromSession().addBiometricException(currentSubType, checkBox.getId(),
-						io.mosip.registration.mdm.dto.Biometric.getmdmResponseAttributeName(checkBox.getId(),
-								mosipBioDeviceManger.getLatestSpecVersion()),
-						"Temporary", "Temporary");
+						checkBox.getId(), "Temporary", "Temporary");
 		} else {
 			if (isUserOnboardFlag)
 				userOnboardService.removeOperatorBiometricException(currentSubType, checkBox.getId());
@@ -824,16 +839,7 @@ public class GuardianBiometricsController extends BaseController /* implements I
 					CheckBox checkBox = (CheckBox) checkBoxx;
 					if (checkBox.isSelected()) {
 
-						String specVersion = bioService.isMdmEnabled() ? mosipBioDeviceManger.getLatestSpecVersion()
-								: RegistrationConstants.SPEC_VERSION_092;
-
-						if (specVersion == null) {
-							throw new RegBaseCheckedException("No Spec Version Found", "No Spec Version Found");
-						}
-						// String exceptionName =
-						// RegistrationConstants.uIToMDSExceptionMap.get(checkBox.getId());
-						selectedExceptions.add(io.mosip.registration.mdm.dto.Biometric
-								.getmdmRequestAttributeName(checkBox.getId(), specVersion));
+						selectedExceptions.add(checkBox.getId());
 
 					}
 				}
@@ -891,10 +897,11 @@ public class GuardianBiometricsController extends BaseController /* implements I
 		// Check count
 		int count = 1;
 
-		// TODO need to take env from global_params
 		MDMRequestDto mdmRequestDto = new MDMRequestDto(
 				isFace(modality) ? RegistrationConstants.FACE_FULLFACE : modality,
-				exceptionBioAttributes.toArray(new String[0]), "Registration", "Staging",
+				exceptionBioAttributes.toArray(new String[0]), "Registration",
+				io.mosip.registration.context.ApplicationContext.getStringValueFromApplicationMap(
+						RegistrationConstants.SERVER_ACTIVE_PROFILE),
 				Integer.valueOf(getCaptureTimeOut()), count,
 				getThresholdScoreInInt(getThresholdKeyByBioType(modality)));
 
@@ -906,14 +913,12 @@ public class GuardianBiometricsController extends BaseController /* implements I
 
 			boolean isValidBiometric = mdsCapturedBiometricsList != null && !mdsCapturedBiometricsList.isEmpty();
 
-			// TODO validate local de-dup check
+			// validate local de-dup check
 			boolean isMatchedWithLocalBiometrics = false;
-
-			// TODO if threshold values and local-dedup passed save into the registration
-			// DTO
-			// isMatchedWithLocalBiometrics=authenticationService.validateBiometrics(getBioType(currentModality),
-			// biometricDTOList);
-
+			if(bioService.isMdmEnabled()) {
+//				isMatchedWithLocalBiometrics = identifyInLocalGallery(mdsCapturedBiometricsList, modality);
+			}
+			
 			if (isValidBiometric && !isMatchedWithLocalBiometrics) {
 
 				List<BiometricsDto> registrationDTOBiometricsList = new LinkedList<>();
@@ -989,10 +994,11 @@ public class GuardianBiometricsController extends BaseController /* implements I
 			for (BiometricsDto value : biometrics) {
 				LOGGER.debug(LOG_REG_GUARDIAN_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
 						"updating userOnboard biometric data >> " + value.getModalityName());
-				savedCaptures.add(userOnboardService.addOperatorBiometrics(subType, 
-						value.getBioAttribute(), value));
-//				savedCaptures.add(userOnboardService.addOperatorBiometrics(subType, io.mosip.registration.mdm.dto.Biometric.getUiSchemaAttributeName(
-//						value.getBioAttribute(), mosipBioDeviceManger.getLatestSpecVersion()), value));
+				savedCaptures.add(userOnboardService.addOperatorBiometrics(subType, value.getBioAttribute(), value));
+				// savedCaptures.add(userOnboardService.addOperatorBiometrics(subType,
+				// io.mosip.registration.mdm.dto.Biometric.getUiSchemaAttributeName(
+				// value.getBioAttribute(), mosipBioDeviceManger.getLatestSpecVersion()),
+				// value));
 
 			}
 			return savedCaptures;
@@ -1001,13 +1007,12 @@ public class GuardianBiometricsController extends BaseController /* implements I
 			Map<String, BiometricsDto> biometricsMap = new LinkedHashMap<>();
 
 			for (BiometricsDto biometricsDto : biometrics) {
-				biometricsMap.put(
-						biometricsDto.getBioAttribute(),
-						biometricsDto);
-//				biometricsMap.put(
-//						io.mosip.registration.mdm.dto.Biometric.getUiSchemaAttributeName(
-//								biometricsDto.getBioAttribute(), mosipBioDeviceManger.getLatestSpecVersion()),
-//						biometricsDto);
+				biometricsMap.put(biometricsDto.getBioAttribute(), biometricsDto);
+				// biometricsMap.put(
+				// io.mosip.registration.mdm.dto.Biometric.getUiSchemaAttributeName(
+				// biometricsDto.getBioAttribute(),
+				// mosipBioDeviceManger.getLatestSpecVersion()),
+				// biometricsDto);
 
 			}
 
@@ -2342,6 +2347,43 @@ public class GuardianBiometricsController extends BaseController /* implements I
 
 	private List<String> getListOfBiometricSubTypes() {
 		return new ArrayList<String>(currentMap.keySet());
+	}
+	
+	private boolean identifyInLocalGallery(List<BiometricsDto> biometrics, String modality) {
+		BiometricType biometricType = BiometricType.fromValue(modality);
+		Map<String, List<BIR>> gallery = new HashMap<>();
+		List<UserBiometric> userBiometrics = userDetailDAO.findAllActiveUsers(biometricType.value());
+		if(userBiometrics.isEmpty())
+			return false;
+		
+		userBiometrics.forEach(userBiometric -> {
+			String userId = userBiometric.getUserBiometricId().getUsrId();
+			gallery.computeIfAbsent(userId, k -> new ArrayList<BIR>()).add(buildBir(userBiometric.getBioIsoImage(), biometricType));
+		});
+					
+		List<BIR> sample = new ArrayList<>(biometrics.size());
+		biometrics.forEach( biometricDto -> {
+			sample.add(buildBir(biometricDto.getAttributeISO(), biometricType));
+		});
+		
+		try {
+			Map<String, Boolean> result = bioAPIFactory.getBioProvider(biometricType, BiometricFunction.MATCH).
+					identify(sample, gallery, biometricType, null);
+			return result.entrySet().stream().anyMatch(e -> e.getValue() == true);
+		} catch(BiometricException e) {
+			LOGGER.error(LOG_REG_GUARDIAN_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+					"Failed to dedupe >> " + ExceptionUtils.getStackTrace(e));
+		}
+		return false;
+	}
+	
+	private BIR buildBir(byte[] biometricImageISO, BiometricType modality) {
+		return new BIRBuilder().withBdb(biometricImageISO)
+				.withBdbInfo(new BDBInfo.BDBInfoBuilder().withFormat(new RegistryIDType())
+						.withType(Collections.singletonList(SingleType.fromValue(modality.value())))
+						.withPurpose(PurposeType.IDENTIFY)
+						.build())
+				.build();
 	}
 
 }
