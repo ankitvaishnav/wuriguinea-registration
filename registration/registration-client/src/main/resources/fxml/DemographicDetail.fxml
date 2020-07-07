@@ -115,14 +115,14 @@
 																		<GridPane fx:id="languageLabelParentPane" prefHeight="40.0" prefWidth="${scrollParentPane.width}">
 																			<children>
 																				<GridPane GridPane.columnIndex="1">
-																					<children>
+																					<!--children>
 																						<HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="1">
 																							<children>
 																								<Label styleClass="demographicLangHeader" text="%language-" />
 																								<Label styleClass="demographicLangHeader" text="%language" />
 																							</children>
 																						</HBox>
-																					</children>
+																					</children-->
 																					<columnConstraints>
 																						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="100.0" prefWidth="100.0" />
 																					</columnConstraints>
@@ -133,13 +133,13 @@
 																					</rowConstraints>
 																				</GridPane>
 																				<GridPane GridPane.columnIndex="2">
-																					<children>
+																					<!--children>
 																						<HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
 																							<children>
 																								<Label fx:id="languageLabelLocalLanguage" styleClass="demographicLangHeader" text="%language" />
 																							</children>
 																						</HBox>
-																					</children>
+																					</children-->
 																					<columnConstraints>
 																						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
 																						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="85.0" prefWidth="100.0" />
@@ -301,20 +301,20 @@
 				</GridPane>
 			</children>
 		</GridPane>
-      <GridPane styleClass="headerFooter" GridPane.rowIndex="4">
+      <GridPane styleClass="bottomFooter" GridPane.rowIndex="4">
          <children>
             <GridPane GridPane.columnIndex="1">
                <children>
                   <GridPane fx:id="backButton" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <children>
                         <Button fx:id="backBtn" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#back" styleClass="backButton" text="%back" visible="false" GridPane.valignment="TOP">
-                           <graphic>
+                           <!--graphic>
                               <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/arrowLeft.png" />
                                  </image>
                               </ImageView>
-                           </graphic>
+                           </graphic-->
                         </Button>
                      </children>
                      <columnConstraints>
@@ -327,13 +327,13 @@
                   <GridPane GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <children>
                         <Button fx:id="continueBtn" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#next" styleClass="contiuneButton" text="%continue" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                           <graphic>
+                           <!--graphic>
                               <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/arrowRight.png" />
                                  </image>
                               </ImageView>
-                           </graphic>
+                           </graphic-->
                         </Button>
                      </children>
                      <columnConstraints>

@@ -287,9 +287,9 @@ public class DocumentScanController extends BaseController {
 				if (documentDetailsDTO != null) {
 					addDocumentsToScreen(documentDetailsDTO.getValue(), documentDetailsDTO.getFormat(),
 							documentVBoxes.get(docCategoryKey));
-					
 					FXUtils.getInstance().selectComboBoxValue(documentComboBoxes.get(docCategoryKey),
-							documentDetailsDTO.getValue().substring(documentDetailsDTO.getValue().lastIndexOf(RegistrationConstants.UNDER_SCORE) + 1));
+							documentDetailsDTO.getValue().substring(
+									documentDetailsDTO.getValue().indexOf(RegistrationConstants.UNDER_SCORE) + 1));
 				}
 			}
 		} else if (documentVBoxes.isEmpty() && documentsMap != null) {
@@ -311,15 +311,16 @@ public class DocumentScanController extends BaseController {
 	 * To prepare the document section
 	 */
 	@SuppressWarnings("unchecked")
-	private <T> void prepareDocumentScanSection(List<UiSchemaDTO> documentFields) {
+	private <T> void prepareDocumentScanSection(List<UiSchemaDTO> documentCategories) {
 
 		/* show the scan doc info label for format and size */
 		Label fileSizeInfoLabel = new Label();
 		fileSizeInfoLabel.setWrapText(true);
 		fileSizeInfoLabel.setText(RegistrationUIConstants.SCAN_DOC_INFO);
+		fileSizeInfoLabel.setStyle("-fx-text-fill: #020F59");
 		docScanVbox.getChildren().add(fileSizeInfoLabel);
 
-		for (UiSchemaDTO documentCategory : documentFields) {
+		for (UiSchemaDTO documentCategory : documentCategories) {
 
 			String docCategoryCode = documentCategory.getSubType();
 
@@ -692,7 +693,7 @@ public class DocumentScanController extends BaseController {
 		documentDto.setFormat(docType);
 		documentDto.setCategory(selectedDocument);
 		documentDto.setOwner("Applicant");
-		documentDto.setValue(selectedDocument.concat(RegistrationConstants.UNDER_SCORE).concat(document.getCode()));
+		documentDto.setValue(selectedDocument.concat(RegistrationConstants.UNDER_SCORE).concat(document.getName()));
 
 		LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 				RegistrationConstants.APPLICATION_ID, "Set details to DocumentDetailsDTO");
