@@ -428,73 +428,70 @@
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </GridPane>
-                         <!--
-                        <GridPane GridPane.rowIndex="1">
-                           <children>
-                              <Label styleClass="newsUpdatesTitle" text="Update Title" />
-                              <Label styleClass="newsUpdateTime" text="Monday 10 Jan 8:00 AM" GridPane.rowIndex="1" />
-                              <Label styleClass="newsUpdateTime" text="Description" GridPane.rowIndex="2" />
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <GridPane.margin>
-                              <Insets left="15.0" />
-                           </GridPane.margin>
-                        </GridPane>
-                        <GridPane GridPane.rowIndex="2">
-                           <children>
-                              <Label styleClass="newsUpdatesTitle" text="Update Title" />
-                              <Label styleClass="newsUpdateTime" text="Monday 10 Jan 8:00 AM" GridPane.rowIndex="1" />
-                              <Label styleClass="newsUpdateTime" text="Description" GridPane.rowIndex="2" />
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <GridPane.margin>
-                              <Insets left="15.0" />
-                           </GridPane.margin>
-                        </GridPane>
-                        <GridPane GridPane.rowIndex="3">
-                           <children>
-                              <Label styleClass="newsUpdatesTitle" text="Update Title" />
-                              <Label styleClass="newsUpdateTime" text="Monday 10 Jan 8:00 AM" GridPane.rowIndex="1" />
-                              <Label styleClass="newsUpdateTime" text="Description" GridPane.rowIndex="2" />
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <GridPane.margin>
-                              <Insets left="15.0" />
-                           </GridPane.margin>
-                        </GridPane>
-                        -->
+<!--                        <GridPane GridPane.rowIndex="1">-->
+<!--                           <children>-->
+<!--                              <Label styleClass="newsUpdatesTitle" text="Update Title" />-->
+<!--                              <Label styleClass="newsUpdateTime" text="Monday 10 Jan 8:00 AM" GridPane.rowIndex="1" />-->
+<!--                              <Label styleClass="newsUpdateTime" text="Description" GridPane.rowIndex="2" />-->
+<!--                           </children>-->
+<!--                           <columnConstraints>-->
+<!--                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
+<!--                           </columnConstraints>-->
+<!--                           <rowConstraints>-->
+<!--                              <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />-->
+<!--                              <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />-->
+<!--                              <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />-->
+<!--                           </rowConstraints>-->
+<!--                           <GridPane.margin>-->
+<!--                              <Insets left="15.0" />-->
+<!--                           </GridPane.margin>-->
+<!--                        </GridPane>-->
+<!--                        <GridPane GridPane.rowIndex="2">-->
+<!--                           <children>-->
+<!--                              <Label styleClass="newsUpdatesTitle" text="Update Title" />-->
+<!--                              <Label styleClass="newsUpdateTime" text="Monday 10 Jan 8:00 AM" GridPane.rowIndex="1" />-->
+<!--                              <Label styleClass="newsUpdateTime" text="Description" GridPane.rowIndex="2" />-->
+<!--                           </children>-->
+<!--                           <columnConstraints>-->
+<!--                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
+<!--                           </columnConstraints>-->
+<!--                           <rowConstraints>-->
+<!--                              <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />-->
+<!--                              <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />-->
+<!--                              <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />-->
+<!--                           </rowConstraints>-->
+<!--                           <GridPane.margin>-->
+<!--                              <Insets left="15.0" />-->
+<!--                           </GridPane.margin>-->
+<!--                        </GridPane>-->
+<!--                        <GridPane GridPane.rowIndex="3">-->
+<!--                           <children>-->
+<!--                              <Label styleClass="newsUpdatesTitle" text="Update Title" />-->
+<!--                              <Label styleClass="newsUpdateTime" text="Monday 10 Jan 8:00 AM" GridPane.rowIndex="1" />-->
+<!--                              <Label styleClass="newsUpdateTime" text="Description" GridPane.rowIndex="2" />-->
+<!--                           </children>-->
+<!--                           <columnConstraints>-->
+<!--                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />-->
+<!--                           </columnConstraints>-->
+<!--                           <rowConstraints>-->
+<!--                              <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />-->
+<!--                              <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />-->
+<!--                              <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />-->
+<!--                           </rowConstraints>-->
+<!--                           <GridPane.margin>-->
+<!--                              <Insets left="15.0" />-->
+<!--                           </GridPane.margin>-->
+<!--                        </GridPane>-->
                      </children>
                      <GridPane.margin>
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </GridPane>
-                 <!--
-                  <Label fx:id="newsViewAll" alignment="CENTER_RIGHT" text="%viewall" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets right="40.0" />
-                     </GridPane.margin>
-                  </Label> -->
+<!--                  <Label fx:id="newsViewAll" alignment="CENTER_RIGHT" text="%viewall" GridPane.halignment="RIGHT" GridPane.rowIndex="1">-->
+<!--                     <GridPane.margin>-->
+<!--                        <Insets right="40.0" />-->
+<!--                     </GridPane.margin>-->
+<!--                  </Label>-->
                   <Label styleClass="optionHeaderStyle" text="%newsandUpdates" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="40.0" />

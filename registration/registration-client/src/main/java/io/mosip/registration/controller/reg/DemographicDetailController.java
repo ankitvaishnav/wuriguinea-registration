@@ -223,29 +223,29 @@ public class DemographicDetailController extends BaseController {
 			parentFlow = parentFlowPane.getChildren();
 			int position = parentFlow.size() - 1;
 
-            Iterator<Entry<String, UiSchemaDTO>> iterator = validation.getValidationMap().entrySet().iterator();
-            while (iterator.hasNext()) {
-                UiSchemaDTO left = null;
-                UiSchemaDTO dto = iterator.next().getValue();
-                if (isDemographicField(dto)) {
-                    left = dto;
-                }
+			Iterator<Entry<String, UiSchemaDTO>> iterator = validation.getValidationMap().entrySet().iterator();
+			while (iterator.hasNext()) {
+				UiSchemaDTO left = null;
+				UiSchemaDTO dto = iterator.next().getValue();
+				if (isDemographicField(dto)) {
+					left = dto;
+				}
 
-                if (left != null) {
-                    UiSchemaDTO right = null;
-                    if (iterator.hasNext()) {
-                        dto = iterator.next().getValue();
-                        if (isDemographicField(dto)) {
-                            right = dto;
-                        }
-                    }
+				if (left != null) {
+					UiSchemaDTO right = null;
+					if (iterator.hasNext()) {
+						dto = iterator.next().getValue();
+						if (isDemographicField(dto)) {
+							right = dto;
+						}
+					}
 
-                    GridPane mainGridPane = addContent(left, right);
-                    parentFlow.add(mainGridPane);
-                    position++;
-                    positionTracker.put(mainGridPane.getId(), position);
-                }
-            }
+					GridPane mainGridPane = addContent(left, right);
+					parentFlow.add(mainGridPane);
+					position++;
+					positionTracker.put(mainGridPane.getId(), position);
+				}
+			}
 
 			addFirstOrderAddress(listOfComboBoxWithObject.get(orderOfAddress.get(0)), 1,
 					applicationContext.getApplicationLanguage());
@@ -301,40 +301,25 @@ public class DemographicDetailController extends BaseController {
 		preRegParentPane.setDisable(true);
 	}
 
-	public GridPane addContent(UiSchemaDTO schemaDTO) {
+	public GridPane addContent(UiSchemaDTO left, UiSchemaDTO right) {
 		GridPane gridPane = prepareMainGridPane();
 
-		GridPane primary = subGridPane(schemaDTO, "");
-		GridPane secondary = subGridPane(schemaDTO, RegistrationConstants.LOCAL_LANGUAGE);
+		if (left != null) {
+			GridPane primary = subGridPane(left, "");
 
-		gridPane.addColumn(0, primary);
+			gridPane.addColumn(0, primary);
+			gridPane.setId(left.getId() + "ParentGridPane");
 
-		gridPane.addColumn(2, secondary);
-
-		gridPane.setId(schemaDTO.getId() + "ParentGridPane");
-
+		}
+		if (right != null) {
+			GridPane secondary = subGridPane(right, "");
+			gridPane.addColumn(2, secondary);
+			gridPane.setId(right.getId() + "ParentGridPane");
+		}
 		return gridPane;
 	}
 
-    public GridPane addContent(UiSchemaDTO left, UiSchemaDTO right) {
-        GridPane gridPane = prepareMainGridPane();
-
-        if (left != null) {
-            GridPane primary = subGridPane(left, "");
-
-            gridPane.addColumn(0, primary);
-			gridPane.setId(left.getId() + "ParentGridPane");
-
-        }
-        if (right != null) {
-            GridPane secondary = subGridPane(right, "");
-            gridPane.addColumn(2, secondary);
-			gridPane.setId(right.getId() + "ParentGridPane");
-        }
-        return gridPane;
-    }
-
-    public void addKeyboard(int position) {
+	public void addKeyboard(int position) {
 
 		if (keyboardVisible) {
 			parentFlow.remove(lastPosition);
@@ -565,6 +550,9 @@ public class DemographicDetailController extends BaseController {
 		hB.setSpacing(20);
 
 		vbox.getChildren().add(validationMessage);
+//		if (primaryLanguage.equals(secondaryLanguage)) {
+//			vbox.setDisable(true);
+//		}
 
 		if (listOfTextField.get(fieldName) != null)
 			fxUtils.populateLocalFieldWithFocus(parentFlowPane, listOfTextField.get(fieldName), field,
@@ -612,26 +600,25 @@ public class DemographicDetailController extends BaseController {
 	}
 
 	private void populateDropDowns() {
-		try {
+		try {			
 			for(String k : listOfComboBoxWithObject.keySet()) {
 				switch (k.toLowerCase()) {
 				case "gender":
-
 					listOfComboBoxWithObject.get("gender").getItems()
 					.addAll(masterSyncService.getGenderDtls(ApplicationContext.applicationLanguage()).stream()
 							.filter(v -> !v.getCode().equals("OTH")).collect(Collectors.toList()));
 					break;
 
-				case "residencestatus":
+				case "residencestatus":	
 					listOfComboBoxWithObject.get("residenceStatus").getItems()
 					.addAll(masterSyncService.getIndividualType(ApplicationContext.applicationLanguage()));
 					break;
-
+					
 				default:
 					//TODO
 					break;
 				}
-			}
+			}			
 		} catch (RegBaseCheckedException e) {
 			LOGGER.error("populateDropDowns", APPLICATION_NAME,
 							RegistrationConstants.APPLICATION_ID, ExceptionUtils.getStackTrace(e));
@@ -668,10 +655,9 @@ public class DemographicDetailController extends BaseController {
 
 	/**
 	 * To restrict the user not to eavcdnter any values other than integer values.
-	 * To Hide the Parent information when the the age is above 18
 	 */
 	private void ageBasedOperation(Pane parentPane, TextField ageField, Label dobMessage, TextField dd, TextField mm,
-								   TextField yyyy) {
+			TextField yyyy) {
 		try {
 			LOGGER.debug(RegistrationConstants.REGISTRATION_CONTROLLER, APPLICATION_NAME,
 					RegistrationConstants.APPLICATION_ID, "Validating the age given by age field");
@@ -719,6 +705,7 @@ public class DemographicDetailController extends BaseController {
 					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
 		}
 	}
+	
 	/**
 	 * Gets the age.
 	 *
@@ -877,7 +864,7 @@ public class DemographicDetailController extends BaseController {
 		return listOfValues;
 	}
 
-	private void addDemoGraphicDetailsToSession() {
+	private void addDemoGraphicDetailsToSession() {		
 		try {
 			RegistrationDTO registrationDTO = getRegistrationDTOFromSession();
 			for (UiSchemaDTO schemaField : validation.getValidationMap().values()) {
@@ -971,7 +958,7 @@ public class DemographicDetailController extends BaseController {
 			auditFactory.audit(AuditEvent.SAVE_DETAIL_TO_DTO, Components.REGISTRATION_CONTROLLER,
 					SessionContext.userContext().getUserId(), RegistrationConstants.ONBOARD_DEVICES_REF_ID_TYPE);
 
-			RegistrationDTO registrationDTO = getRegistrationDTOFromSession();
+			RegistrationDTO registrationDTO = getRegistrationDTOFromSession();			
 			/*
 			 * if (preRegistrationId.getText() == null &&
 			 * preRegistrationId.getText().isEmpty()) {
@@ -1053,7 +1040,7 @@ public class DemographicDetailController extends BaseController {
 							listOfTextField.get(schemaField.getId() + "__" + "yyyy").setText(dateParts[0]);
 						}
 					}
-					else if (RegistrationConstants.DROPDOWN.equalsIgnoreCase(schemaField.getControlType()) ||
+					else if (RegistrationConstants.DROPDOWN.equalsIgnoreCase(schemaField.getControlType()) || 
 							Arrays.asList(orderOfAddress).contains(schemaField.getId())) {
 						ComboBox<GenericDto> platformField = listOfComboBoxWithObject.get(schemaField.getId());
 						if(platformField != null) {
@@ -1074,6 +1061,7 @@ public class DemographicDetailController extends BaseController {
 					RegistrationConstants.APPLICATION_ID,
 					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
 		}
+
 	}
 
 	/**
@@ -1195,6 +1183,7 @@ public class DemographicDetailController extends BaseController {
 	 */
 	@FXML
 	private void next() throws InvalidApplicantArgumentException, ParseException {
+
 		if (preRegistrationId.getText().isEmpty()) {
 			preRegistrationId.clear();
 		}
@@ -1203,8 +1192,13 @@ public class DemographicDetailController extends BaseController {
 		saveDetail();
 
 		if (registrationController.validateDemographicPane(parentFlowPane)) {
+			//saveDetail();
 
 			guardianBiometricsController.populateBiometricPage(false);
+			/*
+			 * SessionContext.map().put("demographicDetail", false);
+			 * SessionContext.map().put("documentScan", true);
+			 */
 
 			documentScanController.populateDocumentCategories();
 
@@ -1231,10 +1225,10 @@ public class DemographicDetailController extends BaseController {
 			GenericDto selectedLocationHierarchy = srcLocationHierarchy.getSelectionModel().getSelectedItem();
 			if (selectedLocationHierarchy != null) {
 				destLocationHierarchy.getItems().clear();
+				destLocationHierarchyInLocal.getItems().clear();
 
 				if (selectedLocationHierarchy.getCode().equalsIgnoreCase(RegistrationConstants.AUDIT_DEFAULT_USER)) {
 					destLocationHierarchy.getItems().add(selectedLocationHierarchy);
-
 				} else {
 
 					List<GenericDto> locations = masterSync.findProvianceByHierarchyCode(
@@ -1261,4 +1255,5 @@ public class DemographicDetailController extends BaseController {
 				RegistrationConstants.APPLICATION_ID, RegistrationConstants.APPLICATION_NAME,
 				"Retrieving and populating of location by selected hirerachy ended");
 	}
+
 }
