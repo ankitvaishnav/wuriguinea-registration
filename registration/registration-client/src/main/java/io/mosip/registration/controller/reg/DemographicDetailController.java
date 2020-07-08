@@ -222,6 +222,7 @@ public class DemographicDetailController extends BaseController {
 			secondaryLanguage = applicationContext.getLocalLanguage();
 			parentFlow = parentFlowPane.getChildren();
 			int position = parentFlow.size() - 1;
+			// Logical grouping in schema with position, precreate gridpane categoris in fxml
 
 			Iterator<Entry<String, UiSchemaDTO>> iterator = validation.getValidationMap().entrySet().iterator();
 			while (iterator.hasNext()) {
@@ -240,6 +241,7 @@ public class DemographicDetailController extends BaseController {
 						}
 					}
 
+					//TODO based on field type add it precreated gridpane
 					GridPane mainGridPane = addContent(left, right);
 					parentFlow.add(mainGridPane);
 					position++;
