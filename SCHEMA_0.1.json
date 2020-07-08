@@ -54,7 +54,7 @@
       "maximum": 0,
       "description": "First Name",
       "label": {
-        "primary": "First Name"
+        "primary": "Prénom(s)"
       },
       "controlType": "textbox",
       "fieldType": "default",
@@ -82,7 +82,7 @@
       "maximum": 0,
       "description": "Last Name",
       "label": {
-        "primary": "Last Name"
+        "primary": "Nom"
       },
       "controlType": "textbox",
       "fieldType": "default",
@@ -315,7 +315,7 @@
       "maximum": 0,
       "description": "Sector",
       "label": {
-        "primary": "Sector"
+        "primary": "Secteur"
       },
       "controlType": "dropdown",
       "fieldType": "default",
