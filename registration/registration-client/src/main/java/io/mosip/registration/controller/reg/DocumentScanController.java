@@ -317,6 +317,7 @@ public class DocumentScanController extends BaseController {
 		Label fileSizeInfoLabel = new Label();
 		fileSizeInfoLabel.setWrapText(true);
 		fileSizeInfoLabel.setText(RegistrationUIConstants.SCAN_DOC_INFO);
+		fileSizeInfoLabel.setStyle("-fx-text-fill: #020F59");
 		docScanVbox.getChildren().add(fileSizeInfoLabel);
 
 		for (UiSchemaDTO documentCategory : documentFields) {

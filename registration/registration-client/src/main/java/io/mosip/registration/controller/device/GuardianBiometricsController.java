@@ -357,12 +357,12 @@ public class GuardianBiometricsController extends BaseController /* implements I
 			registrationNavlabel.setVisible(false);
 			backButton.setVisible(false);
 			gheaderfooter.setVisible(false);
-			continueBtn.setText("SAVE");
+			continueBtn.setText("Valider");
 		} else {
 			registrationNavlabel.setVisible(true);
 			backButton.setVisible(true);
 			gheaderfooter.setVisible(true);
-			continueBtn.setText("CONTINUE");
+			continueBtn.setText("Continuer");
 		}
 
 		ContentHeader.getChildren().clear();
