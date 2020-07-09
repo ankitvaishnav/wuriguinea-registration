@@ -1227,7 +1227,7 @@ public class DemographicDetailController extends BaseController {
 			GenericDto selectedLocationHierarchy = srcLocationHierarchy.getSelectionModel().getSelectedItem();
 			if (selectedLocationHierarchy != null) {
 				destLocationHierarchy.getItems().clear();
-				destLocationHierarchyInLocal.getItems().clear();
+//				destLocationHierarchyInLocal.getItems().clear();
 
 				if (selectedLocationHierarchy.getCode().equalsIgnoreCase(RegistrationConstants.AUDIT_DEFAULT_USER)) {
 					destLocationHierarchy.getItems().add(selectedLocationHierarchy);
