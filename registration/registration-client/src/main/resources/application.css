@@ -566,7 +566,16 @@ Working on new Css by taleev
 	-fx-border-color: #BCE0FD;
 
 }
-
+.loginAnchorPaneStyle1{
+	-fx-pref-height: 110.0px;
+	-fx-pref-width: 200.0px;
+	-fx-background-color: #FFFFFF;
+	-fx-border-width: 1.0 1.0 1.0 1.0;
+	-fx-border-color: #020F59;
+	-fx-padding: -40.0px;
+	-fx-border-insets: 15.0px;
+    -fx-background-insets: 5.0px;
+}
 .loginAnchorPaneExtendedStyle{
 	-fx-pref-height: 300.0px;
 	-fx-pref-width: 400.0px;
