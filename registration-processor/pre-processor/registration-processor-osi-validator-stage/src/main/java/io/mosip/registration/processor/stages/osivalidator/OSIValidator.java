@@ -105,6 +105,9 @@ public class OSIValidator {
 	@Value("${mosip.kernel.applicant.type.age.limit}")
 	private String ageLimit;
 
+	@Value("${mosip.kernel.applicant.type.minor.limit}")
+	private String minorAgeLimit;
+
 	@Value("${registration.processor.applicant.dob.format}")
 	private String dobFormat;
 
@@ -468,7 +471,7 @@ public class OSIValidator {
 		if (registrationStatusDto.getRegistrationType().equalsIgnoreCase(SyncTypeDto.NEW.name())
 				|| (registrationStatusDto.getRegistrationType().equalsIgnoreCase(SyncTypeDto.UPDATE.name()))) {
 			int age = utility.getApplicantAge(registrationId);
-			int ageThreshold = Integer.parseInt(ageLimit);
+			int ageThreshold = Integer.parseInt(minorAgeLimit);
 			if (age < ageThreshold) {
 				if (!introducerValidation)
 					return true;
