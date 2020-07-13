@@ -6,7 +6,7 @@ on:
     types: [closed]
   push:
     branches:
-      - master
+      #- master
       - 1.1.0
   
 jobs:
@@ -53,7 +53,7 @@ jobs:
 
 
     - name: Upload the springboot jars 
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v1
       with:
         name: release
         path: ./release.zip
