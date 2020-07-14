@@ -17,6 +17,7 @@ jobs:
     - name: Clear artifacts
       uses: kolpav/purge-artifacts-action@v1
       with:
+        token: ${{ secrets.TOKEN }}
         expire-in: 1hr 
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
