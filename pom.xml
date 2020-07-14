@@ -54,7 +54,7 @@
                 </snapshotRepository>
                 <repository>
                         <id>central</id>
-                        <url>http://52.172.8.144:8040/artifactory/libs-release/</url>
+                        <url>http://52.172.8.144:8040/artifactory/libs-release</url>
                 </repository>
         </distributionManagement>
 	<build>
