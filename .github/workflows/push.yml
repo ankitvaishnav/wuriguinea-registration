@@ -149,13 +149,13 @@ jobs:
     - name: Publish the maven package
       run: |
         chmod +x ./deploy.sh
-        mvn deploy -DskipTests -Dgpg.skip -s $GITHUB_WORKSPACE/settings.xml -f pom.xml -DaltDeploymentRepository=http://52.172.8.144:8040/artifactory/libs-release
+        mvn deploy -DskipTests -Dgpg.skip -s $GITHUB_WORKSPACE/settings.xml -f pom.xml
         cd registration/registration-client/target
         mv *.zip reg-client.zip
         zip  reg-client.zip MANIFEST.MF
         zip -r reg-client.zip lib/
-      #env:
-        #GITHUB_TOKEN: ${{ secrets.access_token }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
     
     - name: Upload the client reg-client 
