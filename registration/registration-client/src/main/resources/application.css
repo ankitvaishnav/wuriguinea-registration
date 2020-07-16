@@ -429,7 +429,7 @@
 .loginSubmitStyle1{
 	-fx-pref-height: 30.0px;
 	-fx-pref-width: 50.0px;
-	-fx-background-color:#ffffff;
+	-fx-background-color: #ffffff;
 	-fx-background-radius: 6.0,5.0;
 	-fx-background-insets: 0.0,1.0;
 	-fx-text-fill: #020F59;;
@@ -566,8 +566,8 @@ Working on new Css by taleev
 	-fx-border-color: #BCE0FD;
 
 }
-.loginAnchorPaneStyle1{
-	-fx-pref-height: 110.0px;
+.loginAnchorPaneStyle2{
+	-fx-pref-height: 120.0px;
 	-fx-pref-width: 200.0px;
 	-fx-background-color: #FFFFFF;
 	-fx-border-width: 1.0 1.0 1.0 1.0;
@@ -575,14 +575,29 @@ Working on new Css by taleev
 	-fx-padding: -40.0px;
 	-fx-border-insets: 15.0px;
     -fx-background-insets: 5.0px;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
 }
+
+.loginAnchorPaneStyle1{
+	-fx-pref-height: 250.0px;
+	-fx-pref-width: 200.0px;
+	-fx-background-color: #FFFFFF;
+	-fx-border-width: 1.0 1.0 1.0 1.0;
+	-fx-border-color: #020F59;
+	-fx-padding: -40.0px;
+	-fx-border-insets: 15.0px;
+    -fx-background-insets: 5.0px;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
 .loginAnchorPaneExtendedStyle{
 	-fx-pref-height: 300.0px;
 	-fx-pref-width: 400.0px;
 	-fx-background-color: #FFFFFF;
 	-fx-border-width: 1.0 1.0 1.0 1.0;
 	-fx-border-color: #BCE0FD;
-
 }
 
 .loginTextStyle{
@@ -704,8 +719,76 @@ Working on new Css by taleev
 	-fx-background-color:#FFFFFF;
      -fx-text-fill: #020F59;
 }
-
-
+.paneChildFlowPane{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 270.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-padding: -40.0px;
+     -fx-border-insets: 15.0px;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+}
+.paneChildFlowPanePre{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 90.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-border-insets: 15.0px;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+     -fx-padding : -40.0px;
+}
+.paneChildFlowPaneInfo{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 310.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-padding: -40.0px -40.0px 15.0px -40.0px;
+     -fx-border-insets: -10.0px 15.0px 0.0px 15.0px ;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+}
+.paneChildFlowPaneAddress{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 280.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-padding: -40.0px;
+     -fx-border-insets: 5.0px 15.0px 15.0px 15.0px;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+}
+.paneChildFlowPaneGarden{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 200.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-padding: -40.0px;
+     -fx-border-insets: -10.0px 15.0px 15.0px 15.0px;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+}
 .documentContentButton{
 	-fx-border-width: 1.0 1.0 1.0 1.0;
 	-fx-border-color: #BCE0FD;
@@ -736,7 +819,8 @@ Working on new Css by taleev
 	-fx-text-fill: #020F59;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 	-fx-font-size: 1.2em;
-	 -fx-font-weight: bold;
+	-fx-font-weight: bold;
+	-fx-padding: 2.0px;
 }
 
 .contiuneButton:hover {
@@ -770,6 +854,7 @@ Working on new Css by taleev
 	-fx-text-alignment: center;
 	-fx-text-fill: #020F59;
 	-fx-font-weight: bold;
+	-fx-padding: 2.0px;
 }
 
 .backButton:hover {
@@ -795,14 +880,47 @@ Working on new Css by taleev
 	-fx-text-fill : #020F59;
 }
 
-
-
+.demoGraphicTextFieldPre{
+	-fx-border-color: #C9C9C9;
+	-fx-border-width: 0.0 0.0 1.0 0.0;
+	-fx-background-color: #FFFFFF;
+	-fx-prompt-text-fill: #020F59;
+	-fx-font-size: 1.2em;
+	-fx-text-fill : #020F59;
+	-fx-padding : -15.0px 0.0px 6.0px -2.0px;
+}
 .demographicLangHeader{
 	-fx-font-size : 1.4em;
 	-fx-text-fill : #020F59;
 	-fx-font-weight: bold;
 }
+/*
+padding: 10px 20px 30px 40px;
+top padding is 10px, right padding is 20px, bottom padding is 30px, left padding is 40px.
+*/
+.demographicSectionHeader{
+	-fx-font-size : 1.1em;
+	-fx-text-fill : #020F59;
+	-fx-font-weight: bold;
+	/*-fx-border-width: 0 0 1 0;
+    -fx-underline: true;*/
+    -fx-padding: 0.0px 0.0px -80.0px 45.0px;
+}
+.demographicSectionHeaderGarden{
+	-fx-font-size : 1.1em;
+	-fx-text-fill : #020F59;
+	-fx-font-weight: bold;
+	/*-fx-border-width: 0 0 1 0;
+    -fx-underline: true;*/
+    -fx-padding: 0.0px 0.0px -50.0px 45.0px;
+}
 
+.demographicSectionHeaderPre{
+	-fx-font-size : 1.1em;
+	-fx-text-fill : #020F59;
+	-fx-font-weight: bold;
+    -fx-padding: 2.0px 0.0px -40.0px 0.0px;
+}
 .demographicMiscTexts{
 	-fx-text-fill: #020F59;
 	-fx-font-size: 1.3em;
