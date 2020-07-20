@@ -213,7 +213,6 @@
                                                                                                 <children>
                                                                                                     <Label styleClass="demographicSectionHeader"
                                                                                                            text="%personal_information"/>
-                                                                                                    <!--Label styleClass="demographicLangHeader" text="%language" /-->
                                                                                                 </children>
                                                                                             </HBox>
                                                                                         </children>

@@ -741,7 +741,7 @@ Working on new Css by taleev
      -fx-pref-height: 90.0px;
      -fx-pref-width: 200.0px;
      -fx-border-width: 1.0 1.0 1.0 1.0;
-     -fx-border-insets: 15.0px;
+     -fx-border-insets: 36.0 15.0 0.0 15.0;
      -fx-background-insets: 5.0px;
      -fx-border-radius: 10 10 10 10;
      -fx-background-radius: 10 10 10 10;
@@ -752,11 +752,11 @@ Working on new Css by taleev
      -fx-text-fill: #020F59;
      -fx-border-color: #020F59;
      -fx-border-width: 2;
-     -fx-pref-height: 310.0px;
+     -fx-pref-height: 290.0px;
      -fx-pref-width: 200.0px;
      -fx-border-width: 1.0 1.0 1.0 1.0;
-     -fx-padding: -40.0px -40.0px 15.0px -40.0px;
-     -fx-border-insets: -10.0px 15.0px 0.0px 15.0px ;
+     -fx-padding: -30.0px -40.0px 15.0px -40.0px;
+     -fx-border-insets: 2.0px 15.0px 3.0px 15.0px ;
      -fx-background-insets: 5.0px;
      -fx-border-radius: 10 10 10 10;
      -fx-background-radius: 10 10 10 10;
@@ -769,8 +769,8 @@ Working on new Css by taleev
      -fx-pref-height: 280.0px;
      -fx-pref-width: 200.0px;
      -fx-border-width: 1.0 1.0 1.0 1.0;
-     -fx-padding: -40.0px;
-     -fx-border-insets: 5.0px 15.0px 15.0px 15.0px;
+     -fx-padding: -30.0px -40.0px -40.0px -40.0px;
+     -fx-border-insets: -1.0px 15.0px 15.0px 15.0px;
      -fx-background-insets: 5.0px;
      -fx-border-radius: 10 10 10 10;
      -fx-background-radius: 10 10 10 10;
@@ -783,8 +783,8 @@ Working on new Css by taleev
      -fx-pref-height: 200.0px;
      -fx-pref-width: 200.0px;
      -fx-border-width: 1.0 1.0 1.0 1.0;
-     -fx-padding: -40.0px;
-     -fx-border-insets: -10.0px 15.0px 15.0px 15.0px;
+     -fx-padding: -30.0 -40.0 -40.0 -40.0;
+     -fx-border-insets: -13.0px 15.0px 15.0px 15.0px;
      -fx-background-insets: 5.0px;
      -fx-border-radius: 10 10 10 10;
      -fx-background-radius: 10 10 10 10;
