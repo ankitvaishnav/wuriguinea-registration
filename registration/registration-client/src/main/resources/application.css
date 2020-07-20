@@ -910,8 +910,6 @@ top padding is 10px, right padding is 20px, bottom padding is 30px, left padding
 	-fx-font-size : 1.1em;
 	-fx-text-fill : #020F59;
 	-fx-font-weight: bold;
-	/*-fx-border-width: 0 0 1 0;
-    -fx-underline: true;*/
     -fx-padding: 0.0px 0.0px -50.0px 45.0px;
 }
 
