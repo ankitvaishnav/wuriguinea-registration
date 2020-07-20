@@ -111,7 +111,7 @@ public class DemographicDetailController extends BaseController {
     @FXML
     private FlowPane childFlowPaneInfo;
     @FXML
-    private FlowPane childFlowPaneGarden;
+    private FlowPane childFlowPaneGuardian;
     @FXML
     private FlowPane childFlowPaneAddress;
     @FXML
@@ -233,7 +233,7 @@ public class DemographicDetailController extends BaseController {
             parentFlow = parentFlowPane.getChildren();
             childFlow = childFlowPaneInfo.getChildren();
             childFlowAddress = childFlowPaneAddress.getChildren();
-            childFlowParent = childFlowPaneGarden.getChildren();
+            childFlowParent = childFlowPaneGuardian.getChildren();
 
             int position = parentFlow.size() - 1;
             int position1 = childFlow.size() - 1;
@@ -299,7 +299,7 @@ public class DemographicDetailController extends BaseController {
                             }
                         }
                         GridPane mainGridPane = addContent(left, right);
-                        childFlowPaneGarden.getChildren().add(mainGridPane);
+                        childFlowPaneGuardian.getChildren().add(mainGridPane);
                         position3++;
                         positionTracker.put(mainGridPane.getId(), position3);
                     }
@@ -766,9 +766,9 @@ public class DemographicDetailController extends BaseController {
                     ((TextField) parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianRID"))).setText("");
 
                     if (age < RegistrationConstants.MajorityAge) {
-                        childFlowPaneGarden.setVisible(true);
+                        childFlowPaneGuardian.setVisible(true);
                     } else {
-                        childFlowPaneGarden.setVisible(false);
+                        childFlowPaneGuardian.setVisible(false);
                     }
                 }
             });

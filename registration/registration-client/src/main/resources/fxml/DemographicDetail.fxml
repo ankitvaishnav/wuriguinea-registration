@@ -390,7 +390,7 @@
                                                                                 </rowConstraints>
                                                                             </GridPane>
                                                                         </FlowPane>
-                                                                        <FlowPane fx:id="childFlowPaneGarden"
+                                                                        <FlowPane fx:id="childFlowPaneGuardian"
                                                                                   prefWidth="200"
                                                                                   styleClass="paneChildFlowPaneGarden">
                                                                             <GridPane fx:id="languageLabelParentPane2"
