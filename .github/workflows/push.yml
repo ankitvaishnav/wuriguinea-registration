@@ -127,14 +127,14 @@ jobs:
         cd registration
         mvn clean install -DskipTests -Dgpg.skip -s $GITHUB_WORKSPACE/settings.xml -f pom.xml
         #mvn deploy -Dmaven.test.skip=true -Dgpg.skip=true -s $GITHUB_WORKSPACE/settings.xml -f pom.xml -DaltDeploymentRepository=central::default::http://52.172.8.144:8040/artifactory/libs-release
-        #cd registration/registration-client/target
-        ls -ltr registration-client/
-        ls -ltr registration-client/target/
-        mv registration-client/target/*.zip reg-client.zip
+        cd registration/registration-client/target
+        #ls -ltr registration-client/
+        #ls -ltr registration-client/target/
+        mv *.zip reg-client.zip
         ls -ltr
-        zip  reg-client.zip registration-client/target/MANIFEST.MF
+        zip  reg-client.zip MANIFEST.MF
         ls -ltr
-        zip -r reg-client.zip registration-client/target/lib/
+        zip -r reg-client.zip lib/
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
