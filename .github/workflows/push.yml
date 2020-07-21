@@ -132,6 +132,7 @@ jobs:
         ls -ltr registration-client/target/
         mv registration-client/target/*.zip reg-client.zip
         zip  reg-client.zip MANIFEST.MF
+        ls -ltr
         zip -r reg-client.zip lib/
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
