@@ -143,7 +143,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: reg-client
-        path: registration/reg-client.zip
+        path: registration/registration-client/target/reg-client.zip
 
   publish_to_nexus:
 
