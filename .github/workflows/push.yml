@@ -126,7 +126,7 @@ jobs:
       run: |
         cd registration
         mvn clean install -s $GITHUB_WORKSPACE/settings.xml -DskipTests --file pom.xml    
-        #mvn deploy -DskipTests -Dgpg.skip -s $GITHUB_WORKSPACE/settings.xml -f pom.xml -DaltDeploymentRepository=central::default::http://52.172.8.144:8040/artifactory/libs-release
+        #mvn deploy -Dmaven.test.skip=true -Dgpg.skip=true -s $GITHUB_WORKSPACE/settings.xml -f pom.xml -DaltDeploymentRepository=central::default::http://52.172.8.144:8040/artifactory/libs-release
         #cd registration/registration-client/target
         ls -ltr registration-client/
         ls -ltr registration-client/target/
