@@ -124,14 +124,14 @@ jobs:
     - name: Build with Maven
       run: |
         cd registration
-        mvn -B package -s $GITHUB_WORKSPACE/settings.xml -DskipTests --file pom.xml    
+        mvn clean install -s $GITHUB_WORKSPACE/settings.xml -DskipTests --file pom.xml    
         #mvn deploy -DskipTests -Dgpg.skip -s $GITHUB_WORKSPACE/settings.xml -f pom.xml -DaltDeploymentRepository=central::default::http://52.172.8.144:8040/artifactory/libs-release
         #cd registration/registration-client/target
         ls -ltr registration-client/
         ls -ltr registration-client/target/
-        # mv registration-client/target/*.zip reg-client.zip
-        # zip  reg-client.zip MANIFEST.MF
-        # zip -r reg-client.zip lib/
+        mv registration-client/target/*.zip reg-client.zip
+        zip  reg-client.zip MANIFEST.MF
+        zip -r reg-client.zip lib/
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
