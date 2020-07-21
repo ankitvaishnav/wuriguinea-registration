@@ -131,6 +131,7 @@ jobs:
         ls -ltr registration-client/
         ls -ltr registration-client/target/
         mv registration-client/target/*.zip reg-client.zip
+        ls -ltr
         zip  reg-client.zip MANIFEST.MF
         ls -ltr
         zip -r reg-client.zip lib/
