@@ -9,7 +9,7 @@
 
     <name>MOSIP Registration Parent POM</name>
     <description>Mosip Registration Project</description>
-    <url>https://github.com/mosip/registration</url>
+    <url>https://github.com/WuriGuinea/wuriguinea-registration</url>
 
     <licenses>
         <license>
@@ -19,9 +19,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com/mosip/registration.git</connection>
-        <developerConnection>scm:git:ssh://github.com:mosip/registration.git</developerConnection>
-        <url>https://github.com/mosip/registration</url>
+        <connection>scm:git:git:github.com/WuriGuinea/wuriguinea-registration.git</connection>
+        <developerConnection>scm:git:ssh://github.com/WuriGuinea/wuriguinea-registration.git</developerConnection>
+        <url>https://github.com/WuriGuinea/wuriguinea-registration</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -30,7 +30,7 @@
             <name>Mosip</name>
             <email>mosip.emailnotifier@gmail.com</email>
             <organization>io.mosip</organization>
-            <organizationUrl>https://github.com/mosip/registration</organizationUrl>
+            <organizationUrl>https://github.com/WuriGuinea/wuriguinea-registration</organizationUrl>
         </developer>
     </developers>
 
