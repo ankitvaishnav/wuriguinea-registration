@@ -72,7 +72,7 @@ jobs:
         ls -ltr registration/registration-client/target/
         mv registration/registration-client/target/*.zip reg-client.zip
         zip  reg-client.zip MANIFEST.MF
-        zip -r reg-client.zip lib/
+        zip -r reg-client.zip registration/registration-client/target/lib/
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
@@ -134,7 +134,7 @@ jobs:
         ls -ltr
         zip  reg-client.zip registration-client/target/MANIFEST.MF
         ls -ltr
-        zip -r reg-client.zip lib/
+        zip -r reg-client.zip registration-client/target/lib/
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
