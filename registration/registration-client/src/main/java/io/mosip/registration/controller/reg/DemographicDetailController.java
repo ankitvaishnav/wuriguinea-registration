@@ -109,6 +109,8 @@ public class DemographicDetailController extends BaseController {
     @FXML
     private FlowPane parentFlowPane;
     @FXML
+    private FlowPane childFlowPanePre;
+    @FXML
     private FlowPane childFlowPaneInfo;
     @FXML
     private FlowPane childFlowPaneGuardian;
@@ -303,28 +305,8 @@ public class DemographicDetailController extends BaseController {
                         position3++;
                         positionTracker.put(mainGridPane.getId(), position3);
                     }
-                    //continue;
-                }
-/*
-                if (isDemographicField(dto)) {
-                    left = dto;
                 }
 
-                if (left != null) {
-                    UiSchemaDTO right = null;
-                    if (iterator.hasNext()) {
-                        dto = iterator.next().getValue();
-                        if (isDemographicField(dto)) {
-                            right = dto;
-                        }
-                    }
-
-                    //TODO based on field type add it precreated gridpane
-                    GridPane mainGridPane = addContent(left, right);
-                    parentFlow.add(mainGridPane);
-                    position++;
-                    positionTracker.put(mainGridPane.getId(), position);
-                } */
             }
 
 
@@ -377,6 +359,9 @@ public class DemographicDetailController extends BaseController {
     }
 
     private void disablePreRegFetch() {
+        childFlowPanePre.setVisible(false);
+        childFlowPanePre.setManaged(false);
+        childFlowPanePre.setDisable(true);
         preRegParentPane.setVisible(false);
         preRegParentPane.setManaged(false);
         preRegParentPane.setDisable(true);
