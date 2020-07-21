@@ -35,26 +35,26 @@
     </developers>
 
          <repositories>
-         	 <repository>
-          		<id>central</id>
-		    	<name>Central Repository</name>
-            		<url>http://52.172.8.144:8040/artifactory/libs-release</url>
-            		<layout>default</layout>
-			<snapshots>
-			<enabled>true</enabled>
-            		</snapshots>
-          	</repository>
+<!--         	 <repository>-->
+<!--          		<id>central</id>-->
+<!--		    	<name>Central Repository</name>-->
+<!--            		<url>http://52.172.8.144:8040/artifactory/libs-release</url>-->
+<!--            		<layout>default</layout>-->
+<!--			<snapshots>-->
+<!--			<enabled>true</enabled>-->
+<!--            		</snapshots>-->
+<!--          	</repository>-->
         </repositories>
 	
         <distributionManagement>
-                <snapshotRepository>
-                        <id>central</id>
-                        <url>http://52.172.8.144:8040/artifactory/libs-snapshot</url>
-                </snapshotRepository>
-                 <repository>
-                        <id>central</id>
-                        <url>http://52.172.8.144:8040/artifactory/libs-release</url>
-                </repository>
+<!--                <snapshotRepository>-->
+<!--                        <id>central</id>-->
+<!--                        <url>http://52.172.8.144:8040/artifactory/libs-snapshot</url>-->
+<!--                </snapshotRepository>-->
+<!--                 <repository>-->
+<!--                        <id>central</id>-->
+<!--                        <url>http://52.172.8.144:8040/artifactory/libs-release</url>-->
+<!--                </repository>-->
         </distributionManagement>
     <build>
         <plugins>
