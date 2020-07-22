@@ -619,11 +619,12 @@ public class FXUtils {
 	 * @param selectedValue the selected value from the combo-box
 	 */
 	public void selectComboBoxValue(ComboBox<?> comboBox, String selectedValue) {
-		ObservableList<?> comboBoxValues = comboBox.getItems();		
+		ObservableList<?> comboBoxValues = comboBox.getItems();
+
 		if (!comboBoxValues.isEmpty()) {
 			IntPredicate findIndexOfSelectedItem = null;
 			if (comboBoxValues.get(0) instanceof DocumentCategoryDto) {
-				findIndexOfSelectedItem = index -> ((DocumentCategoryDto) comboBoxValues.get(index)).getCode()
+				findIndexOfSelectedItem = index -> ((DocumentCategoryDto) comboBoxValues.get(index)).getName()
 						.equals(selectedValue);
 				OptionalInt indexOfSelectedLocation = getIndexOfSelectedItem(comboBoxValues, findIndexOfSelectedItem);
 				if (indexOfSelectedLocation.isPresent()) {

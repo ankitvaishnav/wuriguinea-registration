@@ -18,5 +18,7 @@ public class MdmDeviceInfo {
 	private String digitalId;
 	private String deviceCode;
 	private String purpose;
+	private String env;
+	
 
 }

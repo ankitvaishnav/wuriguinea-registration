@@ -1,8 +1,7 @@
-/db
+db
 logs
 .idea
 /*.log
-*.iml
 /registration/*.iml
 /registration/registration-client/*.iml
 /registration/registration-libs/registration-libs.iml
