@@ -237,8 +237,6 @@
 	-fx-background-color: #d9d9d9;
 }
 
-
-
 .selectedResidence{
 	-fx-background-color:#BCE0FD;
 	-fx-border-color:#BCE0FD;
@@ -401,17 +399,11 @@
 	-fx-pref-width: 228.0px;
 }
 
-/*.loginTextStyle{
-	-fx-pref-height: 39.0px;
-	-fx-pref-width: 221.0px;
-}*/
-
 .hyperLinkStyle{
 	-fx-text-fill: #020F59;
 	-fx-underline: false;
 	-fx-border-color: transparent;
 	-fx-font-size : 12.0px;
-
 }
 
 .loginSubmitStyle{
@@ -429,7 +421,7 @@
 .loginSubmitStyle1{
 	-fx-pref-height: 30.0px;
 	-fx-pref-width: 50.0px;
-	-fx-background-color:#ffffff;
+	-fx-background-color: #ffffff;
 	-fx-background-radius: 6.0,5.0;
 	-fx-background-insets: 0.0,1.0;
 	-fx-text-fill: #020F59;;
@@ -437,7 +429,6 @@
 	-fx-font-weight: bold;
 	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 5.0, 0.0 , 0.0 , 1.0 );
 }
-
 
 .loginSubmitStyle:hover {
 	-fx-background-color:#FFFFFF;
@@ -529,11 +520,9 @@
 	-fx-border-width: 1.0;
 	-fx-border-style: solid;
 }
-
 /*
 Working on new Css by taleev
 */
-
 
 #loginScreen{
 	-fx-background-image : url('/images/LoginBackGround.png');
@@ -547,6 +536,7 @@ Working on new Css by taleev
 	-fx-pref-width: 1920.0px;
 
 }
+
 #footer-section{
 	-fx-background-color : rgb(0.0, 0.0, 0.0, 0.0);
 	-fx-alignment: center;
@@ -567,13 +557,38 @@ Working on new Css by taleev
 
 }
 
+.loginAnchorPaneStyle2{
+	-fx-pref-height: 120.0px;
+	-fx-pref-width: 200.0px;
+	-fx-background-color: #FFFFFF;
+	-fx-border-width: 1.0 1.0 1.0 1.0;
+	-fx-border-color: #020F59;
+	-fx-padding: -40.0px;
+	-fx-border-insets: 15.0px;
+    -fx-background-insets: 5.0px;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+.loginAnchorPaneStyle1{
+	-fx-pref-height: 250.0px;
+	-fx-pref-width: 200.0px;
+	-fx-background-color: #FFFFFF;
+	-fx-border-width: 1.0 1.0 1.0 1.0;
+	-fx-border-color: #020F59;
+	-fx-padding: -40.0px;
+	-fx-border-insets: 15.0px;
+    -fx-background-insets: 5.0px;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
 .loginAnchorPaneExtendedStyle{
 	-fx-pref-height: 300.0px;
 	-fx-pref-width: 400.0px;
 	-fx-background-color: #FFFFFF;
 	-fx-border-width: 1.0 1.0 1.0 1.0;
 	-fx-border-color: #BCE0FD;
-
 }
 
 .loginTextStyle{
@@ -639,14 +654,12 @@ Working on new Css by taleev
 	-fx-background-color:#FFFFFF;
 	-fx-pref-height: 600.0px;
 	-fx-pref-width: 1000.0px;
-
 }
 
 .biometricEceptionLabel{
 	-fx-text-fill : #020F59;
 	-fx-font-size : 20.0px;
 }
-
 
 .paneAtDisplayFaceCapture{
 	-fx-background-color:#FFFFFF;
@@ -680,6 +693,7 @@ Working on new Css by taleev
 	-fx-font-size : 1.1em;
 	-fx-text-fill: #020F59;
 }
+
 .demoGraphicPaneContentButton:hover {
 	-fx-background-color:#FFFFFF;
 	-fx-border-color: #020F59;
@@ -695,8 +709,77 @@ Working on new Css by taleev
 	-fx-background-color:#FFFFFF;
      -fx-text-fill: #020F59;
 }
+.paneChildFlowPane{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 270.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-padding: -40.0px;
+     -fx-border-insets: 15.0px;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+}
+.paneChildFlowPanePre{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 90.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-border-insets: 36.0 15.0 0.0 15.0;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+     -fx-padding : -40.0px;
+}
+.paneChildFlowPaneInfo{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 290.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-padding: -30.0px -40.0px 15.0px -40.0px;
+     -fx-border-insets: 2.0px 15.0px 3.0px 15.0px;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+}
 
-
+.paneChildFlowPaneAddress{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 280.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-padding: -30.0px -40.0px -40.0px -40.0px;
+     -fx-border-insets: -1.0px 15.0px 15.0px 15.0px;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+}
+.paneChildFlowPaneGarden{
+	-fx-background-color:#FFFFFF;
+     -fx-text-fill: #020F59;
+     -fx-border-color: #020F59;
+     -fx-border-width: 2;
+     -fx-pref-height: 200.0px;
+     -fx-pref-width: 200.0px;
+     -fx-border-width: 1.0 1.0 1.0 1.0;
+     -fx-padding: -30.0 -40.0 -40.0 -40.0;
+     -fx-border-insets: -13.0px 15.0px 15.0px 15.0px;
+     -fx-background-insets: 5.0px;
+     -fx-border-radius: 10 10 10 10;
+     -fx-background-radius: 10 10 10 10;
+}
 .documentContentButton{
 	-fx-border-width: 1.0 1.0 1.0 1.0;
 	-fx-border-color: #BCE0FD;
@@ -727,7 +810,8 @@ Working on new Css by taleev
 	-fx-text-fill: #020F59;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 	-fx-font-size: 1.2em;
-	 -fx-font-weight: bold;
+	-fx-font-weight: bold;
+	-fx-padding: 2.0px;
 }
 
 .contiuneButton:hover {
@@ -761,6 +845,7 @@ Working on new Css by taleev
 	-fx-text-alignment: center;
 	-fx-text-fill: #020F59;
 	-fx-font-weight: bold;
+	-fx-padding: 2.0px;
 }
 
 .backButton:hover {
@@ -786,14 +871,47 @@ Working on new Css by taleev
 	-fx-text-fill : #020F59;
 }
 
-
-
+.demoGraphicTextFieldPre{
+	-fx-border-color: #C9C9C9;
+	-fx-border-width: 0.0 0.0 1.0 0.0;
+	-fx-background-color: #FFFFFF;
+	-fx-prompt-text-fill: #020F59;
+	-fx-font-size: 1.2em;
+	-fx-text-fill : #020F59;
+	-fx-padding : -15.0px 0.0px 6.0px -2.0px;
+	-fx-insets : 0 0 0 0;
+	-fx-border-insets : 12 -2 0 50;
+}
 .demographicLangHeader{
 	-fx-font-size : 1.4em;
 	-fx-text-fill : #020F59;
 	-fx-font-weight: bold;
 }
+/*
+padding: 0.0px 0.0px -80px 45.0px;
+top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padding is -45px.
+*/
+.demographicSectionHeader{
+	-fx-font-size : 1.1em;
+	-fx-text-fill : #020F59;
+	-fx-font-weight: bold;
+    -fx-padding: 0.0px 0.0px -80.0px 45.0px;
+}
+.demographicSectionHeaderGarden{
+	-fx-font-size : 1.1em;
+	-fx-text-fill : #020F59;
+	-fx-font-weight: bold;
+    -fx-padding: 0.0px 0.0px -50.0px 45.0px;
+}
 
+.demographicSectionHeaderPre{
+	-fx-font-size : 1.1em;
+	-fx-text-fill : #020F59;
+	-fx-font-weight: bold;
+    -fx-padding: 3.0px 20.0px -40.0px 50.0px;
+    -fx-insets : 0 0 0 0;
+    -fx-border-insets : 0 20 0 -70;
+}
 .demographicMiscTexts{
 	-fx-text-fill: #020F59;
 	-fx-font-size: 1.3em;
@@ -982,7 +1100,6 @@ Working on new Css by taleev
 	-fx-border-width : 5;
 	-fx-padding : -2.5;
 	-fx-border-radius: 3,3,3,3;
-
 }
 
 .fingerPrintPanesSelected{
@@ -1016,8 +1133,6 @@ Working on new Css by taleev
 	-fx-padding : -2.5;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 }
-
-
 
 .bioIris{
 	-fx-border-color : #F0F0F0;
@@ -1266,12 +1381,9 @@ Working on new Css by taleev
 	-fx-font-family: Roboto;
 }
 
-
-
 /*
  *	rejection page
  */
-
 .rejectionPageHeader{
 	-fx-background-color : #FFFFFF;
 	-fx-pref-width : 400.0;
@@ -1284,14 +1396,12 @@ Working on new Css by taleev
 	-fx-font-size : 15.0px;
 	-fx-pref-heigth : 100.0;
 	-fx-pref-width : 400.0;
-
 }
 
 .rejectionPaneContent{
 	-fx-background-color : #FFFFFF;
 	-fx-pref-heigth : 150.0;
 	-fx-pref-width : 400.0;
-
 }
 
 .dfd{
@@ -2064,7 +2174,6 @@ Working on new Css by taleev
 
 .exceptionBackPane .table-view > .virtual-flow > .scroll-bar{
 	-fx-background-color : white;
-
 }
 
 .exceptionBackPane .table-cell {
@@ -2177,28 +2286,16 @@ Working on new Css by taleev
 .dialog-pane .button{
 	-fx-background-color:#BCE0FD;
 	-fx-text-fill: #020F59;
-	/*-fx-pref-height: 30.0px;
-	-fx-pref-width: 50.0px;
-	-fx-wrap-text: true;
-	-fx-cursor:hand; */
 }
 .dialog-pane .button:hover{
 	-fx-background-color:#FFFFFF;
 	-fx-border-color:#020F59;
 	-fx-text-fill: #020F59;
 	-fx-font-size: 12px;
-	/*-fx-max-width: 90px;
-	-fx-max-height: 45px;
-	/*-fx-border-color:#020F59;
-	-fx-text-fill: #020F59;
-	-fx-font-size: 12px;
-	-fx-wrap-text: true;
-	-fx-cursor:hand; */
 }
 
 .dialog-pane:header .header-panel {
 	-fx-background-color: #FFFFFF;
-	/*-fx-background-insets: 1;*/
 }
 
 .schedulerMsg{

@@ -894,7 +894,7 @@ public class RegistrationConstants {
 	public static final String FACE_RECAPTURE_TIME = "mosip.registration.face_recapture_time";
 	public static final String MIN_AGE = "mosip.kernel.applicant.type.age.limit";
 	public static final String MAX_AGE = "mosip.registration.max_age";
-	public static final int MajorityAge = 18; // TODO : Make it configurable
+	public static final int MajorityAge = 18;
 	public static final String DOC_SIZE = "mosip.registration.document_size";
 	public static final String DOC_TYPE = "mosip.registration.document_scanner_doctype";
 	public static final String ACK_INSIDE_PACKET = "mosip.registration.save_ack_inside_packet";
