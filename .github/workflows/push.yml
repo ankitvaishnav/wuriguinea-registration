@@ -127,15 +127,15 @@ jobs:
         cd registration
         mvn clean install -DskipTests -Dgpg.skip -s $GITHUB_WORKSPACE/settings.xml -f pom.xml
         #mvn deploy -Dmaven.test.skip=true -Dgpg.skip=true -s $GITHUB_WORKSPACE/settings.xml -f pom.xml -DaltDeploymentRepository=central::default::http://52.172.8.144:8040/artifactory/libs-release
-        cd registration-client/target
-        #ls -ltr registration-client/
-        #ls -ltr registration-client/target/
-        #mv *.zip reg-client.zip
+        cd registration-client/target/
+        ls -ltr registration-client/
+        ls -ltr registration-client/target/
+        mv *.zip reg-client.zip
         ls -ltr
-        zip  *.zip MANIFEST.MF
+        zip  reg-client.zip MANIFEST.MF
         ls -ltr
         zip -r reg-client.zip lib/
-        #curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release-local/io/mosip/wuri/registration/ reg-client.zip
+        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/ reg-client.zip
         #curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release-local/io/mosip/wuri/registration/ *
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
