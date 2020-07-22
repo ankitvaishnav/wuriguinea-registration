@@ -70,9 +70,9 @@ jobs:
         #cd registration/registration-client/target
         ls -ltr registration/registration-client/
         ls -ltr registration/registration-client/target/
-        mv registration/registration-client/target/*.zip registration/registration-client/target/reg-client.zip
-        zip  registration/registration-client/target/reg-client.zip registration/registration-client/target/MANIFEST.MF
-        zip -r registration/registration-client/target/reg-client.zip registration/registration-client/target/lib/
+        #mv registration/registration-client/target/*.zip registration/registration-client/target/reg-client.zip
+        #zip  registration/registration-client/target/reg-client.zip registration/registration-client/target/MANIFEST.MF
+        #zip -r registration/registration-client/target/reg-client.zip registration/registration-client/target/lib/
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
@@ -130,13 +130,13 @@ jobs:
         cd registration-client/target
         #ls -ltr registration-client/
         #ls -ltr registration-client/target/
-        mv *.zip reg-client.zip
+        #mv *.zip reg-client.zip
         ls -ltr
-        zip  reg-client.zip MANIFEST.MF
+        #zip  reg-client.zip MANIFEST.MF
         ls -ltr
-        zip -r reg-client.zip lib/
+        #zip -r reg-client.zip lib/
         curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release-local/io/mosip/wuri/registration/ reg-client.zip
-        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release-local/io/mosip/wuri/registration/ registration-client/target/MANIFEST.MF
+        #curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release-local/io/mosip/wuri/registration/ registration-client/target/
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
@@ -145,7 +145,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: reg-client
-        path: registration/registration-client/target/reg-client.zip
+        path: registration/registration-client/target/*.zip
 
   publish_to_nexus:
 
