@@ -9,7 +9,6 @@ target/
 .classpath
 .project
 .settings/
-bin/
 tmp/
 *.tmp
 *.bak
@@ -18,7 +17,6 @@ tmp/
 local.properties
 .loadpath
 .DS_Store
-reg/db.lck
 /PacketStore/*
 /PreRegPacketStore/*
 
