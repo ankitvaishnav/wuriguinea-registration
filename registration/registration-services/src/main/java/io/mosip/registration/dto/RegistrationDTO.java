@@ -95,6 +95,8 @@ public class RegistrationDTO {
 
 		if (!values.isEmpty())
 			this.demographics.put(fieldId, values);
+		else
+			this.demographics.put(fieldId, null);
 	}
 
 	public void removeDemographicField(String fieldId) {
@@ -112,14 +114,6 @@ public class RegistrationDTO {
 			int maxAge = Integer
 					.parseInt((String) applicationContext.getApplicationMap().get(RegistrationConstants.MAX_AGE));
 			this.isChild = this.age < minAge;
-		}
-	}
-	
-	public void setDateField(String fieldId, String dateString) {
-		if (isValidValue(dateString)) {
-			LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(DATE_FORMAT));
-			setDateField(fieldId, String.valueOf(date.getDayOfMonth()), String.valueOf(date.getMonthValue()),
-					String.valueOf(date.getYear()));
 		}
 	}
 

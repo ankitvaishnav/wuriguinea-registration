@@ -55,8 +55,14 @@ public class RequiredFieldValidator {
 				@SuppressWarnings("rawtypes")
 				Map context = new HashMap();
 				context.put("identity", registrationDTO.getMVELDataContext());
-				VariableResolverFactory resolverFactory = new MapVariableResolverFactory(context);
-				required = MVEL.evalToBoolean(expression.get().getExpr(), resolverFactory);
+				try {
+					VariableResolverFactory resolverFactory = new MapVariableResolverFactory(context);
+					required = MVEL.evalToBoolean(expression.get().getExpr(), resolverFactory);
+				} catch (Throwable e){
+					System.out.println("----------------------------------------------------------------------------------");
+					e.printStackTrace();
+				}
+
 			}
 		}		
 		return required;
@@ -76,7 +82,7 @@ public class RequiredFieldValidator {
 		}
 		
 		//Reg-client will capture the face of Infant and send it in Packet as part of IndividualBiometrics CBEFF (If Face is captured for the country)
-		if(registrationDTO.isChild() && RegistrationConstants.PACKET_TYPE_NEW.equals(registrationDTO.getRegistrationCategory()) && 
+		if(registrationDTO.getAge() < 6 && RegistrationConstants.PACKET_TYPE_NEW.equals(registrationDTO.getRegistrationCategory()) &&
 				APPLICANT_SUBTYPE.equals(subType) && requiredAttributes.contains("face")) {
 			return Arrays.asList("face"); //Only capture face
 		}

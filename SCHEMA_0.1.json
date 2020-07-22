@@ -72,8 +72,7 @@
       "requiredOn": [],
       "subType": "name",
       "contactType": null,
-      "group": "FullName",
-      "layoutCategory": "Info"
+      "group": "FullName"
     },
     {
       "id": "lastName",
@@ -101,8 +100,7 @@
       "requiredOn": [],
       "subType": null,
       "contactType": null,
-      "group": "FullName",
-      "layoutCategory": "Info"
+      "group": "FullName"
     },
     {
       "id": "gender",
@@ -124,8 +122,7 @@
       "requiredOn": [],
       "subType": null,
       "contactType": null,
-      "group": "Gender",
-      "layoutCategory": "Info"
+      "group": "Gender"
     },
     {
       "id": "dateOfBirth",
@@ -153,8 +150,7 @@
       "requiredOn": [],
       "subType": null,
       "contactType": null,
-      "group": "DateOfBirth",
-      "layoutCategory": "Info"
+      "group": "DateOfBirth"
     },
     {
       "id": "phone",
@@ -182,8 +178,7 @@
       "requiredOn": [],
       "subType": "Phone",
       "contactType": "email",
-      "group": "Phone",
-      "layoutCategory": "Info"
+      "group": "Phone"
     },
     {
       "id": "email",
@@ -211,8 +206,7 @@
       "requiredOn": [],
       "subType": "Email",
       "contactType": "email",
-      "group": "Email",
-      "layoutCategory": "Info"
+      "group": "Email"
     },
     {
       "id": "region",
@@ -233,8 +227,7 @@
       "requiredOn": [],
       "subType": "REGION",
       "contactType": "Postal",
-      "group": "Location",
-      "layoutCategory": "Address"
+      "group": "Location"
     },
     {
       "id": "prefecture",
@@ -262,8 +255,7 @@
       "requiredOn": [],
       "subType": "PREFECTURE",
       "contactType": "Postal",
-      "group": "Location",
-      "layoutCategory": "Address"
+      "group": "Location"
     },
     {
       "id": "subPrefectureOrCommune",
@@ -291,8 +283,7 @@
       "requiredOn": [],
       "subType": "SUBPREFECTURE_OR_COMMUNE",
       "contactType": "Postal",
-      "group": "Location",
-      "layoutCategory": "Address"
+      "group": "Location"
     },
     {
       "id": "district",
@@ -314,8 +305,7 @@
       "requiredOn": [],
       "subType": "DISTRICT",
       "contactType": null,
-      "group": "Location",
-      "layoutCategory": "Address"
+      "group": "Location"
     },
     {
       "id": "sector",
@@ -337,8 +327,7 @@
       "requiredOn": [],
       "subType": "SECTOR",
       "contactType": null,
-      "group": "Location",
-      "layoutCategory": "Address"
+      "group": "Location"
     },
     {
       "id": "additionalAddressDetails",
@@ -360,8 +349,29 @@
       "requiredOn": [],
       "subType": null,
       "contactType": "Postal",
-      "group": "Address",
-      "layoutCategory": "Address"
+      "group": "Address"
+    },
+    {
+      "id": "residenceStatus",
+      "inputRequired": true,
+      "type": "simpleType",
+      "minimum": 0,
+      "maximum": 0,
+      "description": "residenceStatus",
+      "label": {
+        "primary": "Résidence"
+      },
+      "controlType": "dropdown",
+      "fieldType": "default",
+      "format": "none",
+      "validators": [],
+      "fieldCategory": "kyc",
+      "required": true,
+      "bioAttributes": null,
+      "requiredOn": [],
+      "subType": "residenceStatus",
+      "contactType": null,
+      "group": "ResidenceStatus"
     },
     {
       "id": "parentOrGuardianFirstName",
@@ -394,8 +404,7 @@
       ],
       "subType": "parentOrGuardianFirstName",
       "contactType": null,
-      "group": "GuardianDetails",
-      "layoutCategory": "Parent"
+      "group": "GuardianDetails"
     },
     {
       "id": "parentOrGuardianLastName",
@@ -428,8 +437,7 @@
       ],
       "subType": "parentOrGuardianLastName",
       "contactType": null,
-      "group": "GuardianDetails",
-      "layoutCategory": "Parent"
+      "group": "GuardianDetails"
     },
     {
       "id": "parentOrGuardianRID",
@@ -455,8 +463,7 @@
       ],
       "subType": "RID",
       "contactType": null,
-      "group": "GuardianDetails",
-      "layoutCategory": "Parent"
+      "group": "GuardianDetails"
     },
     {
       "id": "parentOrGuardianUIN",
@@ -482,31 +489,7 @@
       ],
       "subType": "UIN",
       "contactType": null,
-      "group": "GuardianDetails",
-      "layoutCategory": "Parent"
-    },
-    {
-      "id": "residenceStatus",
-      "inputRequired": true,
-      "type": "simpleType",
-      "minimum": 0,
-      "maximum": 0,
-      "description": "residenceStatus",
-      "label": {
-        "primary": "Résidence"
-      },
-      "controlType": "dropdown",
-      "fieldType": "default",
-      "format": "none",
-      "validators": [],
-      "fieldCategory": "kyc",
-      "required": true,
-      "bioAttributes": null,
-      "requiredOn": [],
-      "subType": "residenceStatus",
-      "contactType": null,
-      "group": "ResidenceStatus",
-      "layoutCategory": "Info"
+      "group": "GuardianDetails"
     },
     {
       "id": "individualBiometrics",
