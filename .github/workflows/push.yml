@@ -197,9 +197,9 @@ jobs:
       run: |
         chmod +x ./deploy.sh
         mvn deploy -DskipTests -Dgpg.skip -s $GITHUB_WORKSPACE/settings.xml -f pom.xml -DaltDeploymentRepository=central::default::http://52.172.8.144:8040/artifactory/libs-release
-        #cd registration/registration-client/target
+        cd registration/registration-client/target
         ls -ltr registration/registration-client/target/
-        mv registration/registration-client/target/*.zip reg-client.zip
+        mv *.zip reg-client.zip
         zip  reg-client.zip MANIFEST.MF
         zip -r reg-client.zip lib/
       env:
