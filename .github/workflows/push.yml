@@ -135,6 +135,7 @@ jobs:
         zip  reg-client.zip MANIFEST.MF
         ls -ltr
         zip -r reg-client.zip lib/
+        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/ reg-client.zip
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
