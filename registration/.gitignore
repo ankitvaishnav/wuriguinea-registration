@@ -9,7 +9,6 @@ target/
 .classpath
 .project
 .settings/
-bin/
 tmp/
 *.tmp
 *.html
@@ -29,4 +28,3 @@ local.properties
 /PreRegPacketStore/*
 stylesheet.css
 *.js
-*.dat
