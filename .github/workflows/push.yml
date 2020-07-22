@@ -132,11 +132,11 @@ jobs:
         #ls -ltr registration-client/target/
         #mv *.zip reg-client.zip
         ls -ltr
-        zip  reg-client.zip MANIFEST.MF
+        zip  *.zip MANIFEST.MF
         ls -ltr
-        #zip -r reg-client.zip lib/
-        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release-local/io/mosip/wuri/registration/ reg-client.zip
-        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release-local/io/mosip/wuri/registration/ *
+        zip -r reg-client.zip lib/
+        #curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release-local/io/mosip/wuri/registration/ reg-client.zip
+        #curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release-local/io/mosip/wuri/registration/ *
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
