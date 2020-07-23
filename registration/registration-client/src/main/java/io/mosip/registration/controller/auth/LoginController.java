@@ -266,9 +266,7 @@ public class LoginController extends BaseController implements Initializable {
 			loginRoot = BaseController.load(getClass().getResource(RegistrationConstants.INITIAL_PAGE));
 
 			scene = getScene(loginRoot);
-			if(!isInitialSetUp){
-				loadUIElementsFromSchema();
-			}
+			loadUIElementsFromSchema();
 			pageFlow.loadPageFlow();
 			Screen screen = Screen.getPrimary();
 			Rectangle2D bounds = screen.getVisualBounds();
@@ -311,7 +309,7 @@ public class LoginController extends BaseController implements Initializable {
 					ioException.getMessage() + ExceptionUtils.getStackTrace(ioException));
 
 			generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.UNABLE_LOAD_LOGIN_SCREEN);
-		} catch (RuntimeException | RegBaseCheckedException runtimeException) {
+		} catch (RuntimeException runtimeException) {
 
 			LOGGER.error(LoggerConstants.LOG_REG_LOGIN, APPLICATION_NAME, APPLICATION_ID,
 					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));

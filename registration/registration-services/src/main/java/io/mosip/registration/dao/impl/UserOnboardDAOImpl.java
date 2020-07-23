@@ -240,11 +240,13 @@ public class UserOnboardDAOImpl implements UserOnboardDAO {
 					.findByIsActiveTrueAndNameAndRegMachineSpecIdLangCode(machineName.toLowerCase(), ApplicationContext.applicationLanguage());
 
 			if (machineMaster != null && machineMaster.getRegMachineSpecId().getId() != null) {
-
+				LOGGER.info(LOG_REG_USER_ONBOARD, APPLICATION_NAME, APPLICATION_ID,
+						"getStationID() machineSpecID --> " + machineMaster.getRegMachineSpecId().getId());
 				return machineMaster.getRegMachineSpecId().getId();
 
 			} else {
-
+				LOGGER.info(LOG_REG_USER_ONBOARD, APPLICATION_NAME, APPLICATION_ID,
+						"getStationID() machineSpecID --> null");
 				return null;
 			}
 
@@ -274,10 +276,11 @@ public class UserOnboardDAOImpl implements UserOnboardDAO {
 					.findByIsActiveTrueAndCenterMachineIdMachineId(stationId);
 
 			if (regCenterMachineDtls != null && regCenterMachineDtls.getCenterMachineId().getRegCenterId() != null) {
-
+				LOGGER.info(LOG_REG_USER_ONBOARD, APPLICATION_NAME, APPLICATION_ID, "getCenterID() centerId --> " + regCenterMachineDtls.getCenterMachineId().getRegCenterId());
 				return regCenterMachineDtls.getCenterMachineId().getRegCenterId();
 
 			} else {
+				LOGGER.info(LOG_REG_USER_ONBOARD, APPLICATION_NAME, APPLICATION_ID, "getCenterID() centerId --> null");
 				return null;
 			}
 
