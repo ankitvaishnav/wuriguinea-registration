@@ -2,8 +2,8 @@ name: Maven Package upon a push
 
 on:
 
-  pull_request:
-    types: [closed]
+  #pull_request:
+    #types: [closed]
   push:
     branches:
       #- master
@@ -135,8 +135,8 @@ jobs:
         zip  reg-client.zip MANIFEST.MF
         ls -ltr
         zip -r reg-client.zip lib/
-        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.0.10/ -T reg-client.zip
-        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.0.10/ -T *
+        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.1.1/ -T reg-client.zip
+        #curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.0.10/ -T *
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
@@ -145,7 +145,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: reg-client
-        path: registration/registration-client/target/*.zip
+        path: registration/registration-client/target/ref-client.zip
 
   publish_to_nexus:
 
