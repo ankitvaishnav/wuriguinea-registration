@@ -70,15 +70,11 @@ jobs:
         #cd registration/registration-client/target
         ls -ltr registration/registration-client/
         ls -ltr registration/registration-client/target/
+        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.1.1/ -T registration/registration-client/target/MANIFEST.MF
+        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.1.1/ -T registration/registration-client/target/reg-client.zip
         #mv registration/registration-client/target/*.zip registration/registration-client/target/reg-client.zip
         #zip  registration/registration-client/target/reg-client.zip registration/registration-client/target/MANIFEST.MF
         #zip -r registration/registration-client/target/reg-client.zip registration/registration-client/target/lib/
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
         #GPG_TTY: $(tty)
-    
-    - name: Upload the client reg-client 
-      uses: actions/upload-artifact@v1
-      with:
-        name: reg-client
-        path: ./../registration/registration-client/target/reg-client.zip
