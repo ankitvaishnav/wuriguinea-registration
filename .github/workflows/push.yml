@@ -81,4 +81,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: reg-client
-        path: registration/registration-client/target/reg-client.zip
+        path: ./../registration/registration-client/target/reg-client.zip
