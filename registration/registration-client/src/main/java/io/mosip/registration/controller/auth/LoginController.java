@@ -283,7 +283,7 @@ public class LoginController extends BaseController implements Initializable {
 
 			// Execute SQL file (Script files on update)
 			executeSQLFile();
-
+			deviceSpecificationFactory.init();
 			if (hasUpdate) {
 
 				// Update Application
@@ -300,7 +300,7 @@ public class LoginController extends BaseController implements Initializable {
 				}
 				jobConfigurationService.startScheduler();
 
-				deviceSpecificationFactory.init();
+//				deviceSpecificationFactory.init();
 			}
 
 		} catch (IOException ioException) {

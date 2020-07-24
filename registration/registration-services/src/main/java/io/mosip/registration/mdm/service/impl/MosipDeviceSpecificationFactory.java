@@ -101,10 +101,10 @@ public class MosipDeviceSpecificationFactory {
 
 		portFrom = ApplicationContext.map().get(RegistrationConstants.MDM_START_PORT_RANGE) != null
 				? Integer.parseInt((String) ApplicationContext.map().get(RegistrationConstants.MDM_START_PORT_RANGE))
-				: 0;
+				: 4500;
 		portTo = ApplicationContext.map().get(RegistrationConstants.MDM_END_PORT_RANGE) != null
 				? Integer.parseInt((String) ApplicationContext.map().get(RegistrationConstants.MDM_END_PORT_RANGE))
-				: 0;
+				: 4600;
 
 		if (portFrom != 0) {
 			for (int port = portFrom; port <= portTo; port++) {
