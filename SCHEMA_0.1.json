@@ -72,7 +72,7 @@
       "requiredOn": [],
       "subType": "name",
       "contactType": null,
-      "group": "FullName",
+      "group": "Prénom(s)",
       "layoutCategory": "Info"
     },
     {
@@ -101,7 +101,7 @@
       "requiredOn": [],
       "subType": null,
       "contactType": null,
-      "group": "FullName",
+      "group": "Nom",
       "layoutCategory": "Info"
     },
     {
@@ -124,7 +124,7 @@
       "requiredOn": [],
       "subType": null,
       "contactType": null,
-      "group": "Gender",
+      "group": "Genre",
       "layoutCategory": "Info"
     },
     {
@@ -153,7 +153,7 @@
       "requiredOn": [],
       "subType": null,
       "contactType": null,
-      "group": "DateOfBirth",
+      "group": "Date de Naissance",
       "layoutCategory": "Info"
     },
     {
@@ -182,7 +182,7 @@
       "requiredOn": [],
       "subType": "Phone",
       "contactType": "email",
-      "group": "Phone",
+      "group": "No. de tél. portable",
       "layoutCategory": "Info"
     },
     {
@@ -193,7 +193,7 @@
       "maximum": 0,
       "description": "email",
       "label": {
-        "primary": "Courriel"
+        "primary": "E-mail"
       },
       "controlType": "textbox",
       "fieldType": "default",
@@ -211,7 +211,7 @@
       "requiredOn": [],
       "subType": "Email",
       "contactType": "email",
-      "group": "Email",
+      "group": "E-mail",
       "layoutCategory": "Info"
     },
     {
@@ -233,7 +233,7 @@
       "requiredOn": [],
       "subType": "REGION",
       "contactType": "Postal",
-      "group": "Location",
+      "group": "Addresse",
       "layoutCategory": "Address"
     },
     {
@@ -262,7 +262,7 @@
       "requiredOn": [],
       "subType": "PREFECTURE",
       "contactType": "Postal",
-      "group": "Location",
+      "group": "Addresse",
       "layoutCategory": "Address"
     },
     {
@@ -291,7 +291,7 @@
       "requiredOn": [],
       "subType": "SUBPREFECTURE_OR_COMMUNE",
       "contactType": "Postal",
-      "group": "Location",
+      "group": "Addresse",
       "layoutCategory": "Address"
     },
     {
@@ -314,7 +314,7 @@
       "requiredOn": [],
       "subType": "DISTRICT",
       "contactType": null,
-      "group": "Location",
+      "group": "Addresse",
       "layoutCategory": "Address"
     },
     {
@@ -337,7 +337,7 @@
       "requiredOn": [],
       "subType": "SECTOR",
       "contactType": null,
-      "group": "Location",
+      "group": "Addresse",
       "layoutCategory": "Address"
     },
     {
@@ -360,7 +360,7 @@
       "requiredOn": [],
       "subType": null,
       "contactType": "Postal",
-      "group": "Address",
+      "group": "Addresse",
       "layoutCategory": "Address"
     },
     {
@@ -394,7 +394,7 @@
       ],
       "subType": "parentOrGuardianFirstName",
       "contactType": null,
-      "group": "GuardianDetails",
+      "group": "Info. du parent/tuteur",
       "layoutCategory": "Parent"
     },
     {
@@ -428,7 +428,7 @@
       ],
       "subType": "parentOrGuardianLastName",
       "contactType": null,
-      "group": "GuardianDetails",
+      "group": "Info. du parent/tuteur",
       "layoutCategory": "Parent"
     },
     {
@@ -455,7 +455,7 @@
       ],
       "subType": "RID",
       "contactType": null,
-      "group": "GuardianDetails",
+      "group": "Info. du parent/tuteur",
       "layoutCategory": "Parent"
     },
     {
@@ -482,7 +482,7 @@
       ],
       "subType": "UIN",
       "contactType": null,
-      "group": "GuardianDetails",
+      "group": "Info. du parent/tuteur",
       "layoutCategory": "Parent"
     },
     {
@@ -493,7 +493,7 @@
       "maximum": 0,
       "description": "residenceStatus",
       "label": {
-        "primary": "Résidence"
+        "primary": "Nationalité"
       },
       "controlType": "dropdown",
       "fieldType": "default",
@@ -505,7 +505,7 @@
       "requiredOn": [],
       "subType": "residenceStatus",
       "contactType": null,
-      "group": "ResidenceStatus",
+      "group": "Nationalité",
       "layoutCategory": "Info"
     },
     {
@@ -542,7 +542,7 @@
       "requiredOn": [],
       "subType": "applicant",
       "contactType": null,
-      "group": "Biometrics"
+      "group": "Données Biométriques"
     },
     {
       "id": "parentOrGuardianBiometrics",
@@ -580,7 +580,7 @@
       ],
       "subType": "introducer",
       "contactType": null,
-      "group": "Biometrics"
+      "group": "Données Biométriques"
     },
     {
       "id": "proofOfConsent",
@@ -602,7 +602,7 @@
       "requiredOn": [],
       "subType": "POC",
       "contactType": null,
-      "group": "Documents"
+      "group": "Justificatifs"
     },
     {
       "id": "proofOfAddress",
@@ -624,7 +624,7 @@
       "requiredOn": [],
       "subType": "POA",
       "contactType": null,
-      "group": "Documents"
+      "group": "Justificatifs"
     },
     {
       "id": "proofOfIdentity",
@@ -646,7 +646,7 @@
       "requiredOn": [],
       "subType": "POI",
       "contactType": null,
-      "group": "Documents"
+      "group": "Justificatifs"
     },
     {
       "id": "proofOfRelationship",
@@ -668,7 +668,7 @@
       "requiredOn": [],
       "subType": "POR",
       "contactType": null,
-      "group": "Documents"
+      "group": "Justificatifs"
     },
     {
       "id": "proofOfDateOfBirth",
@@ -690,7 +690,7 @@
       "requiredOn": [],
       "subType": "POB",
       "contactType": null,
-      "group": "Documents"
+      "group": "Justificatifs"
     },
     {
       "id": "proofOfException",
@@ -712,7 +712,7 @@
       "requiredOn": [],
       "subType": "POE",
       "contactType": null,
-      "group": "Documents"
+      "group": "Justificatifs"
     }
   ],
   "schemaJson": "{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"description\":\"Wuri Guinea ID Schema\",\"additionalProperties\":false,\"title\":\"Wuri Guinea ID Schema\",\"type\":\"object\",\"definitions\":{\"simpleType\":{\"uniqueItems\":true,\"additionalItems\":false,\"type\":\"array\",\"items\":{\"additionalProperties\":false,\"type\":\"object\",\"required\":[\"language\",\"value\"],\"properties\":{\"language\":{\"type\":\"string\"},\"value\":{\"type\":\"string\",\"validators\":[{\"type\":\"regex\",\"validator\":\"^(?=.{0,50}$).*\",\"arguments\":[]}]}}}},\"documentType\":{\"additionalProperties\":false,\"type\":\"object\",\"properties\":{\"format\":{\"type\":\"string\"},\"type\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}},\"biometricsType\":{\"additionalProperties\":false,\"type\":\"object\",\"properties\":{\"format\":{\"type\":\"string\"},\"version\":{\"type\":\"number\",\"minimum\":0},\"value\":{\"type\":\"string\"}}}},\"properties\":{\"identity\":{\"additionalProperties\":false,\"type\":\"object\",\"required\":[\"IDSchemaVersion\",\"UIN\",\"firstName\",\"lastName\",\"dateOfBirth\",\"gender\",\"region\",\"prefecture\",\"subPrefectureOrCommune\",\"district\",\"sector\",\"additionalAddressDetails\",\"phone\",\"email\",\"proofOfConsent\",\"individualBiometrics\"],\"properties\":{\"IDSchemaVersion\":{\"fieldCategory\":\"none\",\"format\":\"none\",\"type\":\"number\",\"fieldType\":\"default\",\"minimum\":0},\"UIN\":{\"fieldCategory\":\"none\",\"format\":\"none\",\"type\":\"integer\",\"fieldType\":\"default\",\"minimum\":0},\"firstName\":{\"validators\":[{\"validator\":\"^(?=.{0,120}$).*\",\"arguments\":[],\"type\":\"regex\"}],\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\"},\"lastName\":{\"validators\":[{\"validator\":\"^(?=.{0,120}$).*\",\"arguments\":[],\"type\":\"regex\"}],\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\"},\"gender\":{\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\"},\"dateOfBirth\":{\"validators\":[{\"validator\":\"^(1869|18[7-9][0-9]|19\\\\d\\\\d|20\\\\d\\\\d)/([0][1-9]|1[0-2])/([0][1-9]|[1-2]\\\\d|3[01])$\",\"arguments\":[],\"type\":\"regex\"}],\"fieldCategory\":\"pvt\",\"format\":\"none\",\"type\":\"string\",\"fieldType\":\"default\"},\"phone\":{\"validators\":[{\"validator\":\"^(6[256]{1})([0-9]{7})$\",\"arguments\":[],\"type\":\"regex\"}],\"fieldCategory\":\"pvt\",\"format\":\"none\",\"type\":\"string\",\"fieldType\":\"default\"},\"email\":{\"validators\":[{\"validator\":\"^[\\\\w-\\\\+]+(\\\\.[\\\\w]+)*@[\\\\w-]+(\\\\.[\\\\w]+)*(\\\\.[a-zA-Z]{2,})$\",\"arguments\":[],\"type\":\"regex\"}],\"fieldCategory\":\"pvt\",\"format\":\"none\",\"type\":\"string\",\"fieldType\":\"default\"},\"region\":{\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\"},\"prefecture\":{\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\"},\"subPrefectureOrCommune\":{\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\"},\"district\":{\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\"},\"sector\":{\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\"},\"additionalAddressDetails\":{\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"type\":\"string\"},\"residenceStatus\":{\"fieldCategory\":\"kyc\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\"},\"parentOrGuardianFirstName\":{\"fieldCategory\":\"optional\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\",\"validators\":[{\"type\":\"regex\",\"validator\":\"^(?=.{0,120}$).*\",\"arguments\":[]}]},\"parentOrGuardianLastName\":{\"fieldCategory\":\"optional\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/simpleType\",\"validators\":[{\"type\":\"regex\",\"validator\":\"^(?=.{0,120}$).*\",\"arguments\":[]}]},\"parentOrGuardianRID\":{\"fieldCategory\":\"optional\",\"format\":\"none\",\"fieldType\":\"default\",\"type\":\"integer\"},\"parentOrGuardianUIN\":{\"fieldCategory\":\"optional\",\"format\":\"none\",\"fieldType\":\"default\",\"type\":\"integer\"},\"individualBiometrics\":{\"bioAttributes\":[\"leftIris\",\"face\"],\"fieldCategory\":\"pvt\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/biometricsType\"},\"parentOrGuardianBiometrics\":{\"bioAttributes\":[\"face\"],\"fieldCategory\":\"evidence\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/biometricsType\"},\"proofOfConsent\":{\"fieldCategory\":\"evidence\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/documentType\"},\"proofOfAddress\":{\"fieldCategory\":\"evidence\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/documentType\"},\"proofOfIdentity\":{\"fieldCategory\":\"evidence\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/documentType\"},\"proofOfRelationship\":{\"fieldCategory\":\"evidence\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/documentType\"},\"proofOfDateOfBirth\":{\"fieldCategory\":\"evidence\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/documentType\"},\"proofOfException\":{\"fieldCategory\":\"evidence\",\"format\":\"none\",\"fieldType\":\"default\",\"$ref\":\"#/definitions/documentType\"}}}}}",

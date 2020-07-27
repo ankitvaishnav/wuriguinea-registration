@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.*;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -58,10 +59,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -563,6 +560,7 @@ public class DemographicDetailController extends BaseController {
 
         Label orLabel = new Label(localLanguage ? localLabelBundle.getString("ageOrDOBField")
                 : applicationLabelBundle.getString("ageOrDOBField"));
+        orLabel.setStyle("-fx-text-fill:#020F59");
 
         VBox orVbox = new VBox();
         orVbox.setPrefWidth(100);
@@ -593,6 +591,12 @@ public class DemographicDetailController extends BaseController {
 
     public VBox addContentWithTextField(UiSchemaDTO schema, String fieldName, String languageType) {
         TextField field = new TextField();
+        //Formating the TextField caps automatically
+        field.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+        }));
+
         Label label = new Label();
         Label validationMessage = new Label();
 
@@ -660,7 +664,6 @@ public class DemographicDetailController extends BaseController {
         hB.getChildren().add(validationMessage);
         hB.setStyle("-fx-background-color:WHITE");
         vbox.getChildren().add(hB);
-
         fxUtils.onTypeFocusUnfocusListener(parentFlowPane, field);
         return vbox;
     }
@@ -697,7 +700,6 @@ public class DemographicDetailController extends BaseController {
         Label label = new Label();
         Label validationMessage = new Label();
         StringConverter<T> uiRenderForComboBox = fxUtils.getStringConverterForComboBox();
-
         VBox vbox = new VBox();
         field.setId(fieldName + languageType);
         field.setPrefWidth(vbox.getPrefWidth());

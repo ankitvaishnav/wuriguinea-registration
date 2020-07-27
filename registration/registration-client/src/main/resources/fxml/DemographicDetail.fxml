@@ -311,7 +311,6 @@
                                                                                                 <children>
                                                                                                     <Label styleClass="demographicSectionHeader"
                                                                                                            text="%addresses"/>
-                                                                                                    <!--Label styleClass="demographicLangHeader" text="%language" /-->
                                                                                                 </children>
                                                                                             </HBox>
                                                                                         </children>
@@ -405,7 +404,6 @@
                                                                                                 <children>
                                                                                                     <Label styleClass="demographicSectionHeaderGarden"
                                                                                                            text="%garden_information"/>
-                                                                                                    <!--Label styleClass="demographicLangHeader" text="%language" /-->
                                                                                                 </children>
                                                                                             </HBox>
                                                                                         </children>
@@ -647,13 +645,6 @@
                                 <Button fx:id="backBtn" minWidth="${backButton.width/2}" mnemonicParsing="false"
                                         onAction="#back" styleClass="backButton" text="%back" visible="false"
                                         GridPane.valignment="TOP">
-                                    <!--graphic>
-                                       <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                             <Image url="@../images/arrowLeft.png" />
-                                          </image>
-                                       </ImageView>
-                                    </graphic-->
                                 </Button>
                             </children>
                             <columnConstraints>
@@ -669,13 +660,6 @@
                                 <Button fx:id="continueBtn" minWidth="${backButton.width/2}" mnemonicParsing="false"
                                         onAction="#next" styleClass="contiuneButton" text="%continue"
                                         GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                                    <!--graphic>
-                                       <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                             <Image url="@../images/arrowRight.png" />
-                                          </image>
-                                       </ImageView>
-                                    </graphic-->
                                 </Button>
                             </children>
                             <columnConstraints>
