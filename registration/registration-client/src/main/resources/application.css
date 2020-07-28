@@ -878,9 +878,9 @@ Working on new Css by taleev
 	-fx-prompt-text-fill: #020F59;
 	-fx-font-size: 1.2em;
 	-fx-text-fill : #020F59;
-	-fx-padding : -15.0px 0.0px 6.0px -2.0px;
+	-fx-padding : -15.0px 0.0px -6.0px -2.0px;
 	-fx-insets : 0 0 0 0;
-	-fx-border-insets : 12 -2 0 50;
+	-fx-border-insets : 12 -2 -10 44;
 }
 .demographicLangHeader{
 	-fx-font-size : 1.4em;
@@ -895,20 +895,20 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-font-size : 1.1em;
 	-fx-text-fill : #020F59;
 	-fx-font-weight: bold;
-    -fx-padding: 0.0px 0.0px -80.0px 45.0px;
+    -fx-padding: 0.0px 0.0px -80.0px 35.0px;
 }
 .demographicSectionHeaderGarden{
 	-fx-font-size : 1.1em;
 	-fx-text-fill : #020F59;
 	-fx-font-weight: bold;
-    -fx-padding: 0.0px 0.0px -50.0px 45.0px;
+    -fx-padding: 0.0px 0.0px -50.0px 35.0px;
 }
 
 .demographicSectionHeaderPre{
 	-fx-font-size : 1.1em;
 	-fx-text-fill : #020F59;
 	-fx-font-weight: bold;
-    -fx-padding: 3.0px 20.0px -40.0px 50.0px;
+    -fx-padding: -5.0px 20.0px -50.0px 40.0px;
     -fx-insets : 0 0 0 0;
     -fx-border-insets : 0 20 0 -70;
 }
@@ -1035,7 +1035,9 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 .demographicCombobox .list-cell {
 	-fx-text-fill: #020F59;
 }
-
+.demographicCombobox .list-cell:focused {
+	-fx-text-fill: #000000;
+}
 .documentCombobox{
 	-fx-background-color:#ffffff;
 	-fx-border-width: 0.0 0.0 1.0 0.0;
@@ -1539,6 +1541,10 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-background-insets: 0.0,0.0 0.0 1.0 0.0;
 	-fx-border-width: 0.0 0.0 2.0 0.0;
 }
+.uinUpdateLabels{
+ -fx-text-fill: #020F59;
+}
+
 .uinUpdateLabelsTypeTwo{
 	-fx-text-fill : #666666;
 	-fx-font-size : 15.0px;
