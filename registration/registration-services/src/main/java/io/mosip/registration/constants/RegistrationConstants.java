@@ -41,7 +41,6 @@ public class RegistrationConstants {
 	public static final String ONHOLD_PAGE = "/fxml/OnholdComment.fxml";
 	public static final String REJECTION_PAGE = "/fxml/RejectionComment.fxml";
 	public static final String USER_AUTHENTICATION = "/fxml/Authentication.fxml";
-	public static final String WEB_CAMERA_PAGE = "/fxml/WebCamera.fxml";
 	public static final String PENDING_ACTION_PAGE = "/fxml/RegistrationPendingAction.fxml";
 	public static final String PENDING_APPROVAL_PAGE = "/fxml/RegistrationPendingApproval.fxml";
 	public static final String REREGISTRATION_PAGE = "/fxml/ReRegistration.fxml";
@@ -49,10 +48,6 @@ public class RegistrationConstants {
 	public static final String UIN_UPDATE = "/fxml/UpdateUIN.fxml";
 	public static final String SYNC_DATA = "/fxml/SyncDataProcess.fxml";
 	public static final String USER_ONBOARD = "/fxml/Onboard.fxml";
-	public static final String USER_ONBOARD_FP = "/fxml/UserOnboardFPCapture.fxml";
-	public static final String USER_ONBOARD_IRIS = "/fxml/UserOnboardIrisCapture.fxml";
-	public static final String USER_ONBOARD_WEBCAM = "/fxml/UserOnboardWebCamera.fxml";
-	public static final String BIO_EXCEPTION_PAGE = "/fxml/BiometricException.fxml";
 	public static final String SEND_NOTIFICATION_PAGE = "/fxml/SendNotification.fxml";
 	public static final String PACKET_UPLOAD_STATUS_UI = "/fxml/PacketUploadStatus.fxml";
 	public static final String ALERT_GENERATION = "/fxml/Alert.fxml";
@@ -88,7 +83,7 @@ public class RegistrationConstants {
 	public static final String ONBOARD_USER_SUCCESS = "userOnboardSuccess";
 	// public static final String BIOMETRIC_EXCEPTION_FLOW =
 	// "biometricExceptionFlow";
-	public static final String GUARDIAN_BIOMETRIC = "guardianBiometric";
+	public static final String GUARDIAN_BIOMETRIC = "biometric";
 
 	// css for quality indicator
 	public static final String RETRY_ATTEMPT = "#retryAttempt_";
@@ -360,7 +355,7 @@ public class RegistrationConstants {
 	// onBoard User
 	public static final String ONBOARD_STYLE_CLASS = "onboardAlertMsg";
 	public static final String ONBOARD_IMG_PATH = "images/tick.png";
-	public static final String ONBOARD_LAST_BIOMETRIC_UPDTAE_FORMAT = "dd MMM hh:mm a";
+	public static final String ONBOARD_LAST_BIOMETRIC_UPDTAE_FORMAT = "EEEE dd MMM hh:mm a";
 
 	// RegistrationApproval
 	public static final String PLACEHOLDER_LABEL = "PLACEHOLDER_LABEL";
@@ -512,6 +507,7 @@ public class RegistrationConstants {
 	public static final String TEMPLATE_PRE_REG_ID_USER_LANG_LABEL = "PreRegIDPrimLabel";
 	public static final String TEMPLATE_PRE_REG_ID_LOCAL_LANG_LABEL = "PreRegIDSecLabel";
 	public static final String TEMPLATE_PRE_REG_ID = "PreRegID";
+	public static final String TEMPLATE_PRE_REG = "IsPreRegIDPresent";
 	public static final String TEMPLATE_DEMO_INFO = "DemographicInfo";
 	public static final String DEMOGRAPHIC_TEXTFIELD_FOCUSED = "demoGraphicTextFieldFocused";
 	public static final String DEMOGRAPHIC_TEXTFIELD = "demoGraphicTextField";
@@ -1771,4 +1767,8 @@ public class RegistrationConstants {
 	
 	public static final String SPEC_VERSION_095 = "0.9.5";
 	public static final String SPEC_VERSION_092 = "0.9.2";
+
+	public static final String TEMPLATE_FACE_IMAGE_SOURCE = "FaceImageSource";
+
+	public static final String REGISTRATION_EVENTS = "REG-EVT";
 }

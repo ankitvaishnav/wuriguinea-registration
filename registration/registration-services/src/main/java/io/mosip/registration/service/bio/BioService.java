@@ -12,6 +12,7 @@ import io.mosip.registration.dto.biometric.IrisDetailsDTO;
 import io.mosip.registration.exception.RegBaseCheckedException;
 import io.mosip.registration.mdm.dto.CaptureResponseDto;
 import io.mosip.registration.mdm.dto.MDMRequestDto;
+import io.mosip.registration.mdm.dto.MdmBioDevice;
 import io.mosip.registration.mdm.dto.RequestDetail;
 
 /**
@@ -40,8 +41,11 @@ public interface BioService {
 	 * @throws IOException
 	 *             - Exception that may occur while reading the resource
 	 */
-	/*public AuthenticationValidatorDTO getFingerPrintAuthenticationDto(String userId, RequestDetail requestDetail)
-			throws RegBaseCheckedException, IOException;*/
+	/*
+	 * public AuthenticationValidatorDTO getFingerPrintAuthenticationDto(String
+	 * userId, RequestDetail requestDetail) throws RegBaseCheckedException,
+	 * IOException;
+	 */
 
 	/**
 	 * Validates FingerPrint after getting the scanned data for the particular given
@@ -58,7 +62,10 @@ public interface BioService {
 	 * @return boolean the validation result. <code>true</code> if match is found,
 	 *         else <code>false</code>
 	 */
-	/*public boolean validateFingerPrint(AuthenticationValidatorDTO authenticationValidatorDTO);*/
+	/*
+	 * public boolean validateFingerPrint(AuthenticationValidatorDTO
+	 * authenticationValidatorDTO);
+	 */
 
 	/**
 	 * Returns Authentication validator Dto that will be passed
@@ -77,8 +84,10 @@ public interface BioService {
 	 * @throws IOException
 	 *             - Exception that may occur while reading the resource
 	 */
-	/*public AuthenticationValidatorDTO getIrisAuthenticationDto(String userId, RequestDetail requestDetail)
-			throws RegBaseCheckedException, IOException;*/
+	/*
+	 * public AuthenticationValidatorDTO getIrisAuthenticationDto(String userId,
+	 * RequestDetail requestDetail) throws RegBaseCheckedException, IOException;
+	 */
 
 	/**
 	 * Validates Iris after getting the scanned data for the given user ID
@@ -95,7 +104,8 @@ public interface BioService {
 	 * @return boolean the validation result. <code>true</code> if match is found,
 	 *         else <code>false</code>
 	 */
-	//public boolean validateIris(AuthenticationValidatorDTO authenticationValidatorDTO);
+	// public boolean validateIris(AuthenticationValidatorDTO
+	// authenticationValidatorDTO);
 
 	/**
 	 * Gets the finger print image as DTO from the MDM service based on the
@@ -148,7 +158,7 @@ public interface BioService {
 	 * @return boolean the validation result. <code>true</code> if match is found,
 	 *         else <code>false</code>
 	 */
-	//boolean validateFace(AuthenticationValidatorDTO authenticationValidatorDTO);
+	// boolean validateFace(AuthenticationValidatorDTO authenticationValidatorDTO);
 
 	/**
 	 * Returns Authentication validator Dto that will be passed
@@ -163,8 +173,10 @@ public interface BioService {
 	 *            - the user ID
 	 * @return AuthenticationValidatorDTO - authenticationValidatorDto
 	 */
-	/*public AuthenticationValidatorDTO getFaceAuthenticationDto(String userId, RequestDetail requestDetail)
-			throws RegBaseCheckedException, IOException;*/
+	/*
+	 * public AuthenticationValidatorDTO getFaceAuthenticationDto(String userId,
+	 * RequestDetail requestDetail) throws RegBaseCheckedException, IOException;
+	 */
 
 	/**
 	 * Gets the iris stub image as DTO.
@@ -194,7 +206,8 @@ public interface BioService {
 	 * @return boolean the validation result. <code>true</code> if match is found,
 	 *         else <code>false</code>
 	 */
-//	boolean validateFP(FingerprintDetailsDTO fingerprintDetailsDTO, List<UserBiometric> userFingerprintDetails);
+	// boolean validateFP(FingerprintDetailsDTO fingerprintDetailsDTO,
+	// List<UserBiometric> userFingerprintDetails);
 
 	/**
 	 * Captures the face
@@ -218,7 +231,7 @@ public interface BioService {
 	 * @param CaptureResponseDto
 	 *            catpure response dto
 	 * @return byte[]
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	byte[] getSingleBiometricIsoTemplate(CaptureResponseDto captureResponseDto) throws IOException;
 
@@ -253,29 +266,48 @@ public interface BioService {
 	 *            Captured Fingerprint Details
 	 * @return whether captured fingerprints were valid or not
 	 */
-//	public boolean isValidFingerPrints(FingerprintDetailsDTO detailsDTO,boolean isAuth);
+	// public boolean isValidFingerPrints(FingerprintDetailsDTO detailsDTO,boolean
+	// isAuth);
 
 	/**
 	 * @param segmentedFingerprints
 	 *            captured segmented fingerprints
 	 * @return whether captured segmentedFingerprints were duplicated or not
 	 */
-	//public boolean validateBioDeDup(List<FingerprintDetailsDTO> segmentedFingerprints);
+	// public boolean validateBioDeDup(List<FingerprintDetailsDTO>
+	// segmentedFingerprints);
 
 	/**
 	 * @return whether All non exception fingers were captured or not
 	 */
-	//public boolean isAllNonExceptionFingerprintsCaptured();
+	// public boolean isAllNonExceptionFingerprintsCaptured();
 
 	public Map<String, List<String>> getLowQualityBiometrics();
-	
-	public boolean hasBiometricExceptionToggleEnabled() ;
-	
-//	public void remove
-	
-	public List<BiometricsDto> captureModality(MDMRequestDto mdmRequestDto)  throws RegBaseCheckedException, IOException ;
-	
-	public List<BiometricsDto> captureModalityForAuth(MDMRequestDto mdmRequestDto)  throws RegBaseCheckedException, IOException ;
 
-	public InputStream getStream(String modality) throws MalformedURLException, IOException ;
+	public boolean hasBiometricExceptionToggleEnabled();
+
+	// public void remove
+
+	public List<BiometricsDto> captureModality(MDMRequestDto mdmRequestDto) throws RegBaseCheckedException, IOException;
+
+	public List<BiometricsDto> captureModalityForAuth(MDMRequestDto mdmRequestDto)
+			throws RegBaseCheckedException, IOException;
+
+	/**
+	 * @param modality
+	 *            modality to find device subId
+	 * @return live stream
+	 * @throws RegBaseCheckedException
+	 */
+	public InputStream getStream(String modality) throws RegBaseCheckedException;
+
+	/**
+	 * @param mdmBioDevice
+	 *            bio Device info
+	 * @param modality
+	 *            modality to find device subId
+	 * @return live stream
+	 * @throws RegBaseCheckedException
+	 */
+	public InputStream getStream(MdmBioDevice mdmBioDevice, String modality) throws RegBaseCheckedException;
 }
