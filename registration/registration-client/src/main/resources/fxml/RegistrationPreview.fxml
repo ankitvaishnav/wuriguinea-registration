@@ -60,7 +60,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane styleClass="bottomFooter" GridPane.rowIndex="4">
+      <GridPane styleClass="headerFooter" GridPane.rowIndex="4">
          <children>
             <GridPane GridPane.columnIndex="1">
                <children>

@@ -3,12 +3,12 @@
   <parent>
     <artifactId>registration-parent</artifactId>
     <groupId>io.mosip.wuri.registration</groupId>
-    <version>1.0.7</version>
+    <version>1.1.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>registration-libs</artifactId>
   <name>registration-libs</name>
-  <version>1.0.10</version>
+  <version>1.1.1</version>
   <description>Maven project of MOSIP Registration library</description>
   <build>
     <resources>
@@ -55,6 +55,7 @@
                 <argument>${main.basedir}/registration-libs/src/main/resources/jre</argument>
                 <argument>${main.basedir}/registration-libs/src/main/resources/batch/run.bat</argument>
                 <argument>${main.basedir}/registration-libs/src/main/resources/props/mosip-application.properties</argument>
+                <argument>${main.basedir}/registration-libs/src/main/resources/mock-sdk</argument>
               </arguments>
             </configuration>
           </execution>

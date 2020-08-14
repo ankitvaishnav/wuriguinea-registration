@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>io.mosip.wuri</groupId>
 		<artifactId>registration</artifactId>
-		<version>1.0.7</version>
+		<version>1.1.1</version>
 	</parent>
 
 	<groupId>io.mosip.wuri.registrationprocessor</groupId>
 	<artifactId>registration-processor</artifactId>
-	<version>1.0.7</version>
+	<version>1.1.1</version>
 	<packaging>pom</packaging>
 
 	<name>registration-processor</name>
@@ -106,16 +106,16 @@
 		<jsch.version>0.1.55</jsch.version>
 
 		<!-- local -->
-		<registration.status.service.version>1.0.10</registration.status.service.version>
-		<registration.processor.core.version>1.0.10</registration.processor.core.version>
+		<registration.status.service.version>1.1.1</registration.status.service.version>
+		<registration.processor.core.version>1.1.1</registration.processor.core.version>
 		<filesystem.adapter.ceph.version>1.0.9</filesystem.adapter.ceph.version>
-		<packet.manager.version>1.0.10</packet.manager.version>
-		<registration.processor.rest.client.version>1.0.10</registration.processor.rest.client.version>
-		<packet.info.storage.service.version>1.0.10</packet.info.storage.service.version>
-		<packet.bio.dedupe.service.impl.version>1.0.10</packet.bio.dedupe.service.impl.version>
-		<registration.processor.message.sender.version>1.0.10</registration.processor.message.sender.version>
-		<registration.processor.print.service.impl.version>1.0.10</registration.processor.print.service.impl.version>
-		<registration.processor.packet.utility.version>1.0.10</registration.processor.packet.utility.version>
+		<packet.manager.version>1.1.1</packet.manager.version>
+		<registration.processor.rest.client.version>1.1.1</registration.processor.rest.client.version>
+		<packet.info.storage.service.version>1.1.1</packet.info.storage.service.version>
+		<packet.bio.dedupe.service.impl.version>1.1.1</packet.bio.dedupe.service.impl.version>
+		<registration.processor.message.sender.version>1.1.1</registration.processor.message.sender.version>
+		<registration.processor.print.service.impl.version>1.1.1</registration.processor.print.service.impl.version>
+		<kernel.registration.packet.manager.version>1.0.10-SNAPSHOT</kernel.registration.packet.manager.version>
 		
 		<!-- Kernel -->
 		<kernel.core.version>1.0.9</kernel.core.version>
@@ -137,7 +137,6 @@
 		<kernel.auth.adapter.version>1.0.6</kernel.auth.adapter.version>
 		<kernel.idvalidator.vid.version>1.0.6</kernel.idvalidator.vid.version>
 		<kernel.idobjectvalidator.version>1.0.9</kernel.idobjectvalidator.version>
-		<kernel.packetmanager.version>1.0.10</kernel.packetmanager.version>
 			<sonar.coverage.exclusions>**/dto/**,
 			**/exception/*Exception.java,
 			**/config/*Config.java,

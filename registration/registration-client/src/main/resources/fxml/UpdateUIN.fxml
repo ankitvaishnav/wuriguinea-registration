@@ -111,7 +111,7 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
-              <children> 
+              <children>
                   <fx:include fx:id="headerParentBorder" prefHeight="${header.height}" prefWidth="${header.width}" source="Header.fxml" />
                </children>
             </GridPane>
@@ -136,7 +136,7 @@
                   </HBox>
                </children>
             </GridPane>
-            <GridPane styleClass="bottomFooter" GridPane.rowIndex="3">
+            <GridPane styleClass="headerFooter" GridPane.rowIndex="3">
                <children>
                   <GridPane GridPane.columnIndex="1">
                      <children>

@@ -15,15 +15,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+
+import com.github.sarxos.webcam.Webcam;
 
 import io.mosip.kernel.core.exception.ExceptionUtils;
 import io.mosip.kernel.core.logger.spi.Logger;
 import io.mosip.kernel.core.pdfgenerator.spi.PDFGenerator;
 import io.mosip.kernel.core.util.StringUtils;
+import io.mosip.kernel.packetmanager.dto.DocumentDto;
 import io.mosip.registration.config.AppConfig;
 import io.mosip.registration.constants.AuditEvent;
 import io.mosip.registration.constants.AuditReferenceIdTypes;
@@ -35,25 +38,18 @@ import io.mosip.registration.context.ApplicationContext;
 import io.mosip.registration.context.SessionContext;
 import io.mosip.registration.controller.BaseController;
 import io.mosip.registration.controller.FXUtils;
-import io.mosip.registration.controller.device.FaceCaptureController;
-import io.mosip.registration.controller.device.FingerPrintCaptureController;
-import io.mosip.registration.controller.device.GuardianBiometricsController;
-import io.mosip.registration.controller.device.IrisCaptureController;
+import io.mosip.registration.controller.device.BiometricsController;
 import io.mosip.registration.controller.device.ScanPopUpViewController;
 import io.mosip.registration.device.webcam.impl.WebcamSarxosServiceImpl;
 import io.mosip.registration.dto.UiSchemaDTO;
 import io.mosip.registration.dto.mastersync.DocumentCategoryDto;
 import io.mosip.registration.exception.RegBaseCheckedException;
-import io.mosip.kernel.packetmanager.dto.DocumentDto;
-import io.mosip.registration.service.bio.impl.BioServiceImpl;
 import io.mosip.registration.service.doc.category.DocumentCategoryService;
 import io.mosip.registration.service.sync.MasterSyncService;
 import io.mosip.registration.util.scan.DocumentScanFacade;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -61,6 +57,7 @@ import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -70,6 +67,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -85,16 +83,6 @@ import javafx.util.StringConverter;
 public class DocumentScanController extends BaseController {
 
 	private static final Logger LOGGER = AppConfig.getLogger(DocumentScanController.class);
-
-	@FXML
-	private Label bioExceptionToggleLabel1;
-
-	@FXML
-	private Label bioExceptionToggleLabel2;
-
-	private boolean toggleBiometricException;
-
-	private SimpleBooleanProperty switchedOnForBiometricException;
 
 	@Autowired
 	private RegistrationController registrationController;
@@ -125,9 +113,6 @@ public class DocumentScanController extends BaseController {
 	private GridPane documentPane;
 
 	@FXML
-	private GridPane exceptionPane;
-
-	@FXML
 	protected ImageView docPreviewImgView;
 
 	@FXML
@@ -150,25 +135,13 @@ public class DocumentScanController extends BaseController {
 	private List<BufferedImage> scannedPages;
 
 	@Autowired
-	private FaceCaptureController faceCaptureController;
-
-	@Autowired
-	private FingerPrintCaptureController fingerPrintCaptureController;
-
-	@Autowired
-	private IrisCaptureController irisCaptureController;
-
-	@Autowired
-	private GuardianBiometricsController guardianBiometricsController;
+	private BiometricsController guardianBiometricsController;
 
 	@Autowired
 	private MasterSyncService masterSyncService;
 
 	@Autowired
 	private DocumentCategoryService documentCategoryService;
-
-	@Autowired
-	private BiometricExceptionController biometricExceptionController;
 
 	@Autowired
 	private DemographicDetailController demographicDetailController;
@@ -193,15 +166,15 @@ public class DocumentScanController extends BaseController {
 	@Autowired
 	private WebcamSarxosServiceImpl webcamSarxosServiceImpl;
 
-	/**
-	 * @return the bioExceptionToggleLabel1
-	 */
-	public Label getBioExceptionToggleLabel1() {
-		return bioExceptionToggleLabel1;
+	private Webcam webcam;
+
+	public Webcam getWebcam() {
+		return webcam;
 	}
 
-	// @Value("${doc_value:}")
-	// private String proofOfExceptioPhotoFlag;
+	public void setWebcam(Webcam webcam) {
+		this.webcam = webcam;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -224,17 +197,13 @@ public class DocumentScanController extends BaseController {
 		});
 
 		try {
-			// Hiding Toggle Button always
-			exceptionPane.setVisible(false);
+
 			if (getRegistrationDTOFromSession() != null
 					&& getRegistrationDTOFromSession().getSelectionListDTO() != null) {
 
 				registrationNavlabel.setText(ApplicationContext.applicationLanguageBundle()
 						.getString(RegistrationConstants.UIN_UPDATE_UINUPDATENAVLBL));
 			}
-
-			switchedOnForBiometricException = new SimpleBooleanProperty(false);
-			toggleFunctionForBiometricException();
 
 			if (getRegistrationDTOFromSession() != null
 					&& getRegistrationDTOFromSession().getRegistrationMetaDataDTO().getRegistrationCategory() != null
@@ -287,9 +256,10 @@ public class DocumentScanController extends BaseController {
 				if (documentDetailsDTO != null) {
 					addDocumentsToScreen(documentDetailsDTO.getValue(), documentDetailsDTO.getFormat(),
 							documentVBoxes.get(docCategoryKey));
-					
+
 					FXUtils.getInstance().selectComboBoxValue(documentComboBoxes.get(docCategoryKey),
-							documentDetailsDTO.getValue().substring(documentDetailsDTO.getValue().lastIndexOf(RegistrationConstants.UNDER_SCORE) + 1));
+							documentDetailsDTO.getValue().substring(
+									documentDetailsDTO.getValue().lastIndexOf(RegistrationConstants.UNDER_SCORE) + 1));
 				}
 			}
 		} else if (documentVBoxes.isEmpty() && documentsMap != null) {
@@ -317,7 +287,6 @@ public class DocumentScanController extends BaseController {
 		Label fileSizeInfoLabel = new Label();
 		fileSizeInfoLabel.setWrapText(true);
 		fileSizeInfoLabel.setText(RegistrationUIConstants.SCAN_DOC_INFO);
-		fileSizeInfoLabel.setStyle("-fx-text-fill: #020F59");
 		docScanVbox.getChildren().add(fileSizeInfoLabel);
 
 		for (UiSchemaDTO documentCategory : documentFields) {
@@ -433,10 +402,10 @@ public class DocumentScanController extends BaseController {
 	 */
 	private void scanDocument(ComboBox<DocumentCategoryDto> documents, VBox vboxElement, String document,
 			String errorMessage) {
-		
+
 		String poeDocValue = getValueFromApplicationContext(RegistrationConstants.POE_DOCUMENT_VALUE);
-		if (null != documents.getValue() && poeDocValue!=null && documents.getValue().getCode()
-				.matches(poeDocValue)) {
+		if (null != documents.getValue() && poeDocValue != null
+				&& documents.getValue().getCode().matches(poeDocValue)) {
 			if (documents.getValue() == null) {
 				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 						RegistrationConstants.APPLICATION_ID, "Select atleast one document for scan");
@@ -499,7 +468,52 @@ public class DocumentScanController extends BaseController {
 				.equalsIgnoreCase(getValueFromApplicationContext(RegistrationConstants.DOC_SCANNER_ENABLED))) {
 			scanPopUpViewController.setDocumentScan(true);
 		}
-		scanPopUpViewController.init(this, RegistrationUIConstants.SCAN_DOC_TITLE);
+
+		String poeDocValue = getValueFromApplicationContext(RegistrationConstants.POE_DOCUMENT_VALUE);
+		if (poeDocValue != null && selectedComboBox.getValue().getCode().matches(poeDocValue)) {
+			LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
+					RegistrationConstants.APPLICATION_ID, "Searching for webcams");
+			
+			List<Webcam> webcams = webcamSarxosServiceImpl.getWebCams();
+			
+			LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
+					RegistrationConstants.APPLICATION_ID, "Found webcams: " + webcams);
+			
+			if (webcams != null && !webcams.isEmpty()) {
+				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
+						RegistrationConstants.APPLICATION_ID, "Initializing scan window to capture Exception photo");
+				
+				scanPopUpViewController.init(this, RegistrationUIConstants.SCAN_DOC_TITLE);
+				webcam = webcams.get(0);
+				
+				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
+						RegistrationConstants.APPLICATION_ID, "Checking webcam connectivity");
+				
+				if (!webcamSarxosServiceImpl.isWebcamConnected(webcam)) {
+					LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
+							RegistrationConstants.APPLICATION_ID, "Opening webcam");
+					
+					webcamSarxosServiceImpl.openWebCam(webcam, 640, 480);
+					JPanel jPanelWindow = webcamSarxosServiceImpl.getJPanel(webcam);
+					scanPopUpViewController.setWebCamPanel(jPanelWindow);
+					
+					LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
+							RegistrationConstants.APPLICATION_ID, "Webcam stream started");
+				} else {
+					generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.NO_DEVICE_FOUND);
+					scanPopUpViewController.setDefaultImageGridPaneVisibility();
+					
+					LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
+							RegistrationConstants.APPLICATION_ID, "No webcam found");
+				}
+			} else {
+				generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.NO_DEVICE_FOUND);
+				scanPopUpViewController.setDefaultImageGridPaneVisibility();
+				return;
+			}			
+		} else {
+			scanPopUpViewController.init(this, RegistrationUIConstants.SCAN_DOC_TITLE);
+		}
 
 		LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 				RegistrationConstants.APPLICATION_ID, "Scan window displayed to scan and upload documents");
@@ -544,15 +558,13 @@ public class DocumentScanController extends BaseController {
 	private void scanFromStubbed(Stage popupStage) throws IOException {
 
 		byte[] byteArray = null;
-		
+
 		String poeDocValue = getValueFromApplicationContext(RegistrationConstants.POE_DOCUMENT_VALUE);
-		if (poeDocValue!=null && selectedComboBox.getValue().getCode()
-				.matches(poeDocValue)) {
-			webcamSarxosServiceImpl.openWebCam(webcamSarxosServiceImpl.getWebCams().get(0), 10, 50);
-			BufferedImage bufferedImage = webcamSarxosServiceImpl
-					.captureImage(webcamSarxosServiceImpl.getWebCams().get(0));
+		if (poeDocValue != null && selectedComboBox.getValue().getCode().matches(poeDocValue)) {
+			BufferedImage bufferedImage = webcamSarxosServiceImpl.captureImage(webcam);
 			byteArray = getImageBytesFromBufferedImage(bufferedImage);
-			webcamSarxosServiceImpl.close();
+			webcamSarxosServiceImpl.close(webcam);
+			scanPopUpViewController.setDefaultImageGridPaneVisibility();
 		} else {
 			byteArray = documentScanFacade.getScannedDocument();
 		}
@@ -604,9 +616,9 @@ public class DocumentScanController extends BaseController {
 
 		if (selectedComboBox.getValue().getCode()
 				.matches(getValueFromApplicationContext(RegistrationConstants.POE_DOCUMENT_VALUE))) {
-			webcamSarxosServiceImpl.openWebCam(webcamSarxosServiceImpl.getWebCams().get(0), 10, 50);
-			bufferedImage = webcamSarxosServiceImpl.captureImage(webcamSarxosServiceImpl.getWebCams().get(0));
-			webcamSarxosServiceImpl.close();
+			bufferedImage = webcamSarxosServiceImpl.captureImage(webcam);
+			webcamSarxosServiceImpl.close(webcam);
+			scanPopUpViewController.setDefaultImageGridPaneVisibility();
 		} else {
 			bufferedImage = documentScanFacade.getScannedDocumentFromScanner();
 		}
@@ -988,86 +1000,6 @@ public class DocumentScanController extends BaseController {
 	}
 
 	/**
-	 * Toggle functionality for biometric exception
-	 */
-	@SuppressWarnings("unchecked")
-	private void toggleFunctionForBiometricException() {
-		try {
-			LOGGER.debug(RegistrationConstants.REGISTRATION_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
-					RegistrationConstants.APPLICATION_ID, "Entering into toggle function for Biometric exception");
-
-			if (!pageFlow.isVisibleInRegFlowMap(RegistrationConstants.DOCUMENT_SCAN,
-					RegistrationConstants.DOCUMENT_PANE)) {
-
-				documentPane.setVisible(false);
-			}
-			if (!pageFlow.isVisibleInRegFlowMap(RegistrationConstants.IRIS_CAPTURE, RegistrationConstants.VISIBILITY)
-					&& !pageFlow.isVisibleInRegFlowMap(RegistrationConstants.FINGERPRINT_CAPTURE,
-							RegistrationConstants.VISIBILITY)) {
-				exceptionPane.setVisible(false);
-			}
-
-			if (SessionContext.userMap().get(RegistrationConstants.TOGGLE_BIO_METRIC_EXCEPTION) == null) {
-
-				toggleBiometricException = false;
-				SessionContext.userMap().put(RegistrationConstants.TOGGLE_BIO_METRIC_EXCEPTION,
-						toggleBiometricException);
-
-			} else {
-				toggleBiometricException = (boolean) SessionContext.userMap()
-						.get(RegistrationConstants.TOGGLE_BIO_METRIC_EXCEPTION);
-			}
-
-			if (toggleBiometricException) {
-				updatePageFlow(RegistrationConstants.BIOMETRIC_EXCEPTION, true);
-				bioExceptionToggleLabel1.setLayoutX(30);
-			} else {
-				updatePageFlow(RegistrationConstants.BIOMETRIC_EXCEPTION, false);
-				bioExceptionToggleLabel1.setLayoutX(0);
-			}
-
-			switchedOnForBiometricException.addListener(new ChangeListener<Boolean>() {
-				@Override
-				public void changed(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) {
-					clearAllValues();
-					fingerPrintCaptureController.duplicateCheckLbl.setText("");
-					if (newValue) {
-						bioExceptionToggleLabel1.setLayoutX(30);
-						toggleBiometricException = true;
-						updatePageFlow(RegistrationConstants.BIOMETRIC_EXCEPTION, false);
-						biometricExceptionController.fingerException();
-					} else {
-						bioExceptionToggleLabel1.setLayoutX(0);
-						toggleBiometricException = false;
-						faceCaptureController.clearExceptionImage();
-						updatePageFlow(RegistrationConstants.BIOMETRIC_EXCEPTION, false);
-						if ((boolean) SessionContext.map().get(RegistrationConstants.IS_Child)) {
-							updatePageFlow(RegistrationConstants.GUARDIAN_BIOMETRIC, true);
-						}
-					}
-					SessionContext.userMap().put(RegistrationConstants.TOGGLE_BIO_METRIC_EXCEPTION,
-							toggleBiometricException);
-				}
-
-			});
-			bioExceptionToggleLabel1.setOnMouseClicked((event) -> {
-				BioServiceImpl.clearAllCaptures();
-				switchedOnForBiometricException.set(!switchedOnForBiometricException.get());
-			});
-			bioExceptionToggleLabel2.setOnMouseClicked((event) -> {
-				BioServiceImpl.clearAllCaptures();
-				switchedOnForBiometricException.set(!switchedOnForBiometricException.get());
-			});
-			LOGGER.debug(RegistrationConstants.REGISTRATION_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
-					RegistrationConstants.APPLICATION_ID, "Exiting the toggle function for Biometric exception");
-		} catch (RuntimeException runtimeException) {
-			LOGGER.error("REGISTRATION - TOGGLING FOR BIOMETRIC EXCEPTION SWITCH FAILED ", APPLICATION_NAME,
-					RegistrationConstants.APPLICATION_ID,
-					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
-		}
-	}
-
-	/**
 	 * This method is to go to previous page
 	 */
 	@FXML
@@ -1090,7 +1022,7 @@ public class DocumentScanController extends BaseController {
 		registrationController.showCurrentPage(RegistrationConstants.DOCUMENT_SCAN,
 				getPageByAction(RegistrationConstants.DOCUMENT_SCAN, RegistrationConstants.NEXT));
 
-		guardianBiometricsController.populateBiometricPage(false);
+		guardianBiometricsController.populateBiometricPage(false, false);
 		/*
 		 * biometricExceptionController.disableNextBtn();
 		 * fingerPrintCaptureController.clearImage();
