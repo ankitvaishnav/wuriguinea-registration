@@ -124,6 +124,7 @@ public class RegistrationConstants {
 	public static final String THUMB_IMG_PATH = "/images/thumbs.png";
 	public static final String RIGHT_IRIS_IMG_PATH = "/images/Eye.png";
 	public static final String LEFT_IRIS_IMG_PATH = "/images/Eye.png";
+	public static final String DOUBLE_IRIS_IMG_PATH = "/images/Eyes.png";
 	public static final String VIEW = "/images/View.png";
 	public static final String SCAN = "/images/scan.png";
 	public static final String SCAN_FOCUSED = "/images/scanFocused.png";
@@ -1775,4 +1776,6 @@ public class RegistrationConstants {
 	public static final String TEMPLATE_FACE_IMAGE_SOURCE = "FaceImageSource";
 	
 	public static final String REGISTRATION_EVENTS = "REG-EVT";
+
+	public static final String EXCEPTION_PHOTO = "Exception_Photo";
 }
