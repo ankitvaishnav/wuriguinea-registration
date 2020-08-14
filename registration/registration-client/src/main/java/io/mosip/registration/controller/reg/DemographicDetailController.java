@@ -612,9 +612,9 @@ public class DemographicDetailController extends BaseController {
 		hB.setSpacing(20);
 
 		vbox.getChildren().add(validationMessage);
-		if (primaryLanguage.equals(secondaryLanguage)) {
-			vbox.setDisable(true);
-		}
+//		if (primaryLanguage.equals(secondaryLanguage)) {
+//			vbox.setDisable(true);
+//		}
 
 		if (listOfTextField.get(fieldName) != null)
 			fxUtils.populateLocalFieldWithFocus(parentFlowPane, listOfTextField.get(fieldName), field,
@@ -1043,34 +1043,18 @@ public class DemographicDetailController extends BaseController {
 		if (selectionList != null) {
 			disablePreRegFetch();
 			registrationNavlabel.setText(applicationLabelBundle.getString("uinUpdateNavLbl"));
-			for (Node pane : childFlowPaneInfo.getChildren()) {
-				System.out.println(pane.getId());
-				pane.lookup("/ParentGridPane/g").getId();
-				System.out.println(pane.getId());
-//				if (!pane.getId().matches("ParentGridPane")) {
-//					String fieldId = pane.getId().replace("ParentGridPane", "");
-//					if (selectionList.contains(fieldId)) {
-//						pane.setDisable(false);
-//					} else {
-//						UiSchemaDTO schemaField = getValidationMap().get(fieldId);
-//						pane.setDisable(schemaField != null && "name".equalsIgnoreCase(schemaField.getSubType()) ? false
-//								: true);
-//					}
-//				}
+			for (Node pane : parentFlowPane.getChildren()) {
+				if (!pane.getId().matches("preRegParentPane|languageLabelParentPane")) {
+					String fieldId = pane.getId().replace("ParentGridPane", "");
+					if (selectionList.contains(fieldId)) {
+						pane.setDisable(false);
+					} else {
+						UiSchemaDTO schemaField = getValidationMap().get(fieldId);
+						pane.setDisable(schemaField != null && "name".equalsIgnoreCase(schemaField.getSubType()) ? false
+								: true);
+					}
+				}
 			}
-//			for (Node pane : parentFlowPane.getChildren()) {
-//				if (!pane.getId().matches("preRegParentPane|languageLabelParentPane")) {
-//					String fieldId = pane.getId().replace("ParentGridPane", "");
-//					if (selectionList.contains(fieldId)) {
-//						((TextField) parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianFirstName"))).setText("");
-//						pane.setDisable(false);
-//					} else {
-//						UiSchemaDTO schemaField = getValidationMap().get(fieldId);
-//						pane.setDisable(schemaField != null && "name".equalsIgnoreCase(schemaField.getSubType()) ? false
-//								: true);
-//					}
-//				}
-//			}
 		}
 	}
 
