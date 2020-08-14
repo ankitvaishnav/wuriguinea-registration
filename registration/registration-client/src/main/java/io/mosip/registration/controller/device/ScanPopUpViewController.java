@@ -142,7 +142,7 @@ public class ScanPopUpViewController extends BaseController {
 
 	/**
 	 * This method will open popup to scan
-	 *
+	 * 
 	 * @param parentControllerObj
 	 * @param title
 	 */
@@ -172,6 +172,7 @@ public class ScanPopUpViewController extends BaseController {
 			popupStage.show();
 
 			LOGGER.info(LOG_REG_IRIS_CAPTURE_CONTROLLER, APPLICATION_NAME, APPLICATION_ID, "scan screen launched");
+
 			if (!isDocumentScan) {
 				totalScannedPages.setVisible(false);
 				saveBtn.setVisible(false);
@@ -180,19 +181,20 @@ public class ScanPopUpViewController extends BaseController {
 				isDocumentScan = false;
 			}
 
+			if (title.equalsIgnoreCase("Biometrics")) {
+				captureBtn.setVisible(false);
+//				scanningMsg.setVisible(false);
+			}
 			scanningMsg.textProperty().addListener((observable, oldValue, newValue) -> {
 
 				Platform.runLater(() -> {
 					if (RegistrationUIConstants.NO_DEVICE_FOUND.contains(newValue)) {
 
-						captureBtn.setDisable(false);
+						// captureBtn.setDisable(false);
 
 						generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.NO_DEVICE_FOUND);
+						popupStage.close();
 
-					} else if (RegistrationUIConstants.STREAMING_INIT_MESSAGE.contains(newValue)) {
-						captureBtn.setDisable(false);
-					} else if (RegistrationUIConstants.STREAMING_PREP_MESSAGE.contains(newValue)) {
-						captureBtn.setDisable(true);
 					}
 				});
 
@@ -215,7 +217,7 @@ public class ScanPopUpViewController extends BaseController {
 
 	/**
 	 * This method will allow to scan
-	 *
+	 * 
 	 * @throws IOException
 	 * @throws MalformedURLException
 	 */
@@ -229,7 +231,7 @@ public class ScanPopUpViewController extends BaseController {
 
 	/**
 	 * event class to exit from present pop up window.
-	 *
+	 * 
 	 * @param event
 	 */
 	public void exitWindow(ActionEvent event) {
@@ -305,17 +307,17 @@ public class ScanPopUpViewController extends BaseController {
 	}
 
 	public void setDefaultImageGridPaneVisibility() {
+
 		LOGGER.info(LOG_REG_IRIS_CAPTURE_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
 				"Setting default visibilities for webCamParent and imageParent");
-
 		webcamParent.setVisible(false);
 		imageParent.setVisible(true);
 	}
 
 	public void setWebCamPanel(JPanel jPanelWindow) {
+
 		LOGGER.info(LOG_REG_IRIS_CAPTURE_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
 				"Setting jPanel : " + jPanelWindow);
-
 		webcamNode.setContent(jPanelWindow);
 		imageParent.setVisible(false);
 		webcamParent.setVisible(true);

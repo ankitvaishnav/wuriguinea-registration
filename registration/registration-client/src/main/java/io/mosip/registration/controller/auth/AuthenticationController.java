@@ -1,6 +1,5 @@
 package io.mosip.registration.controller.auth;
 
-import static io.mosip.registration.constants.LoggerConstants.LOG_REG_GUARDIAN_BIOMETRIC_CONTROLLER;
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_ID;
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_NAME;
 
@@ -33,18 +32,12 @@ import io.mosip.registration.controller.device.Streamer;
 import io.mosip.registration.controller.reg.PacketHandlerController;
 import io.mosip.registration.controller.reg.RegistrationController;
 import io.mosip.registration.controller.reg.Validations;
-import io.mosip.registration.dto.AuthenticationValidatorDTO;
 import io.mosip.registration.dto.OSIDataDTO;
 import io.mosip.registration.dto.RegistrationDTO;
 import io.mosip.registration.dto.ResponseDTO;
 import io.mosip.registration.dto.UserDTO;
-import io.mosip.registration.dto.biometric.FaceDetailsDTO;
-import io.mosip.registration.dto.biometric.FingerprintDetailsDTO;
-import io.mosip.registration.dto.biometric.IrisDetailsDTO;
-import io.mosip.registration.entity.BiometricType;
 import io.mosip.registration.exception.RegBaseCheckedException;
 import io.mosip.registration.mdm.dto.MDMRequestDto;
-import io.mosip.registration.mdm.dto.RequestDetail;
 import io.mosip.registration.service.bio.BioService;
 import io.mosip.registration.service.login.LoginService;
 import io.mosip.registration.service.security.AuthenticationService;
@@ -349,7 +342,7 @@ public class AuthenticationController extends BaseController implements Initiali
 					try {
 
 						if (captureAndValidateFP(fpUserId.getText(), new MDMRequestDto(
-								RegistrationConstants.FINGERPRINT_SLAB_RIGHT, null, "Registration",
+								RegistrationConstants.FINGERPRINT_SLAB_LEFT, null, "Registration",
 								io.mosip.registration.context.ApplicationContext
 										.getStringValueFromApplicationMap(RegistrationConstants.SERVER_ACTIVE_PROFILE),
 								io.mosip.registration.context.ApplicationContext
@@ -467,7 +460,13 @@ public class AuthenticationController extends BaseController implements Initiali
 	@FXML
 	private void startStream() {
 		faceImage.setImage(null);
-		streamer.startStream(RegistrationConstants.FACE_FULLFACE, faceImage, null);
+
+		try {
+			streamer.startStream(bioService.getStream(RegistrationConstants.FACE_FULLFACE), faceImage, null);
+		} catch (RegBaseCheckedException regBaseCheckedException) {
+			LOGGER.error(LoggerConstants.LOG_REG_LOGIN, APPLICATION_NAME, APPLICATION_ID,
+					ExceptionUtils.getStackTrace(regBaseCheckedException));
+		}
 	}
 
 	/**
@@ -875,10 +874,7 @@ public class AuthenticationController extends BaseController implements Initiali
 			throws RegBaseCheckedException, IOException {
 		List<BiometricsDto> biometrics = bioService.captureModalityForAuth(mdmRequestDto);
 
-		// AuthenticationValidatorDTO authenticationValidatorDTO =
-		// bioService.getFingerPrintAuthenticationDto(userId,requestDetail);
-		// List<FingerprintDetailsDTO> fingerPrintDetailsDTOs =
-		// authenticationValidatorDTO.getFingerPrintDetails();
+
 		boolean fpMatchStatus;
 		if (!isEODAuthentication) {
 			if (isSupervisor) {
@@ -893,16 +889,8 @@ public class AuthenticationController extends BaseController implements Initiali
 				registrationDTO.addOfficerBiometrics(biometrics);
 			}
 		}
-		// FingerprintDetailsDTO fingerPrintDetailsDto = fingerPrintDetailsDTOs.get(0);
-		// fpMatchStatus = bioService.validateFingerPrint(authenticationValidatorDTO);
 		fpMatchStatus = authenticationService.authValidator(userId, SingleType.FINGER.value(), biometrics);
-		/*
-		 * if (fpMatchStatus) { if (isSupervisor) {
-		 * fingerPrintDetailsDto.setFingerprintImageName(
-		 * "supervisor".concat(fingerPrintDetailsDto.getFingerType()).concat(".jpg")); }
-		 * else { fingerPrintDetailsDto.setFingerprintImageName(
-		 * "officer".concat(fingerPrintDetailsDto.getFingerType()).concat(".jpg")); } }
-		 */
+
 
 		return fpMatchStatus;
 	}

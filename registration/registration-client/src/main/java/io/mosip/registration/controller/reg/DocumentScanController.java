@@ -49,6 +49,7 @@ import io.mosip.registration.service.sync.MasterSyncService;
 import io.mosip.registration.util.scan.DocumentScanFacade;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -56,6 +57,7 @@ import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -65,6 +67,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -72,7 +75,7 @@ import javafx.util.StringConverter;
 /**
  * {@code DocumentScanController} is to handle the screen of the Demographic
  * document section details
- *
+ * 
  * @author M1045980
  * @since 1.0.0
  */
@@ -175,7 +178,7 @@ public class DocumentScanController extends BaseController {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see javafx.fxml.Initializable#initialize()
 	 */
 	@FXML
@@ -470,36 +473,36 @@ public class DocumentScanController extends BaseController {
 		if (poeDocValue != null && selectedComboBox.getValue().getCode().matches(poeDocValue)) {
 			LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 					RegistrationConstants.APPLICATION_ID, "Searching for webcams");
-
+			
 			List<Webcam> webcams = webcamSarxosServiceImpl.getWebCams();
-
+			
 			LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 					RegistrationConstants.APPLICATION_ID, "Found webcams: " + webcams);
-
+			
 			if (webcams != null && !webcams.isEmpty()) {
 				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 						RegistrationConstants.APPLICATION_ID, "Initializing scan window to capture Exception photo");
-
+				
 				scanPopUpViewController.init(this, RegistrationUIConstants.SCAN_DOC_TITLE);
 				webcam = webcams.get(0);
-
+				
 				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 						RegistrationConstants.APPLICATION_ID, "Checking webcam connectivity");
-
+				
 				if (!webcamSarxosServiceImpl.isWebcamConnected(webcam)) {
 					LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 							RegistrationConstants.APPLICATION_ID, "Opening webcam");
-
+					
 					webcamSarxosServiceImpl.openWebCam(webcam, 640, 480);
 					JPanel jPanelWindow = webcamSarxosServiceImpl.getJPanel(webcam);
 					scanPopUpViewController.setWebCamPanel(jPanelWindow);
-
+					
 					LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 							RegistrationConstants.APPLICATION_ID, "Webcam stream started");
 				} else {
 					generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.NO_DEVICE_FOUND);
 					scanPopUpViewController.setDefaultImageGridPaneVisibility();
-
+					
 					LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 							RegistrationConstants.APPLICATION_ID, "No webcam found");
 				}
@@ -507,7 +510,7 @@ public class DocumentScanController extends BaseController {
 				generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.NO_DEVICE_FOUND);
 				scanPopUpViewController.setDefaultImageGridPaneVisibility();
 				return;
-			}
+			}			
 		} else {
 			scanPopUpViewController.init(this, RegistrationUIConstants.SCAN_DOC_TITLE);
 		}
@@ -826,7 +829,7 @@ public class DocumentScanController extends BaseController {
 
 	/**
 	 * This method will set the inde and page number for the document
-	 *
+	 * 
 	 * @param index
 	 *            - index of the preview section
 	 * @param pageNumber
@@ -839,7 +842,7 @@ public class DocumentScanController extends BaseController {
 
 	/**
 	 * This method will create Image to delete scanned document
-	 *
+	 * 
 	 * @param field
 	 *            the {@link VBox}
 	 */
@@ -898,7 +901,7 @@ public class DocumentScanController extends BaseController {
 
 	/**
 	 * This method will create Hyperlink to view scanned document
-	 *
+	 * 
 	 * @param field
 	 *            the {@link String}
 	 */
@@ -1025,7 +1028,7 @@ public class DocumentScanController extends BaseController {
 		 * fingerPrintCaptureController.clearImage();
 		 * irisCaptureController.clearIrisBasedOnExceptions();
 		 * //guardianBiometricsController.manageBiometricsListBasedOnExceptions();
-		 *
+		 * 
 		 * if (getRegistrationDTOFromSession().getSelectionListDTO() != null) { //TODO
 		 * document pane validation Anusha if (true) {
 		 * SessionContext.map().put(RegistrationConstants.UIN_UPDATE_DOCUMENTSCAN,
@@ -1043,7 +1046,7 @@ public class DocumentScanController extends BaseController {
 		 * registrationController.showCurrentPage(RegistrationConstants.DOCUMENT_SCAN,
 		 * getPageByAction(RegistrationConstants.DOCUMENT_SCAN,
 		 * RegistrationConstants.NEXT));
-		 *
+		 * 
 		 * } }
 		 */
 
@@ -1078,7 +1081,7 @@ public class DocumentScanController extends BaseController {
 	 * Guardian is required, text will be displayed as Parent Or guardian biometrics
 	 * exception required. While for Individual, text will be displayed as Biometric
 	 * exception required.
-	 *
+	 * 
 	 * @param isParentOrGuardianBiometricsCaptured
 	 *            boolean value indicating whose biometric exception has to be
 	 *            captured either individual or parent/ guardian
@@ -1106,7 +1109,7 @@ public class DocumentScanController extends BaseController {
 
 	/**
 	 * This method converts the BufferedImage to byte[]
-	 *
+	 * 
 	 * @param bufferedImage
 	 *            - holds the scanned image from the scanner
 	 * @return byte[] - scanned document Content

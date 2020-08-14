@@ -48,7 +48,7 @@ import javafx.stage.Stage;
 
 /**
  * {@code RegistrationController} for Registration Page Controller
- *
+ * 
  * @author Taleev.Aalam
  * @since 1.0.0
  */
@@ -97,7 +97,7 @@ public class RegistrationController extends BaseController {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see javafx.fxml.Initializable#initialize()
 	 */
 	@FXML
@@ -165,7 +165,7 @@ public class RegistrationController extends BaseController {
 
 	/**
 	 * To detect the face from the captured photograph for validation.
-	 *
+	 * 
 	 * @param applicantImage
 	 *            the image that is captured as applicant photograph
 	 * @return BufferedImage the face that is detected from the applicant photograph
@@ -193,7 +193,7 @@ public class RegistrationController extends BaseController {
 	/**
 	 * To compress the detected face from the image of applicant and store it in DTO
 	 * to use it for QR Code generation
-	 *
+	 * 
 	 * @param applicantImage
 	 *            the image that is captured as applicant photograph
 	 */
@@ -443,9 +443,9 @@ public class RegistrationController extends BaseController {
 	}
 
 	/**
-	 *
+	 * 
 	 * Validates the fields of demographic pane1
-	 *
+	 * 
 	 */
 	public boolean validateDemographicPane(Pane paneToValidate) {
 		LOGGER.debug(RegistrationConstants.REGISTRATION_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
