@@ -233,13 +233,58 @@ public class DemographicDetailController extends BaseController {
             int position1 = childFlow.size() - 1;
             int position2 = childFlow.size() - 1;
             int position3 = childFlow.size() - 1;
+            /* layout category */
+			ArrayList<String> infoFields = new ArrayList<String>();
+			infoFields.add("firstName");
+			infoFields.add("lastName");
+			infoFields.add("gender");
+			infoFields.add("dateOfBirth");
+			infoFields.add("phone");
+			infoFields.add("email");
+			infoFields.add("residenceStatus");
+
+			ArrayList<String> addressFields = new ArrayList<String>();
+			addressFields.add("region");
+			addressFields.add("prefecture");
+			addressFields.add("subPrefectureOrCommune");
+			addressFields.add("district");
+			addressFields.add("sector");
+			addressFields.add("additionalAddressDetails");
+
+			ArrayList<String> guardianFields = new ArrayList<String>();
+			guardianFields.add("parentOrGuardianFirstName");
+			guardianFields.add("parentOrGuardianLastName");
+			guardianFields.add("parentOrGuardianRID");
+			guardianFields.add("parentOrGuardianUIN");
+
             // Logical grouping in schema with position, precreate gridpane categoris in fxml
             Iterator<Entry<String, UiSchemaDTO>> iterator = validation.getValidationMap().entrySet().iterator();
             while (iterator.hasNext()) {
                 UiSchemaDTO left = null;
                 UiSchemaDTO dto = iterator.next().getValue();
+				System.out.println("POST:   "+dto.getId()+" "+dto.getLayoutCategory());
 
-                if (dto.getLayoutCategory() != null && dto.getLayoutCategory().equalsIgnoreCase("address")) {
+				if (infoFields.contains(dto.getId())) {
+					if (isDemographicField(dto)) {
+						left = dto;
+					}
+
+					if (left != null) {
+						UiSchemaDTO right = null;
+						if (iterator.hasNext()) {
+							dto = iterator.next().getValue();
+							if (infoFields.contains(dto.getId()) && isDemographicField(dto)){
+								right = dto;
+							}
+						}
+						GridPane mainGridPane = addContent(left, right);
+						childFlowPaneInfo.getChildren().add(mainGridPane);
+						position1++;
+						positionTracker.put(mainGridPane.getId(), position1);
+					}
+				}
+
+                if (addressFields.contains(dto.getId())) {
                     if (isDemographicField(dto)) {
                         left = dto;
                     }
@@ -248,7 +293,7 @@ public class DemographicDetailController extends BaseController {
                         UiSchemaDTO right = null;
                         if (iterator.hasNext()) {
                             dto = iterator.next().getValue();
-                            if (isDemographicField(dto)) {
+							if (addressFields.contains(dto.getId()) && isDemographicField(dto)) {
                                 right = dto;
                             }
                         }
@@ -257,9 +302,8 @@ public class DemographicDetailController extends BaseController {
                         position2++;
                         positionTracker.put(mainGridPane.getId(), position2);
                     }
-                    continue;
                 }
-                if (dto.getLayoutCategory() != null && dto.getLayoutCategory().equalsIgnoreCase("parent")) {
+                if (guardianFields.contains(dto.getId())) {
                     if (isDemographicField(dto)) {
                         left = dto;
                     }
@@ -268,7 +312,7 @@ public class DemographicDetailController extends BaseController {
                         UiSchemaDTO right = null;
                         if (iterator.hasNext()) {
                             dto = iterator.next().getValue();
-                            if (isDemographicField(dto)) {
+							if (guardianFields.contains(dto.getId()) && isDemographicField(dto)) {
                                 right = dto;
                             }
 						}
@@ -278,25 +322,6 @@ public class DemographicDetailController extends BaseController {
                         positionTracker.put(mainGridPane.getId(), position3);
                     }
 				}
-				if (isDemographicField(dto)) {
-					left = dto;
-				}
-
-				if (left != null) {
-					UiSchemaDTO right = null;
-					if (iterator.hasNext()) {
-						dto = iterator.next().getValue();
-						if (isDemographicField(dto)) {
-							right = dto;
-						}
-					}
-					GridPane mainGridPane = addContent(left, right);
-					childFlowPaneInfo.getChildren().add(mainGridPane);
-					position1++;
-					positionTracker.put(mainGridPane.getId(), position1);
-				}
-				continue;
-
             }
 
 
@@ -360,18 +385,18 @@ public class DemographicDetailController extends BaseController {
     public GridPane addContent(UiSchemaDTO left, UiSchemaDTO right) {
 		GridPane gridPane = prepareMainGridPane();
 
-        if (left != null) {
-            GridPane primary = subGridPane(left, "");
+		if (left != null) {
+			GridPane primary = subGridPane(left, "");
 
-		gridPane.addColumn(0, primary);
-			primary.setId(left.getId() + "ParentGridPane");
+			gridPane.addColumn(0, primary);
+			gridPane.setId(left.getId() + "ParentGridPane");
 
-        }
-        if (right != null) {
-            GridPane secondary = subGridPane(right, "");
-		gridPane.addColumn(2, secondary);
-			secondary.setId(right.getId() + "ParentGridPane");
-        }
+		}
+		if (right != null) {
+			GridPane secondary = subGridPane(right, "");
+			gridPane.addColumn(2, secondary);
+			gridPane.setId(right.getId() + "ParentGridPane");
+		}
 		return gridPane;
 	}
 
