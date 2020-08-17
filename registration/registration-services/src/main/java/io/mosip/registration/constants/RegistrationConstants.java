@@ -155,6 +155,7 @@ public class RegistrationConstants {
 	public static final String VIEW_REPORTS_FOCUSED = "/images/ViewReportsFocused.png";
 	public static final String SUCCESS_IMG_PTH = "/images/success.png";
 	public static final String FAILURE_IMG_PTH = "/images/failure.png";
+	public static final String NOTE_IMG_PTH = "/images/note.png";
 	public static final String GET_ONBOARDED_IMG_PATH = "/images/GetOnboarded.png";
 	public static final String GET_ONBOARDED_FOCUSED = "/images/GetOnboardedFocus.png";
 	public static final String ONBOARDING_IMG_PATH = "/images/OnboardYourself.png";
@@ -693,6 +694,8 @@ public class RegistrationConstants {
 	public static final String TEMPLATE_IS_UIN_UPDATE = "IsUINUpdate";
 
 	public static final String MODIFY_DEMO_INFO = "modifyDemographicInfo";
+	public static final String MODIFY_ADD_INFO = "modifyDemographicInfo";
+	public static final String MODIFY_Guardian_INFO = "modifyDemographicInfo";
 	public static final String MODIFY_DOCUMENTS = "modifyDocuments";
 	public static final String MODIFY_BIOMETRICS = "modifyBiometrics";
 	public static final String CLICK = "click";

@@ -438,13 +438,6 @@
                   <GridPane fx:id="backButton" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <children>
                         <Button fx:id="backBtn" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#previous" styleClass="backButton" text="%back" GridPane.valignment="TOP">
-                           <!--graphic>
-                              <ImageView fx:id="backImageView" fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/arrowLeft.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic-->
                         </Button>
                      </children>
                      <columnConstraints>
@@ -457,13 +450,6 @@
                   <GridPane GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                      <children>
                         <Button fx:id="continueBtn" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#next" styleClass="contiuneButton" text="%continue" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                           <!--graphic>
-                              <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/arrowRight.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic-->
                         </Button>
                      </children>
                      <columnConstraints>

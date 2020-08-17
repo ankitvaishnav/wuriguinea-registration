@@ -262,7 +262,7 @@ public class DemographicDetailController extends BaseController {
             while (iterator.hasNext()) {
                 UiSchemaDTO left = null;
                 UiSchemaDTO dto = iterator.next().getValue();
-				System.out.println("POST:   "+dto.getId()+" "+dto.getLayoutCategory());
+				//System.out.println("POST:   "+dto.getId()+" "+dto.getLayoutCategory());
 
 				if (infoFields.contains(dto.getId())) {
 					if (isDemographicField(dto)) {

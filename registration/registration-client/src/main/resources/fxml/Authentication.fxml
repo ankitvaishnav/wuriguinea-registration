@@ -817,13 +817,6 @@
 					</rowConstraints>
 				</GridPane>
             <Button fx:id="backBtn" mnemonicParsing="false" text="Button" visible="false" GridPane.rowIndex="1">
-            	<graphic>
-                    <ImageView fx:id="backImageView" fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                         <image>
-                               <Image url="@../images/arrowLeft.png" />
-                         </image>
-                    </ImageView>
-                </graphic>
            </Button>
 			</children>
 		</GridPane>

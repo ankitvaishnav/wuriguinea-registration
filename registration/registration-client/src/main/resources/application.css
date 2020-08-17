@@ -1,9 +1,9 @@
 #virtualKeyboard {
-	-fx-background-color: white;
-	-fx-border-width:1.0 1.0 1.0 1.0;
-	-fx-border-color: #BCE0FD;
-	-fx-background-radius: 6.0,5.0;
-	-fx-font-size : 15.0px;
+-fx-background-color: white;
+-fx-border-width:1.0 1.0 1.0 1.0;
+-fx-border-color: #BCE0FD;
+-fx-background-radius: 6.0,5.0;
+-fx-font-size : 15.0px;
 }
 
 #doc_label{
@@ -21,9 +21,9 @@
 }
 
 #syncProgressBar > .bar{
-	-fx-background-color : red;
-	-fx-padding: 0;
-	-fx-background-insets : 0;
+-fx-background-color : #45A30A;
+-fx-padding: 0;
+-fx-background-insets : 0;
 }
 
 .dividerTypeOne{
@@ -182,8 +182,8 @@
 }
 
 .sendNotificationPane {
-	-fx-border-width: 1.0 1.0 1.0 1.0;
-	-fx-border-color: #BCE0FD;
+-fx-border-width: 1.0 1.0 1.0 1.0;
+-fx-border-color: ##808080;
 }
 
 #anchor-pane-registration{

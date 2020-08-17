@@ -91,15 +91,15 @@ public class AlertController extends BaseController implements Initializable {
 			alertImage.setImage(image);
 			contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.ERROR.toUpperCase());
 			header.setStyle("-fx-text-fill:#FF0000");
-		} else {
+		}else
+		{
+			image = new Image(RegistrationConstants.NOTE_IMG_PTH);
 			header.setText(RegistrationUIConstants.ALERT_NOTE_LABEL);
-			alertImage.setDisable(false);
-			alertImage.setVisible(false);
-			imageVbox.setVisible(false);
-			contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.INFO);
+			alertImage.setImage(image);
+			contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.INFO.toUpperCase());
+			header.setStyle("-fx-text-fill:#020F59");
 		}
-		context.setText(split[0].trim() + contextSecondMsg);
-
+			context.setText(split[0].trim() + contextSecondMsg);
 		if (context.getText().length() > 50) {
 			imageVbox.setAlignment(Pos.TOP_CENTER);
 		}
