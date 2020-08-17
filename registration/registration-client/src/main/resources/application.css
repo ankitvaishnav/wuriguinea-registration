@@ -183,7 +183,7 @@
 
 .sendNotificationPane {
 -fx-border-width: 1.0 1.0 1.0 1.0;
--fx-border-color: ##808080;
+-fx-border-color: #808080;
 }
 
 #anchor-pane-registration{
