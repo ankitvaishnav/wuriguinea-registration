@@ -309,7 +309,17 @@ public class BiometricsController extends BaseController /* implements Initializ
 
 	private GridPane exceptionBiometricsPane;
 
+
+    private Service<List<BiometricsDto>> taskService;
+
+    public void stopRCaptureService() {
+        if(taskService!=null && taskService.isRunning()) {
+            taskService.cancel();
+        }
+    }
+
 	private Node exceptionVBox;
+
 
 	/*
 	 * (non-Javadoc)
@@ -1186,7 +1196,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 		LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
 				"Capture request called" + System.currentTimeMillis());
 
-		Service<List<BiometricsDto>> taskService = new Service<List<BiometricsDto>>() {
+        taskService = new Service<List<BiometricsDto>>() {
 			@Override
 			protected Task<List<BiometricsDto>> createTask() {
 				return new Task<List<BiometricsDto>>() {
@@ -1936,7 +1946,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 		boolean result = MVEL.evalToBoolean(expression, capturedDetails);
 
 		if (result && considerExceptionAsCaptured) {
-			if (getRegistrationDTOFromSession().getBiometricExceptions() != null
+            if (getRegistrationDTOFromSession() != null && getRegistrationDTOFromSession().getBiometricExceptions() != null
 					&& !getRegistrationDTOFromSession().getBiometricExceptions().isEmpty()) {
 
 				result = getRegistrationDTOFromSession().getDocuments().containsKey("POE");
@@ -2394,6 +2404,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 
 		} else {
 
+            if(getRegistrationDTOFromSession() != null && getRegistrationDTOFromSession().getDocuments() != null)
 			getRegistrationDTOFromSession().getDocuments().remove("POE");
 
 			addImageInUIPane("applicant", RegistrationConstants.EXCEPTION_PHOTO, null, false);
