@@ -921,10 +921,8 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-background-color:#ffffff;
 	-fx-border-width: 0.0;
 	-fx-text-fill : #020F59;
-	-fx-prompt-text-fill: #020F59 ;
 	-fx-font-size: 1em;
 }
-
 .demoGraphicFieldLabel{
 	-fx-background-color:#ffffff;
 	-fx-border-width: 0.0;
@@ -936,7 +934,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-color: #FF0000;
 	-fx-border-width: 0.0 0.0 1.0 0.0;
 	-fx-background-color: #FFFFFF;
-	-fx-prompt-text-fill: #FF0000;
+	-fx-prompt-text-fill: #020F59;
 	-fx-text-fill: #FF0000;
 	-fx-font-size: 1.2em;
 }
@@ -945,7 +943,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-color: #FF0000;
 	-fx-border-width: 0.0 0.0 2.0 0.0;
 	-fx-background-color: #FFFFFF;
-	-fx-prompt-text-fill: #FF0000;
+	-fx-prompt-text-fill: #020F59;
 	-fx-text-fill: #FF0000;
 	-fx-font-size: 1.2em;
 }
@@ -976,7 +974,6 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-text-fill: #020F59;
 	-fx-font-size: 1.2em;
 }
-
 .scanPage{
 	-fx-background-color : white;
 	-fx-text-fill : #020F59;
@@ -1135,9 +1132,13 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-padding : -2.5;
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 }
-
+.biometricsDisplay{
+	-fx-background-color : #F0F0F0;
+	-fx-border-color : #020F59;
+	-fx-border-insets: 1.0 10.0 2.0 2.0;
+}
 .bioIris{
-	-fx-border-color : #F0F0F0;
+	-fx-border-color : #020F59;
 	-fx-border-width : 5.0;
 }
 
@@ -1546,7 +1547,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 }
 
 .uinUpdateLabelsTypeTwo{
-	-fx-text-fill : #666666;
+	-fx-text-fill : #020F59;
 	-fx-font-size : 15.0px;
 }
 .updateUinCheckBoxCommon .check-box > .box {

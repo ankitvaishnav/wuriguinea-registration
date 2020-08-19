@@ -94,9 +94,8 @@ public class AlertController extends BaseController implements Initializable {
 		}else
 		{
 			header.setText(RegistrationUIConstants.ALERT_NOTE_LABEL);
-			alertImage.setDisable(false);
-			alertImage.setVisible(false);
-			imageVbox.setVisible(false);
+			image = new Image(RegistrationConstants.NOTE_IMG_PTH);
+			alertImage.setImage(image);
 			contextSecondMsg = gettingSecondErrorMessage(split, RegistrationConstants.INFO.toUpperCase());
 			header.setStyle("-fx-text-fill:#020F59");
 		}

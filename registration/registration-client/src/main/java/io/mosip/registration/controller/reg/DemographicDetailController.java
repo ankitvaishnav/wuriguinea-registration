@@ -1068,7 +1068,7 @@ public class DemographicDetailController extends BaseController {
 		if (selectionList != null) {
 			disablePreRegFetch();
 			registrationNavlabel.setText(applicationLabelBundle.getString("uinUpdateNavLbl"));
-			for (Node pane : parentFlowPane.getChildren()) {
+			for (Node pane : childFlowPaneInfo.getChildren()) {
 				if (!pane.getId().matches("preRegParentPane|languageLabelParentPane")) {
 					String fieldId = pane.getId().replace("ParentGridPane", "");
 					if (selectionList.contains(fieldId)) {
@@ -1079,6 +1079,47 @@ public class DemographicDetailController extends BaseController {
 								: true);
 					}
 				}
+			//	parentFlowPane.getChildren();
+			}
+			for (Node pane : childFlowPaneAddress.getChildren()) {
+				if (!pane.getId().matches("languageLabelParentPane|languageLabelParentPane")) {
+					String fieldId = pane.getId().replace("ParentGridPane", "");
+					if (selectionList.contains(fieldId)) {
+						pane.setDisable(false);
+					} else {
+						UiSchemaDTO schemaField = getValidationMap().get(fieldId);
+						pane.setDisable(schemaField != null && "name".equalsIgnoreCase(schemaField.getSubType()) ? false
+								: true);
+					}
+				}
+				//parentFlowPane.getChildren();
+			}
+			for (Node pane : childFlowPaneAddress.getChildren()) {
+				if (!pane.getId().matches("languageLabelParentPane1|languageLabelParentPane")) {
+					String fieldId = pane.getId().replace("ParentGridPane", "");
+					if (selectionList.contains(fieldId)) {
+						pane.setDisable(false);
+					} else {
+						UiSchemaDTO schemaField = getValidationMap().get(fieldId);
+						pane.setDisable(schemaField != null && "name".equalsIgnoreCase(schemaField.getSubType()) ? false
+								: true);
+					}
+				}
+				//parentFlowPane.getChildren();
+			}
+
+			for (Node pane : childFlowPaneGuardian.getChildren()) {
+				if (!pane.getId().matches("languageLabelParentPane2|languageLabelParentPane")) {
+					String fieldId = pane.getId().replace("ParentGridPane", "");
+					if (selectionList.contains(fieldId)) {
+						pane.setDisable(false);
+					} else {
+						UiSchemaDTO schemaField = getValidationMap().get(fieldId);
+						pane.setDisable(schemaField != null && "name".equalsIgnoreCase(schemaField.getSubType()) ? false
+								: true);
+					}
+				}
+				//parentFlowPane.getChildren();
 			}
 		}
 	}
