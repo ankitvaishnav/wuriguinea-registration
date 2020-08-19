@@ -33,6 +33,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
 
+import javax.swing.*;
+
 /**
  * Class for JavaFx utilities operation
  * 
@@ -381,7 +383,8 @@ public class FXUtils {
 				field.getStyleClass().add("demoGraphicTextFieldOnType");
 				if (field.isFocused()) {
 					Label fieldLabel = (Label) parentPane.lookup("#" + field.getId() + "Label");
-					fieldLabel.getStyleClass().clear();
+					//fieldLabel.getStyleClass().clear();
+					field.getStyleClass().add("demoGraphicTextFieldOnType");
 					fieldLabel.getStyleClass().add("demoGraphicFieldLabelOnType");
 				}
 				if (newValue != null) {
@@ -396,7 +399,6 @@ public class FXUtils {
 
 		}
 	}
-
 	/**
 	 * Display the {@link Label}, {@link TextField}
 	 * 
@@ -587,8 +589,6 @@ public class FXUtils {
 	private void selectComboBoxValueByCode(ComboBox<?> localComboBox, Object selectedOption, ComboBox<?> ComboBox) {
 		ObservableList<?> localComboBoxValues = localComboBox.getItems();
 		ObservableList<?> comboBoxValues = ComboBox.getItems();
-		
-
 		if (!localComboBoxValues.isEmpty() && selectedOption != null) {
 			IntPredicate findIndexOfSelectedItem = null;
 			 if (localComboBoxValues.get(0) instanceof GenericDto && selectedOption instanceof GenericDto) {
