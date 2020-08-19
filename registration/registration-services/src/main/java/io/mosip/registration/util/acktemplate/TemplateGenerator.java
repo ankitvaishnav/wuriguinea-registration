@@ -799,6 +799,8 @@ public class TemplateGenerator extends BaseService {
 			templateValues.put(RegistrationConstants.TEMPLATE_PRE_REG_ID_LOCAL_LANG_LABEL,
 					getSecondaryLanguageLabel("preRegistrationId"));
 			templateValues.put(RegistrationConstants.TEMPLATE_PRE_REG_ID, registration.getPreRegistrationId());
+		} else{
+
 		}
 
 		templateValues.put(RegistrationConstants.TEMPLATE_UIN_UPDATE, RegistrationConstants.TEMPLATE_STYLE_HIDE_PROPERTY);
