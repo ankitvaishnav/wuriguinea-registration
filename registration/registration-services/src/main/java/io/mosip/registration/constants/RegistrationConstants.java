@@ -1781,4 +1781,16 @@ public class RegistrationConstants {
 	public static final String REGISTRATION_EVENTS = "REG-EVT";
 
 	public static final String EXCEPTION_PHOTO = "Exception_Photo";
+
+	public  static final Map<String, String> LocalizedDocType = new HashMap<String, String>() {
+		{
+			put("proofOfConsent","Preuve de Consentement");
+			put("proofOfAddress","Preuve d'adresse");
+			put("proofOfIdentity","Preuve d'Identité");
+			put("proofOfRelationship","Preuve de Lien de parenté");
+			put("proofOfDateOfBirth","Preuve de Naissance");
+			put("proofOfException","Proof of exception");
+		}
+	};
+
 }

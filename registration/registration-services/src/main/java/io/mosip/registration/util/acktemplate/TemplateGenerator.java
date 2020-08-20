@@ -714,9 +714,9 @@ public class TemplateGenerator extends BaseService {
 			StringBuilder documentsList = new StringBuilder();
 
 			for (String docName : documents.keySet()) {
-				documentsList.append(docName);
+				documentsList.append(RegistrationConstants.LocalizedDocType.get(docName));
 				if (documentsList.length() > 0) {
-					documentsList.append(", ");
+					documentsList.append("<br/>");
 				}
 			}
 
