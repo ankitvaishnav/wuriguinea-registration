@@ -713,13 +713,17 @@ public class TemplateGenerator extends BaseService {
 					getSecondaryLanguageLabel("documents"));
 			StringBuilder documentsList = new StringBuilder();
 
+			//documentsList.append("<ul>");
+
 			for (String docName : documents.keySet()) {
 				documentsList.append(docName);
 				if (documentsList.length() > 0) {
 					documentsList.append(", ");
 				}
-			}
+				//documentsList.append(RegistrationConstants.LocalizedDocType.get("<li>"+docName + "</li>"));
 
+			}
+			//documentsList.append("</ul>");
 			templateValues.put(RegistrationConstants.TEMPLATE_DOCUMENTS, documentsList.toString());
 			templateValues.put(RegistrationConstants.TEMPLATE_DOCUMENTS_LOCAL_LANG, RegistrationConstants.EMPTY);
 		} else {

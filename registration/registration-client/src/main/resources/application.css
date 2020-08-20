@@ -871,6 +871,9 @@ Working on new Css by taleev
 	-fx-text-fill : #020F59;
 }
 
+/*
+top right bottom left
+*/
 .demoGraphicTextFieldPre{
 	-fx-border-color: #C9C9C9;
 	-fx-border-width: 0.0 0.0 1.0 0.0;
@@ -878,9 +881,8 @@ Working on new Css by taleev
 	-fx-prompt-text-fill: #020F59;
 	-fx-font-size: 1.2em;
 	-fx-text-fill : #020F59;
-	-fx-padding : -15.0px 0.0px -6.0px -2.0px;
-	-fx-insets : 0 0 0 0;
-	-fx-border-insets : 12 -2 -10 44;
+	-fx-padding : 5.0px 0.0px -7.0px -2.0px;
+	-fx-border-insets : 5 -2 -5 44;
 }
 .demographicLangHeader{
 	-fx-font-size : 1.4em;
