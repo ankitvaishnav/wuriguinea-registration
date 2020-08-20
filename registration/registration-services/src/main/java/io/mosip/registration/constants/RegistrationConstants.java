@@ -1782,14 +1782,15 @@ public class RegistrationConstants {
 
 	public static final String EXCEPTION_PHOTO = "Exception_Photo";
 
-	/*public  static Map<String, Object> LocalizedDocType = new HashMap() {
+	public  static final Map<String, String> LocalizedDocType = new HashMap<String, String>() {
 		{
-	LocalizedDocType.put("proofOfConsent","Preuve de consentement");
-	LocalizedDocType.put("proofOfAddress","Justificatif d' adresse");
-	LocalizedDocType.put("","");
-	LocalizedDocType.put("","");
-	LocalizedDocType.put("","");
-	LocalizedDocType.put("","");
-	}
-	};*/
+			put("proofOfConsent","Preuve de Consentement");
+			put("proofOfAddress","Preuve d'adresse");
+			put("proofOfIdentity","Preuve d'Identité");
+			put("proofOfRelationship","Preuve de Lien de parenté");
+			put("proofOfDateOfBirth","Preuve de Naissance");
+			put("proofOfException","Proof of exception");
+		}
+	};
+
 }
