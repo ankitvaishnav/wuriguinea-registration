@@ -399,6 +399,33 @@ public class FXUtils {
 
 		}
 	}
+
+	public void onTypeFocusUnfocusListenerCombo(Pane parentPane, ComboBox field) {
+
+		if (field != null) {
+			field.getSelectionModel().selectedItemProperty().addListener((obsValue, oldValue, newValue) -> {
+				field.getStyleClass().removeIf((s) -> {
+					return s.equals("demoGraphicField");
+				});
+				field.getStyleClass().add("demoGraphicTextFieldOnType");
+				if (field.isFocused()) {
+					Label fieldLabel = (Label) parentPane.lookup("#" + field.getId() + "Label");
+					//fieldLabel.getStyleClass().clear();
+					field.getStyleClass().add("demoGraphicTextFieldOnType");
+					fieldLabel.getStyleClass().add("demoGraphicFieldLabelOnType");
+				}
+				if (newValue != null) {
+					if (newValue == null) {
+						hideLabel(parentPane, field);
+					} else {
+						hideErrorMessageLabel(parentPane, field);
+						showLabel(parentPane, field);
+					}
+				}
+			});
+
+		}
+	}
 	/**
 	 * Display the {@link Label}, {@link TextField}
 	 * 
@@ -468,6 +495,21 @@ public class FXUtils {
 		}
 	}
 
+	public void hideLabel(Pane parentPane, ComboBox field) {
+		if (field == null || field.getSelectionModel().isEmpty()) {
+			try {
+				Label label = ((Label) parentPane
+						.lookup(RegistrationConstants.HASH + field.getId() + RegistrationConstants.LABEL));
+				label.setVisible(false);
+				((TextField) parentPane.lookup(RegistrationConstants.HASH + field.getId()))
+						.setPromptText(label.getText());
+			} catch (RuntimeException runtimeException) {
+				LOGGER.info("ID NOT FOUND", APPLICATION_NAME, RegistrationConstants.APPLICATION_ID,
+						runtimeException.getMessage());
+			}
+		}
+	}
+
 	/**
 	 * Show the {@link Label} and remove Prompt Text corresponding to the input
 	 * {@link TextField}
@@ -480,6 +522,12 @@ public class FXUtils {
 		toggleUIField(parentPane, field.getId() + RegistrationConstants.LABEL, true);
 		((TextField) parentPane.lookup(RegistrationConstants.HASH + field.getId())).setPromptText(null);
 	}
+
+	public void showLabel(Pane parentPane, ComboBox field) {
+		toggleUIField(parentPane, field.getId() + RegistrationConstants.LABEL, true);
+		((ComboBox) parentPane.lookup(RegistrationConstants.HASH + field.getId())).setPromptText(null);
+	}
+
 
 	/**
 	 * Hide the {@link Label} corresponding to the input {@link TextField}
@@ -496,6 +544,13 @@ public class FXUtils {
 		}
 	}
 
+	private void hideErrorMessageLabel(Pane parentPane, ComboBox field) {
+		if (field.getId().matches("ageField|dd|mm|yyyy|ddLocalLanguage|mmLocalLanguage|yyyyLocalLanguage")) {
+			toggleUIField(parentPane, RegistrationConstants.DOB_MESSAGE, false);
+		} else {
+			toggleUIField(parentPane, field.getId() + RegistrationConstants.MESSAGE, false);
+		}
+	}
 	/**
 	 * Adds the Listener for text change event
 	 * 

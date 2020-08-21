@@ -309,7 +309,7 @@
                                                                                                   spacing="5.0"
                                                                                                   GridPane.rowIndex="1">
                                                                                                 <children>
-                                                                                                    <Label styleClass="demographicSectionHeader"
+                                                                                                    <Label styleClass="demographicSectionHeaderAddress"
                                                                                                            text="%addresses"/>
                                                                                                 </children>
                                                                                             </HBox>
