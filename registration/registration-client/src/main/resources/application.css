@@ -972,14 +972,6 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-prompt-text-fill: #020F59;
 	-fx-text-fill: #000000;
 	-fx-font-size: 1.2em;
-	-fx-pref-width: 200;
-}
-.demoGraphicFieldWidth{
-	-fx-pref-width: 100;
-}
-
-.combo-box {
-    -fx-pref-width: 100;
 }
 
 .demoGraphicTextFieldOnType:focused{
