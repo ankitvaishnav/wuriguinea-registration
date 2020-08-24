@@ -86,7 +86,8 @@ jobs:
         with:
           name: release
           path: ./
-
+      - name: checking the release.zip
+        run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -138,7 +139,8 @@ jobs:
         with:
           name: release
           path: ./
-
+      - name: checking the release.zip
+        run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -189,7 +191,8 @@ jobs:
         with:
           name: release
           path: ./
-
+      - name: checking the release.zip
+        run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -240,7 +243,8 @@ jobs:
         with:
           name: release
           path: ./
-
+      - name: checking the release.zip
+        run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -292,7 +296,8 @@ jobs:
         with:
           name: release
           path: ./
-
+      - name: checking the release.zip
+        run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
