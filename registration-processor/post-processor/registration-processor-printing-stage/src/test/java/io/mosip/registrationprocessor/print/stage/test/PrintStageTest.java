@@ -20,6 +20,8 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 
 import io.mosip.kernel.packetmanager.exception.ApiNotAccessibleException;
+import io.mosip.kernel.qrcode.generator.zxing.constant.QrVersion;
+
 import org.apache.activemq.command.ActiveMQBytesMessage;
 import org.apache.activemq.util.ByteSequence;
 import org.json.simple.JSONObject;
@@ -39,6 +41,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import io.mosip.kernel.core.idvalidator.spi.UinValidator;
 import io.mosip.kernel.core.pdfgenerator.exception.PDFGeneratorException;
+import io.mosip.kernel.core.qrcodegenerator.spi.QrCodeGenerator;
 import io.mosip.kernel.packetmanager.exception.ApiNotAccessibleException;
 import io.mosip.registration.processor.core.abstractverticle.MessageBusAddress;
 import io.mosip.registration.processor.core.abstractverticle.MessageDTO;
@@ -64,6 +67,7 @@ import io.mosip.registration.processor.core.spi.print.service.PrintService;
 import io.mosip.registration.processor.core.spi.queue.MosipQueueConnectionFactory;
 import io.mosip.registration.processor.core.spi.queue.MosipQueueManager;
 import io.mosip.registration.processor.core.spi.restclient.RegistrationProcessorRestClientService;
+import io.mosip.registration.processor.core.util.DigitalSignatureUtility;
 import io.mosip.registration.processor.packet.storage.dto.ApplicantInfoDto;
 import io.mosip.registration.processor.packet.storage.utils.Utilities;
 import io.mosip.registration.processor.print.exception.QueueConnectionNotFound;
@@ -134,6 +138,11 @@ public class PrintStageTest {
 	private Utilities utilities;
 	@Mock
 	private PrintPostServiceImpl printPostService;
+	@Mock
+	private QrCodeGenerator<QrVersion> qrcodeGenerator;
+	
+	@Mock
+	private DigitalSignatureUtility digitalSignatureUtility;
 
 	@Mock
 	private PrintService<Map<String, byte[]>> printService;
@@ -191,6 +200,7 @@ public class PrintStageTest {
 		ReflectionTestUtils.setField(stage, "workerPoolSize", 10);
 		ReflectionTestUtils.setField(stage, "clusterManagerUrl", "/dummyPath");
 		System.setProperty("server.port", "8099");
+		System.setProperty("mosip.registration.processor.print.service.qr.version", "V20");
 		System.setProperty("registration.processor.queue.username", "admin");
 		System.setProperty("registration.processor.queue.password", "admin");
 		System.setProperty("registration.processor.queue.url", "tcp://104.211.200.46:61616");
@@ -214,7 +224,8 @@ public class PrintStageTest {
 		Mockito.when(mosipConnectionFactory.createConnection(anyString(), anyString(), anyString(), anyString()))
 				.thenReturn(queue);
 		Mockito.when(mosipQueueManager.send(any(), any(), anyString())).thenReturn(true);
-
+		Mockito.when(digitalSignatureUtility.getDigitalSignature( any())).thenReturn("bla");
+		Mockito.when(qrcodeGenerator.generateQrCode(any(), any())).thenReturn(textBytes);
 		Mockito.doNothing().when(registrationStatusDto).setStatusCode(any());
 		Mockito.doNothing().when(registrationStatusDto).setStatusComment(any());
 		Mockito.doNothing().when(registrationStatusService).updateRegistrationStatus(any(), any(), any());

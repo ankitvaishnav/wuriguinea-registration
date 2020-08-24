@@ -18,9 +18,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import io.mosip.kernel.core.idvalidator.spi.UinValidator;
 import io.mosip.kernel.core.logger.spi.Logger;
 import io.mosip.kernel.core.pdfgenerator.exception.PDFGeneratorException;
+import io.mosip.kernel.core.qrcodegenerator.exception.QrcodeGenerationException;
+import io.mosip.kernel.core.qrcodegenerator.spi.QrCodeGenerator;
+import io.mosip.kernel.core.util.CryptoUtil;
+import io.mosip.kernel.qrcode.generator.zxing.constant.QrVersion;
 import io.mosip.registration.processor.core.abstractverticle.MessageBusAddress;
 import io.mosip.registration.processor.core.abstractverticle.MessageDTO;
 import io.mosip.registration.processor.core.abstractverticle.MosipEventBus;
@@ -53,10 +60,12 @@ import io.mosip.registration.processor.core.spi.queue.MosipQueueConnectionFactor
 import io.mosip.registration.processor.core.spi.queue.MosipQueueManager;
 import io.mosip.registration.processor.core.status.util.StatusUtil;
 import io.mosip.registration.processor.core.status.util.TrimExceptionMessage;
+import io.mosip.registration.processor.core.util.DigitalSignatureUtility;
 import io.mosip.registration.processor.core.util.IdentityIteratorUtil;
 import io.mosip.registration.processor.core.util.JsonUtil;
 import io.mosip.registration.processor.packet.storage.utils.Utilities;
 import io.mosip.registration.processor.print.exception.PrintGlobalExceptionHandler;
+import io.mosip.registration.processor.print.exception.QRCodeGeneratorException;
 import io.mosip.registration.processor.print.exception.QueueConnectionNotFound;
 import io.mosip.registration.processor.print.service.dto.PrintQueueDTO;
 import io.mosip.registration.processor.print.service.exception.PDFSignatureException;
@@ -139,6 +148,12 @@ public class PrintStage extends MosipVerticleAPIManager {
 	/** The print post service. */
 	@Autowired
 	private PrintPostServiceImpl printPostService;
+	
+	@Autowired
+	private DigitalSignatureUtility digitalSignatureUtility;
+	
+	@Autowired
+	private QrCodeGenerator<QrVersion> qrcodeGenerator;
 
 	/** The username. */
 	@Value("${registration.processor.queue.username}")
@@ -167,6 +182,9 @@ public class PrintStage extends MosipVerticleAPIManager {
 
 	@Value("${server.servlet.path}")
 	private String contextPath;
+	
+	@Value("${mosip.registration.processor.print.service.qr.version}")
+	private String qrVersion;
 
 	/** worker pool size. */
 	@Value("${worker.pool.size}")
@@ -432,6 +450,11 @@ public class PrintStage extends MosipVerticleAPIManager {
 			queueDto.setPdfBytes(documentBytesMap.get(UIN_CARD_PDF));
 			queueDto.setTextBytes(documentBytesMap.get(UIN_TEXT_FILE));
 			queueDto.setRegId(regId);
+			Gson gson = new GsonBuilder().create();
+			String digitallySignedqueueDto=digitalSignatureUtility.getDigitalSignature(gson.toJson(queueDto));
+			byte[] qr=qrcodeGenerator.generateQrCode(digitallySignedqueueDto, getQRVersion());
+			queueDto.setEncodedQrCode(CryptoUtil.encodeBase64(qr));
+			System.out.println(queueDto.getEncodedQrCode());
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(bos);
 			oos.writeObject(queueDto);
@@ -450,9 +473,24 @@ public class PrintStage extends MosipVerticleAPIManager {
 				throw new ConnectionUnavailableException(
 						PlatformErrorMessages.RPR_MQI_UNABLE_TO_SEND_TO_QUEUE.getCode());
 			}
+		} catch (QrcodeGenerationException e) {
+			regProcLogger.error(LoggerFileConstant.SESSIONID.toString(),
+					LoggerFileConstant.REGISTRATIONID.toString(), "",
+					PlatformErrorMessages.RPR_PRT_QR_CODE_GENERATION_ERROR.name() + e.getMessage()
+							+ ExceptionUtils.getStackTrace(e));
+			throw new QRCodeGeneratorException( e.getMessage()+ ExceptionUtils.getStackTrace(e));
 		}
 
 		return isAddedToQueue;
+	}
+
+	private QrVersion getQRVersion() {
+		for(QrVersion qRVersion: QrVersion.values()) {
+			if(qRVersion.name().equals(qrVersion)) {
+				return qRVersion;
+			}
+		}
+		return null;
 	}
 
 	/*
@@ -537,6 +575,7 @@ public class PrintStage extends MosipVerticleAPIManager {
 			JSONObject jsonObject = JsonUtil.objectMapperReadValue(response, JSONObject.class);
 			String status = JsonUtil.getJSONValue(jsonObject, "Status");
 			registrationId = JsonUtil.getJSONValue(jsonObject, "RegId");
+			System.out.println(status+registrationId);
 			if (registrationId != null) {
 				regProcLogger.debug(LoggerFileConstant.SESSIONID.toString(),
 						LoggerFileConstant.REGISTRATIONID.toString(), registrationId,
@@ -552,6 +591,7 @@ public class PrintStage extends MosipVerticleAPIManager {
 					registrationStatusDto.setSubStatusCode(StatusUtil.PRINT_POST_COMPLETED.getCode());
 					registrationStatusDto
 							.setLatestTransactionStatusCode(RegistrationTransactionStatusCode.PROCESSED.toString());
+					registrationStatusDto.setStatusCode(RegistrationTransactionStatusCode.PROCESSED.toString());
 					registrationStatusDto.setLatestTransactionTypeCode(
 							RegistrationTransactionTypeCode.PRINT_POSTAL_SERVICE.toString());
 					registrationStatusDto.setUpdatedBy(USER);
