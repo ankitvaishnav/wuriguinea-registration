@@ -142,7 +142,7 @@ jobs:
       - name: checking the release.zip
         run: |
            ls -lrt
-           unzip release.zip release
+           unzip release.zip
            ls -lst release/registration-processor/
            
       - name: Setup branch name
