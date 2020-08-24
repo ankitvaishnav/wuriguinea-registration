@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>io.mosip.wuri.registrationprocessor</groupId>
 		<artifactId>pre-processor</artifactId>
-		<version>1.1.1</version>
+		<version>1.1.1-rc1</version>
 	</parent>
 	<artifactId>registration-processor-osi-validator-stage</artifactId>
 	<version>1.1.1</version>
