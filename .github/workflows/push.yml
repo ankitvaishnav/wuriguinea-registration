@@ -41,16 +41,13 @@ jobs:
 
     - name: Build with Maven
       run: |
-        cd registrcdation-processor
+        #cd registrcdation-processor
         mvn -B package -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true -Dgpg.skip=true --file pom.xml
 
     - name: Ready the springboot artifacts
-      run: |
-         find -name '*.jar' -executable -type f  -exec zip release.zip {} +
-         ls -lrt 
-      
-
-
+      run: find -name '*.jar' -executable -type f  -exec zip release.zip {} +
+         #ls -lrt 
+  
     - name: Upload the springboot jars 
       uses: actions/upload-artifact@v1
       with:
