@@ -760,7 +760,7 @@ Working on new Css by taleev
      -fx-pref-height: 280.0px;
      -fx-pref-width: 200.0px;
      -fx-border-width: 1.0 1.0 1.0 1.0;
-     -fx-padding: -30.0px -40.0px -40.0px -40.0px;
+     -fx-padding: -10.0px -40.0px -20.0px -40.0px;
      -fx-border-insets: -1.0px 15.0px 15.0px 15.0px;
      -fx-background-insets: 5.0px;
      -fx-border-radius: 10 10 10 10;
@@ -898,6 +898,12 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-text-fill : #020F59;
 	-fx-font-weight: bold;
     -fx-padding: 0.0px 0.0px -80.0px 35.0px;
+}
+.demographicSectionHeaderAddress{
+	-fx-font-size : 1.1em;
+	-fx-text-fill : #020F59;
+	-fx-font-weight: bold;
+    -fx-padding: 0.0px 0.0px -30.0px 35.0px;
 }
 .demographicSectionHeaderGarden{
 	-fx-font-size : 1.1em;
