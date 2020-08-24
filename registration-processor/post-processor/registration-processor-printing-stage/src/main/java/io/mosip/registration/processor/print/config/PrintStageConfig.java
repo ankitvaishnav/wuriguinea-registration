@@ -4,7 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import io.mosip.kernel.core.idvalidator.spi.UinValidator;
+import io.mosip.kernel.core.qrcodegenerator.spi.QrCodeGenerator;
 import io.mosip.kernel.idvalidator.uin.impl.UinValidatorImpl;
+import io.mosip.kernel.qrcode.generator.zxing.QrcodeGeneratorImpl;
+import io.mosip.kernel.qrcode.generator.zxing.constant.QrVersion;
 import io.mosip.registration.processor.print.exception.PrintGlobalExceptionHandler;
 import io.mosip.registration.processor.print.stage.PrintStage;
 
@@ -23,6 +26,11 @@ public class PrintStageConfig {
 	@Bean
 	public UinValidator<String> getUinValidator() {
 		return new UinValidatorImpl();
+	}
+	
+	@Bean
+	public QrCodeGenerator<QrVersion> getQrcodeGenerator() {
+		return new QrcodeGeneratorImpl();
 	}
 
 	/**

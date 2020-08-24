@@ -43,6 +43,13 @@ public class PrintGlobalExceptionHandler {
 				e.getErrorCode(), e.getStackTrace()[0].toString());
 		return errorDetails.getMessage();
 	}
+	
+	public String handleQRCodeGeneratorException(final QRCodeGeneratorException e) {
+		ExceptionJSONInfo errorDetails = new ExceptionJSONInfo(e.getErrorCode(), e.getMessage());
+		regProcLogger.error(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.APPLICATIONID.toString(),
+				e.getErrorCode(), e.getStackTrace()[0].toString());
+		return errorDetails.getMessage();
+	}
 
 	/**
 	 * Data exception handler.

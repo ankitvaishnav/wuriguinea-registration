@@ -16,6 +16,8 @@ public class PrintQueueDTO implements Serializable{
 	
 	private String regId;
 	
+	private String encodedQrCode;
+	
 	public byte[] getPdfBytes() {
         if(pdfBytes!=null)
                return Arrays.copyOf(pdfBytes, pdfBytes.length);
