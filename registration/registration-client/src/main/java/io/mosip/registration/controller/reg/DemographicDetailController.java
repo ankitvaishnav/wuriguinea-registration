@@ -726,6 +726,9 @@ public class DemographicDetailController extends BaseController {
 		helperMethodForComboBox(field, fieldName, schema, label, validationMessage, vbox, languageType);
 		field.setConverter((StringConverter<GenericDto>) uiRenderForComboBox);
 		listOfComboBoxWithObject.put(fieldName + languageType, field);
+
+		fxUtils.onTypeFocusUnfocusListenerCombo(parentFlowPane, field);
+
 		return vbox;
 	}
 
