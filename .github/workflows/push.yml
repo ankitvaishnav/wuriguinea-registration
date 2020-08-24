@@ -128,7 +128,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
+      NAMESPACE: wuriguinea
       SERVICE_NAME: registration-processor-print-service
       SERVICE_LOCATION: registration-processor/post-processor/registration-processor-print-service
 
@@ -138,8 +138,7 @@ jobs:
         with:
           name: release
           path: ./
-      - run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION }}/target/*" -d "./${{ env.SERVICE_LOCATION }}/target"
-        
+
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -174,12 +173,13 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+ 
   docker-registration-processor-message-sender-stage:
     needs: build
 
     runs-on: ubuntu-latest
     env:
-      NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
+      NAMESPACE: wuriguinea
       SERVICE_NAME: registration-processor-message-sender-stage
       SERVICE_LOCATION: registration-processor/post-processor/registration-processor-message-sender-stage
 
@@ -224,12 +224,13 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+ 
   docker-registration-processor-printing-stage:
     needs: build
 
     runs-on: ubuntu-latest
     env:
-      NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
+      NAMESPACE: wuriguinea
       SERVICE_NAME: registration-processor-printing-stage
       SERVICE_LOCATION: registration-processor/post-processor/registration-processor-printing-stage
 
@@ -274,13 +275,14 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
-          
+ 
+
   docker-registration-processor-registration-transaction-service:
-    needs: build 
+    needs: build
 
     runs-on: ubuntu-latest
     env:
-      NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
+      NAMESPACE: wuriguinea
       SERVICE_NAME: registration-processor-registration-transaction-service
       SERVICE_LOCATION: registration-processor/post-processor/registration-processor-registration-transaction-service
 
@@ -325,3 +327,4 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+ 
