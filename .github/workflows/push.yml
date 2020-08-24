@@ -45,7 +45,10 @@ jobs:
         mvn -B package -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true -Dgpg.skip=true --file pom.xml
 
     - name: Ready the springboot artifacts
-      run: find -name '*.jar' -executable -type f  -exec zip release.zip {} +
+      run: |
+         find -name '*.jar' -executable -type f  -exec zip release.zip {} +
+         ls -lrt 
+      
 
 
     - name: Upload the springboot jars 
