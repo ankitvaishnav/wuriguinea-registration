@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import io.mosip.kernel.packetmanager.dto.metadata.BiometricsException;
 import org.apache.commons.io.IOUtils;
 import org.mvel2.MVEL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -305,6 +306,9 @@ public class BiometricsController extends BaseController /* implements Initializ
 	private BiometricExceptionsController biometricExceptionsController;
 
 	@Autowired
+	private BiometricExceptionsIntroducerController biometricExceptionsIntroducerController;
+
+	@Autowired
 	private DocumentScanController documentScanController;
 
 	private GridPane exceptionBiometricsPane;
@@ -370,6 +374,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 
 		try {
 			BaseController.load(getClass().getResource("/fxml/BiometricExceptions.fxml"));
+			BaseController.load(getClass().getResource("/fxml/BiometricExceptionsIntroducer.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1950,8 +1955,12 @@ public class BiometricsController extends BaseController /* implements Initializ
 			if (getRegistrationDTOFromSession() != null
 					&& getRegistrationDTOFromSession().getBiometricExceptions() != null
 					&& !getRegistrationDTOFromSession().getBiometricExceptions().isEmpty()) {
-
-				result = getRegistrationDTOFromSession().getDocuments().containsKey("proofOfException");
+				for(Entry<String, BiometricsException> bs: getRegistrationDTOFromSession().getBiometricExceptions().entrySet()){
+					if(bs.getValue().getIndividualType().equalsIgnoreCase("applicant")){
+						result = getRegistrationDTOFromSession().getDocuments().containsKey("proofOfException");
+						break;
+					}
+				}
 			}
 		}
 		LOGGER.debug("REGISTRATION - BIOMETRICS - refreshContinueButton", RegistrationConstants.APPLICATION_ID,
@@ -2347,12 +2356,17 @@ public class BiometricsController extends BaseController /* implements Initializ
 		LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
 				"Getting exception image pane for modality from BiometricsExceptionController: " + modality);
 
-		if (exceptionImagesList.isEmpty()) {
+//		if (exceptionImagesList.isEmpty()) {
+		exceptionImagesList.clear();
+		if(subType != null && subType.equalsIgnoreCase("introducer")){
+			exceptionBiometricsPane = biometricExceptionsIntroducerController.getExceptionBiometricsPane();
+		} else {
 			exceptionBiometricsPane = biometricExceptionsController.getExceptionBiometricsPane();
-
-			exceptionImagesList.addAll(exceptionBiometricsPane.getChildren());
-
 		}
+
+		exceptionImagesList.addAll(exceptionBiometricsPane.getChildren());
+
+//		}
 		if (!exceptionImagesList.isEmpty()) {
 
 			for (Node paneList : exceptionImagesList) {
