@@ -140,7 +140,11 @@ jobs:
           name: release
           path: ./
       - name: checking the release.zip
-        run: ls -lrt
+        run: |
+           ls -lrt
+           unzip release.zip release
+           ls -lst release/registration-processor/
+           
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
