@@ -419,9 +419,9 @@ public class DemographicDetailController extends BaseController {
 
 		ObservableList<ColumnConstraints> columnConstraints = gridPane.getColumnConstraints();
 		ColumnConstraints columnConstraint1 = new ColumnConstraints();
-		columnConstraint1.setPercentWidth(48);
+		columnConstraint1.setPercentWidth(45);
 		ColumnConstraints columnConstraint2 = new ColumnConstraints();
-		columnConstraint2.setPercentWidth(7);
+		columnConstraint2.setPercentWidth(10);
 		ColumnConstraints columnConstraint3 = new ColumnConstraints();
 		columnConstraint3.setPercentWidth(45);
 		columnConstraints.addAll(columnConstraint1, columnConstraint2, columnConstraint3);
@@ -712,6 +712,7 @@ public class DemographicDetailController extends BaseController {
 	public <T> VBox addContentWithComboBoxObject(String fieldName, UiSchemaDTO schema, String languageType) {
 
 		ComboBox<GenericDto> field = new ComboBox<GenericDto>();
+		field.setMinSize(300,30);
 		Label label = new Label();
 		Label validationMessage = new Label();
 		StringConverter<T> uiRenderForComboBox = fxUtils.getStringConverterForComboBox();
@@ -914,6 +915,7 @@ public class DemographicDetailController extends BaseController {
 	}
 
 	private void addFirstOrderAddress(ComboBox<GenericDto> location, int id, String languageType) {
+		//location.setMinSize(280,30);
 		if (location != null) {
 			location.getItems().clear();
 			try {
