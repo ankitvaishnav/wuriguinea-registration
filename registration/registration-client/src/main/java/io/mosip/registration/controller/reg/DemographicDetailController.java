@@ -1173,7 +1173,7 @@ public class DemographicDetailController extends BaseController {
 					} else {
 						TextField textField = listOfTextField.get(schemaField.getId());
 						if (textField != null)
-							textField.setText((String) value);
+							textField.setText(value.toString());
 					}
 				}
 			}
