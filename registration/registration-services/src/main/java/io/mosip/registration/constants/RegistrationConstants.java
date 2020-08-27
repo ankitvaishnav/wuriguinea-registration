@@ -1784,12 +1784,12 @@ public class RegistrationConstants {
 
 	public  static final Map<String, String> LocalizedDocType = new HashMap<String, String>() {
 		{
-			put("proofOfConsent","FORMULAIRE DE CONSENTEMENT");
-			put("proofOfAddress","JUSTIFICATIF DE DOMICILE" );
-			put("proofOfIdentity","JUSTIFICATIF D'IDENTITE");
-			put("proofOfRelationship","JUSTIFICATIF DE LIEN DE PARENTE");
-			put("proofOfDateOfBirth","JUSTIFICATIF DE DATE DE NAISSANCE");
-			put("proofOfException","JUSTIFICATIF D'EXCEPTION BIOMETRIQUE");
+			put("proofOfConsent","Formulaire de Consentement");
+			put("proofOfAddress","Justificatif de Domicile");
+			put("proofOfIdentity","Justificatif d'Identité");
+			put("proofOfRelationship","Justificatif de Lien de Parenté");
+			put("proofOfDateOfBirth","Justificatif de Date de Naissance");
+			put("proofOfException","Justificatif d'Exception Biométrique");
 		}
 	};
 
