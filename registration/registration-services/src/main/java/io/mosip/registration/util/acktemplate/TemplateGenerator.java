@@ -710,7 +710,7 @@ public class TemplateGenerator extends BaseService {
 			templateValues.put(RegistrationConstants.TEMPLATE_DOCUMENTS_USER_LANG_LABEL,
 					applicationLanguageProperties.getString("documents"));
 			templateValues.put(RegistrationConstants.TEMPLATE_DOCUMENTS_LOCAL_LANG_LABEL,
-					getSecondaryLanguageLabel("documents"));
+					getSecondaryLanguageLabel("Justificatifs"));
 			StringBuilder documentsList = new StringBuilder();
 
 			for (String docName : documents.keySet()) {
