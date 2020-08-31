@@ -85,7 +85,7 @@
       "maximum": 0,
       "description": "Last Name",
       "label": {
-        "primary": "Nom"
+        "primary": "Nom de Famille"
       },
       "controlType": "textbox",
       "fieldType": "default",
@@ -493,7 +493,7 @@
       "maximum": 0,
       "description": "Parent/Guardian UIN",
       "label": {
-        "primary": "NIU"
+        "primary": "INU"
       },
       "controlType": "textbox",
       "fieldType": "default",
