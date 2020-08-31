@@ -102,7 +102,7 @@
       "required": true,
       "bioAttributes": null,
       "requiredOn": [],
-      "subType": "none",
+      "subType": "name",
       "contactType": null,
       "group": "Nom"
     },
