@@ -1082,7 +1082,7 @@ public class DemographicDetailController extends BaseController {
 							childNode.setDisable(false);
 						} else {
 							UiSchemaDTO schemaField = getValidationMap().get(fieldId);
-							childNode.setDisable(schemaField != null && "name".equalsIgnoreCase(schemaField.getSubType()) ? false
+							childNode.setDisable(schemaField != null && ("name".equalsIgnoreCase(schemaField.getSubType()) || "dob".equalsIgnoreCase(schemaField.getSubType())) ? false
 									: true);
 						}
 					}
@@ -1106,23 +1106,24 @@ public class DemographicDetailController extends BaseController {
 				}
 				//parentFlowPane.getChildren();
 			}
-			for (Node pane : childFlowPaneGuardian.getChildren()) {
-				if (!pane.getId().matches("languageLabelParentPane1|languageLabelParentPane")) {
-					GridPane gp = (GridPane) pane;
-					for (Node childNode: gp.getChildren()){
-						childNodeId = childNode.getId();
-						if (childNode.getId() != null && childNode.getId().matches("(.*)ChildGridPane")) {
-							String fieldId = childNode.getId().replace("ChildGridPane", "");
-							if (selectionList.contains(fieldId)) {
-								childNode.setDisable(false);
-							} else {
-								childNode.setDisable(true);
-							}
-						}
-					}
-				}
-				//parentFlowPane.getChildren();
-			}
+			childFlowPaneGuardian.setVisible(false);
+//			for (Node pane : childFlowPaneGuardian.getChildren()) {
+//				if (!pane.getId().matches("languageLabelParentPane1|languageLabelParentPane")) {
+//					GridPane gp = (GridPane) pane;
+//					for (Node childNode: gp.getChildren()){
+//						childNodeId = childNode.getId();
+//						if (childNode.getId() != null && childNode.getId().matches("(.*)ChildGridPane")) {
+//							String fieldId = childNode.getId().replace("ChildGridPane", "");
+//							if (selectionList.contains(fieldId)) {
+//								childNode.setDisable(false);
+//							} else {
+//								childNode.setDisable(true);
+//							}
+//						}
+//					}
+//				}
+//				//parentFlowPane.getChildren();
+//			}
 
 		}
 	}

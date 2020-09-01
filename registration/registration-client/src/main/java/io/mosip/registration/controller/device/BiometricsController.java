@@ -343,6 +343,10 @@ public class BiometricsController extends BaseController /* implements Initializ
 		Image backInWhite = new Image(getClass().getResourceAsStream(RegistrationConstants.BACK_FOCUSED));
 		Image backImage = new Image(getClass().getResourceAsStream(RegistrationConstants.BACK));
 		backButton.hoverProperty().addListener((ov, oldValue, newValue) -> {
+			//INFO fixed null pointer
+			if(backImageView == null){
+				backImageView = new ImageView();
+			}
 			if (newValue) {
 				backImageView.setImage(backInWhite);
 			} else {
