@@ -139,11 +139,11 @@ jobs:
         with:
           name: release
           path: ./
-      - name: checking the release.zip
-        run: |
-           ls -lrt
-           unzip release.zip
-           ls -lst release/registration-processor/
+    #  - name: checking the release.zip
+    #    run: |
+     #      ls -lrt
+     #      unzip release.zip
+     #      ls -lst registration-processor/
            
       - name: Setup branch name
         run: |
@@ -195,8 +195,8 @@ jobs:
         with:
           name: release
           path: ./
-      - name: checking the release.zip
-        run: ls -lrt
+     # - name: checking the release.zip
+      #  run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
