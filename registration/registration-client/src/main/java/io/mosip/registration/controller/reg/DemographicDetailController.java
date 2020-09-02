@@ -547,7 +547,7 @@ public class DemographicDetailController extends BaseController {
 				: applicationLabelBundle.getString(RegistrationConstants.YYYY));
 
 		HBox hB = new HBox();
-		hB.setSpacing(10);
+		hB.setSpacing(7);
 		hB.getChildren().addAll(vBoxDD, vBoxMM, vBoxYYYY);
 
 		HBox hB2 = new HBox();
