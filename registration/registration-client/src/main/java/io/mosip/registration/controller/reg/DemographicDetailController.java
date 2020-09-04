@@ -386,12 +386,12 @@ public class DemographicDetailController extends BaseController {
 		GridPane gridPane = prepareMainGridPane();
 		gridPane.setId(left.getId()+ "ParentGridPane");
 		if (left != null) {
-			GridPane primary = subGridPane(left, "");
+			GridPane primary = subGridPane(left, "", true);
 			primary.setId(left.getId() + "ChildGridPane");
 			gridPane.addColumn(0, primary);
 		}
 		if (right != null) {
-			GridPane secondary = subGridPane(right, "");
+			GridPane secondary = subGridPane(right, "", false);
 			secondary.setId(right.getId() + "ChildGridPane");
 			gridPane.addColumn(2, secondary);
 		}
@@ -419,11 +419,11 @@ public class DemographicDetailController extends BaseController {
 
 		ObservableList<ColumnConstraints> columnConstraints = gridPane.getColumnConstraints();
 		ColumnConstraints columnConstraint1 = new ColumnConstraints();
-		columnConstraint1.setPercentWidth(45);
+		columnConstraint1.setPercentWidth(48);
 		ColumnConstraints columnConstraint2 = new ColumnConstraints();
-		columnConstraint2.setPercentWidth(10);
+		columnConstraint2.setPercentWidth(4);
 		ColumnConstraints columnConstraint3 = new ColumnConstraints();
-		columnConstraint3.setPercentWidth(45);
+		columnConstraint3.setPercentWidth(48);
 		columnConstraints.addAll(columnConstraint1, columnConstraint2, columnConstraint3);
 		return gridPane;
 	}
@@ -444,16 +444,23 @@ public class DemographicDetailController extends BaseController {
 	}
 
 	@SuppressWarnings("unlikely-arg-type")
-	public GridPane subGridPane(UiSchemaDTO schemaDTO, String languageType) {
+	public GridPane subGridPane(UiSchemaDTO schemaDTO, String languageType, Boolean isLeft) {
 		GridPane gridPane = new GridPane();
 
 		ObservableList<ColumnConstraints> columnConstraints = gridPane.getColumnConstraints();
 		ColumnConstraints columnConstraint1 = new ColumnConstraints();
-        columnConstraint1.setPercentWidth(15);
+		if(isLeft)
+        	columnConstraint1.setPercentWidth(15);
+		else
+			columnConstraint1.setPercentWidth(1);
 		ColumnConstraints columnConstraint2 = new ColumnConstraints();
-        columnConstraint2.setPercentWidth(70);
+        columnConstraint2.setPercentWidth(84);
 		ColumnConstraints columnConstraint3 = new ColumnConstraints();
-        columnConstraint3.setPercentWidth(15);
+		if(isLeft)
+			columnConstraint3.setPercentWidth(1);
+		else
+			columnConstraint3.setPercentWidth(15);
+
 		columnConstraints.addAll(columnConstraint1, columnConstraint2, columnConstraint3);
 
 		ObservableList<RowConstraints> rowConstraints = gridPane.getRowConstraints();
@@ -712,7 +719,7 @@ public class DemographicDetailController extends BaseController {
 	public <T> VBox addContentWithComboBoxObject(String fieldName, UiSchemaDTO schema, String languageType) {
 
 		ComboBox<GenericDto> field = new ComboBox<GenericDto>();
-		field.setMinSize(300,30);
+		field.setMaxSize(380,30);
 		Label label = new Label();
 		Label validationMessage = new Label();
 		StringConverter<T> uiRenderForComboBox = fxUtils.getStringConverterForComboBox();
