@@ -409,12 +409,12 @@ public class BiometricsController extends BaseController /* implements Initializ
 			registrationNavlabel.setVisible(false);
 			backButton.setVisible(false);
 			gheaderfooter.setVisible(false);
-			continueBtn.setText("SAVE");
+			continueBtn.setText("enregistrer");
 		} else {
 			registrationNavlabel.setVisible(true);
 			backButton.setVisible(true);
 			gheaderfooter.setVisible(true);
-			continueBtn.setText("CONTINUE");
+			continueBtn.setText("Continuer");
 		}
 
 		checkBoxPane.getChildren().clear();
@@ -680,9 +680,11 @@ public class BiometricsController extends BaseController /* implements Initializ
 
 			if (!isUserOnboardFlag) {
 				subTypeLabel.setText(getMapOfbiometricSubtypes().get(currentSubType));
+				subTypeLabel.getStyleClass().add(RegistrationConstants.BIOMETRICS_LABEL);
 			} else {
 
-				subTypeLabel.setText("Operator/Supervisor Biometrics");
+				subTypeLabel.setText("Donnéés Biométriques de l'Opérateur/Superviseur");
+				subTypeLabel.getStyleClass().add(RegistrationConstants.BIOMETRICS_LABEL);
 			}
 
 		}
@@ -1055,7 +1057,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 
 			return;
 		}
-		scanPopUpViewController.init(this, "Biometrics");
+		scanPopUpViewController.init(this, "Biométries");
 
 		Service<MdmBioDevice> deviceSearchTask = new Service<MdmBioDevice>() {
 			@Override
