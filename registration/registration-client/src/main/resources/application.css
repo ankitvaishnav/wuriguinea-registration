@@ -1049,7 +1049,9 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-color: #020F59;
 	-fx-font-size: 1.2em;
 }
-
+.documentLabel{
+	-fx-text-fill : #020F59;
+}
 #docPreviewImgViewPane{
 	-fx-border-width : 1.0;
 	-fx-border-color: #C9C9C9;
@@ -1144,6 +1146,10 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-background-color : #F0F0F0;
 	-fx-border-color : #020F59;
 	-fx-border-insets: 1.0 10.0 2.0 2.0;
+}
+.subTypeLabel{
+	-fx-text-fill : #020F59;
+	-fx-padding: 0.0 0.0 0.0 -50.0;
 }
 .bioIris{
 	-fx-border-color : #020F59;

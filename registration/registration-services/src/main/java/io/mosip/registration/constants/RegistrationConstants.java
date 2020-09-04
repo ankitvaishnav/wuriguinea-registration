@@ -517,6 +517,7 @@ public class RegistrationConstants {
 	public static final String TEMPLATE_DEMO_INFO = "DemographicInfo";
 	public static final String DEMOGRAPHIC_TEXTFIELD_FOCUSED = "demoGraphicTextFieldFocused";
 	public static final String DEMOGRAPHIC_TEXTFIELD = "demoGraphicTextField";
+	public static final String DOCUMENTS_LABEL = "documentLabel";
 	public static final String TEMPLATE_FULL_NAME_USER_LANG_LABEL = "FullNamePrimLabel";
 	public static final String TEMPLATE_FULL_NAME_LOCAL_LANG_LABEL = "FullNameSecLabel";
 	public static final String TEMPLATE_FULL_NAME = "FullName";
@@ -1730,6 +1731,7 @@ public class RegistrationConstants {
 	};
 
 	public static final String BIOMETRICS_TYPE = "biometricsType";
+	public static final String BIOMETRICS_LABEL = "subTypeLabel";
 	public static final String APPLICANT = "applicant";
 
 	public static final String MOSIP_CLEINT_ID = "mosip.registration.client.id";
