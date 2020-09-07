@@ -1155,7 +1155,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 			public void handle(WorkerStateEvent t) {
 
 				LOGGER.error(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
-						"Exception while finding bio device");
+						"Exception while finding bio device: "+t.toString());
 
 				setPopViewControllerMessage(true, RegistrationUIConstants.NO_DEVICE_FOUND);
 
@@ -1255,8 +1255,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 					LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
 							"biometrics captured from mock/real MDM");
 
-					boolean isValidBiometric = mdsCapturedBiometricsList != null
-							&& !mdsCapturedBiometricsList.isEmpty();
+                    boolean isValidBiometric = isValidBiometric(mdsCapturedBiometricsList);
 
 					LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
 							"biometrics captured from mock/real MDM was valid : " + isValidBiometric);
@@ -1393,6 +1392,29 @@ public class BiometricsController extends BaseController /* implements Initializ
 				"Scan process ended for capturing biometrics");
 
 	}
+
+    private boolean isValidBiometric(List<BiometricsDto> mdsCapturedBiometricsList) {
+
+        LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID, "Validating captured biometrics");
+
+        boolean isValid = mdsCapturedBiometricsList != null && !mdsCapturedBiometricsList.isEmpty();
+
+        if (isValid) {
+            for (BiometricsDto biometricsDto : mdsCapturedBiometricsList) {
+                if (biometricsDto.getBioAttribute() == null
+                        || biometricsDto.getBioAttribute().equalsIgnoreCase(RegistrationConstants.JOB_UNKNOWN)) {
+
+                    LOGGER.error(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                            "Unknown bio attribute identified in captured biometrics");
+
+                    isValid = false;
+                    break;
+                }
+            }
+        }
+
+        return isValid;
+    }
 
 	private List<BiometricsDto> rCapture(String subType, String modality) throws RegBaseCheckedException, IOException {
 
