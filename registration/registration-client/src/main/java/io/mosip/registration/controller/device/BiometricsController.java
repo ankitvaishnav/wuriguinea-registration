@@ -1153,7 +1153,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 			public void handle(WorkerStateEvent t) {
 
 				LOGGER.error(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
-						"Exception while finding bio device");
+						"Exception while finding bio device: "+t.toString());
 
 				setPopViewControllerMessage(true, RegistrationUIConstants.NO_DEVICE_FOUND);
 
