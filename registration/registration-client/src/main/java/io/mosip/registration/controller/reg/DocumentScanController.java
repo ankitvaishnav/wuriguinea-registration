@@ -1080,11 +1080,12 @@ public class DocumentScanController extends BaseController {
 				String.valueOf(ApplicationContext.map().get(RegistrationConstants.DOC_DISABLE_FLAG)))) {
 			continueBtn.setDisable(false);
 		} else {
-			if (registrationController.validateDemographicPane(documentScanPane)) {
-				continueBtn.setDisable(false);
-			} else {
-				continueBtn.setDisable(true);
-			}
+			continueBtn.setDisable(false);
+//			if (registrationController.validateDemographicPane(documentScanPane)) {
+//				continueBtn.setDisable(false);
+//			} else {
+//				continueBtn.setDisable(true);
+//			}
 		}
 	}
 
