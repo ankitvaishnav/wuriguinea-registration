@@ -117,6 +117,10 @@ public class UpdateUINController extends BaseController implements Initializable
 			Image backImage = new Image(getClass().getResourceAsStream(RegistrationConstants.BACK));
 
 			backBtn.hoverProperty().addListener((ov, oldValue, newValue) -> {
+				//INFO fixed null pointer
+				if(backImageView == null){
+					backImageView = new ImageView();
+				}
 				if (newValue) {
 					backImageView.setImage(backInWhite);
 				} else {

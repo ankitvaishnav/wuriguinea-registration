@@ -1894,6 +1894,9 @@ public class BiometricsController extends BaseController /* implements Initializ
 	}
 
 	public void addBioStreamImage(String subType, String modality, int attempt, byte[] streamImage) throws IOException {
+	    if(modality.equalsIgnoreCase("face")){
+	        modality = RegistrationConstants.FACE_FULLFACE;
+        }
 		if (streamImage == null) {
 			String imagePath = getStubStreamImagePath(modality);
 			STREAM_IMAGES.put(String.format("%s_%s_%s", subType, modality, attempt),
@@ -2195,7 +2198,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 				break;
 			case "FACE":
 			case PacketManagerConstants.FACE_FULLFACE:
-				path = RegistrationConstants.FACE_IMG_PATH;
+				path = RegistrationConstants.FACE_BIO_PATH;
 				break;
 		}
 		return path;

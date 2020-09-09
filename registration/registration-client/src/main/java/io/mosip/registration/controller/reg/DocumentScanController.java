@@ -695,11 +695,15 @@ public class DocumentScanController extends BaseController {
 			if (selectedDocument != null) {
 				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 						RegistrationConstants.APPLICATION_ID, "Adding documents to Screen");
+				//INFO: ADDED
+				selectedComboBox.getValue().setScanned(true);
 
 				attachDocuments(selectedComboBox.getValue(), selectedDocVBox, byteArray, false);
 
 				scannedPages.clear();
 				popupStage.close();
+				//INFO: ADDED
+				selectedComboBox = null;
 
 				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 						RegistrationConstants.APPLICATION_ID, "Documents added successfully");
