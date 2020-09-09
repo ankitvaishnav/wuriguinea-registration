@@ -1085,6 +1085,10 @@ public class AuthenticationController extends BaseController implements Initiali
 		Image scanImage = new Image(getClass().getResourceAsStream(RegistrationConstants.SCAN));
 
 		backBtn.hoverProperty().addListener((ov, oldValue, newValue) -> {
+			//INFO fixed null pointer
+			if(backImageView == null){
+				backImageView = new ImageView();
+			}
 			if (newValue) {
 				backImageView.setImage(backInWhite);
 			} else {

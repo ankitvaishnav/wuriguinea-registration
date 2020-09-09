@@ -694,11 +694,15 @@ public class DocumentScanController extends BaseController {
 			if (selectedDocument != null) {
 				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 						RegistrationConstants.APPLICATION_ID, "Adding documents to Screen");
+				//INFO: ADDED
+				selectedComboBox.getValue().setScanned(true);
 
 				attachDocuments(selectedComboBox.getValue(), selectedDocVBox, byteArray, false);
 
 				scannedPages.clear();
 				popupStage.close();
+				//INFO: ADDED
+				selectedComboBox = null;
 
 				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 						RegistrationConstants.APPLICATION_ID, "Documents added successfully");
@@ -1080,12 +1084,11 @@ public class DocumentScanController extends BaseController {
 				String.valueOf(ApplicationContext.map().get(RegistrationConstants.DOC_DISABLE_FLAG)))) {
 			continueBtn.setDisable(false);
 		} else {
-			continueBtn.setDisable(false);
-//			if (registrationController.validateDemographicPane(documentScanPane)) {
-//				continueBtn.setDisable(false);
-//			} else {
-//				continueBtn.setDisable(true);
-//			}
+			if (registrationController.validateDemographicPane(documentScanPane)) {
+				continueBtn.setDisable(false);
+			} else {
+				continueBtn.setDisable(true);
+			}
 		}
 	}
 
