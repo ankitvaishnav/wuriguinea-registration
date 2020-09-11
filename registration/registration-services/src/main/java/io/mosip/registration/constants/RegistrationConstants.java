@@ -875,7 +875,7 @@ public class RegistrationConstants {
 	public static final String LOST_UIN_SMS_TEMPLATE = "lostUIN-sms-notification";
 
 	// Notification Service
-	public static final String EMAIL_SUBJECT = "MOSIP REGISTRATION NOTIFICATION";
+	public static final String EMAIL_SUBJECT = "UNIR - Notification de l'enregistrement";
 	public static final String EMAIL_SERVICE = "email";
 	public static final String SMS_SERVICE = "sms";
 	public static final String NOTIFICATION_SERVICE = "REGISTRATION - NOTIFICATION SERVICE ";
