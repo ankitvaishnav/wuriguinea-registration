@@ -361,7 +361,7 @@ public class RegistrationConstants {
 	public static final String ONBOARD_IMG_PATH = "/images/tick.png";
 
 	public static final String TICK_CIRICLE_IMG_PATH = "/images/tick-circle.png";
-	public static final String ONBOARD_LAST_BIOMETRIC_UPDTAE_FORMAT = "EEEE dd MMM hh:mm a";
+	public static final String ONBOARD_LAST_BIOMETRIC_UPDTAE_FORMAT = "EEEE, dd MMM yyyy HH:mm";
 
 	// RegistrationApproval
 	public static final String PLACEHOLDER_LABEL = "PLACEHOLDER_LABEL";
@@ -437,6 +437,8 @@ public class RegistrationConstants {
 	public static final String VALIDATION_TYPE_FP_SINGLE = "single";
 
 	// Supervisor Authentication
+	public static final String AUTHENTICATION_PWD = "authenticationPwdLabel";
+	public static final String AUTHENTICATION_PWD_SUP = "authenticationSupPwdLabel";
 	public static final String PWD_MATCH = "Username and Password Match";
 	public static final String PWD_MISMATCH = "Username and Password Not Match";
 

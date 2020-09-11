@@ -3,6 +3,7 @@ package io.mosip.registration.controller.reg;
 import static io.mosip.registration.constants.LoggerConstants.LOG_PACKET_UPLOAD;
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_ID;
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_NAME;
+import static io.mosip.registration.util.common.DateFormatter.formatDateByReplacement;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -568,7 +569,7 @@ public class PacketUploadController extends BaseController implements Initializa
 			packetStatusVO.setUploadStatus(packet.getUploadStatus());
 			packetStatusVO.setSupervisorStatus(packet.getSupervisorStatus());
 			packetStatusVO.setSupervisorComments(packet.getSupervisorComments());
-			packetStatusVO.setCreatedTime(packet.getCreatedTime());
+			packetStatusVO.setCreatedTime(formatDateByReplacement(packet.getCreatedTime()));
 			packetStatusVO.setSlno(String.valueOf(count++));
 			packetsToBeExport.add(packetStatusVO);
 		}
