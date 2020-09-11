@@ -6,11 +6,14 @@ import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_NAME;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -19,6 +22,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import javax.imageio.ImageIO;
 
 import io.mosip.kernel.packetmanager.dto.metadata.BiometricsException;
 import org.apache.commons.io.IOUtils;
@@ -1330,12 +1335,21 @@ public class BiometricsController extends BaseController /* implements Initializ
 										"Adding streaming image into local map");
 
 								try {
+
+                                    byte[] byteimage = (bioService.isMdmEnabled()) ? streamer.getStreamImageBytes()
+                                            : null;
+                                    if (isFace(currentModality)) {
+                                        byteimage = extractFaceImageData(
+                                                registrationDTOBiometricsList.get(0).getAttributeISO());
+                                    }
+
 									addBioStreamImage(currentSubType, currentModality,
-											registrationDTOBiometricsList.get(0).getNumOfRetries(),
-											(bioService.isMdmEnabled()) ? streamer.getStreamImageBytes() : null);
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+                                            registrationDTOBiometricsList.get(0).getNumOfRetries(), byteimage);
+                                } catch (IOException exception) {
+                                    LOGGER.error(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                                            "Error while adding stream image : "
+                                                    + ExceptionUtils.getStackTrace(exception));
+
 								}
 
 								LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
@@ -1894,9 +1908,6 @@ public class BiometricsController extends BaseController /* implements Initializ
 	}
 
 	public void addBioStreamImage(String subType, String modality, int attempt, byte[] streamImage) throws IOException {
-	    if(modality.equalsIgnoreCase("face")){
-	        modality = RegistrationConstants.FACE_FULLFACE;
-        }
 		if (streamImage == null) {
 			String imagePath = getStubStreamImagePath(modality);
 			STREAM_IMAGES.put(String.format("%s_%s_%s", subType, modality, attempt),
@@ -2545,5 +2556,123 @@ public class BiometricsController extends BaseController /* implements Initializ
 		scanPopUpViewController.setScanningMsg(message);
 
 	}
+
+    public byte[] extractFaceImageData(byte[] decodedBioValue) {
+
+        LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                "Started converting iso to jpg for face");
+
+        try (DataInputStream din = new DataInputStream(new ByteArrayInputStream(decodedBioValue))) {
+
+            LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                    "Started processing bio value : " + new Date());
+            // Parsing general header
+            byte[] format = new byte[4];
+            din.read(format, 0, 4);
+            LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                    "format >>>>>>>>>" + new String(format));
+
+            byte[] version = new byte[4];
+            din.read(version, 0, 4);
+
+            LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                    "version >>>>>>>>>" + new String(version));
+
+            int recordLength = din.readInt(); // 4 bytes
+
+            LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                    "recordLength >>>>>>>>>" + recordLength);
+
+            short numberofRepresentionRecord = din.readShort();
+
+            LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                    "numberofRepresentionRecord >>>>>>>>>" + numberofRepresentionRecord);
+
+            // NOTE: No certification schemes are available for this part of ISO/IEC 19794.
+            byte certificationFlag = din.readByte();
+            LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                    "certificationFlag >>>>>>>>>" + certificationFlag);
+
+            byte[] temporalSequence = new byte[2];
+            din.read(temporalSequence, 0, 2);
+            System.out.println("temporalSequence >>>>>>>>>" + new String(temporalSequence));
+            LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                    "recordLength >>>>>>>>>" + recordLength);
+
+            // Parsing representation header
+            int representationLength = din.readInt();
+            LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                    "representationLength >>>>>>>>>" + representationLength);
+
+            byte[] representationData = new byte[representationLength - 4];
+            din.read(representationData, 0, representationData.length);
+
+            try (DataInputStream rdin = new DataInputStream(new ByteArrayInputStream(representationData))) {
+                byte[] captureDetails = new byte[14];
+                rdin.read(captureDetails, 0, 14);
+
+                byte noOfQualityBlocks = rdin.readByte();
+                LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                        "noOfQualityBlocks >>>>>>>>>" + noOfQualityBlocks);
+
+                if (noOfQualityBlocks > 0) {
+                    byte[] qualityBlocks = new byte[noOfQualityBlocks * 5];
+                    rdin.read(qualityBlocks, 0, qualityBlocks.length);
+                }
+
+                short noOfLandmarkPoints = rdin.readShort();
+                LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                        "noOfLandmarkPoints >>>>>>>>>" + noOfLandmarkPoints);
+
+                // read next 15 bytes
+                byte[] facialInformation = new byte[15];
+                rdin.read(facialInformation, 0, 15);
+
+                // read all landmarkpoints
+                if (noOfLandmarkPoints > 0) {
+                    byte[] landmarkPoints = new byte[noOfLandmarkPoints * 8];
+                    rdin.read(landmarkPoints, 0, landmarkPoints.length);
+                }
+
+                byte faceType = rdin.readByte();
+                LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                        "faceType >>>>>>>>>" + faceType);
+
+                // The (1 byte) Image Data Type field denotes the encoding type of the Image
+                // Data block
+                // JPEG 00 HEX
+                // JPEG2000 lossy 01 HEX
+                // JPEG 2000 lossless 02 HEX
+                // PNG 03 HEX
+                // Reserved by SC 37 for future use 04 HEX to FF HEX
+                byte imageDataType = rdin.readByte();
+                LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                        "imageDataType >>>>>>>>>" + imageDataType);
+
+                byte[] otherImageInformation = new byte[9];
+                rdin.read(otherImageInformation, 0, otherImageInformation.length);
+
+                // reading representationData -> imageData + 3d info + 3d data
+                int lengthOfImageData = rdin.readInt();
+                LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                        "lengthOfImageData >>>>>>>>>" + lengthOfImageData);
+
+                byte[] image = new byte[lengthOfImageData];
+                rdin.read(image, 0, lengthOfImageData);
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(ImageIO.read(new ByteArrayInputStream(image)), "jpg", baos);
+
+                LOGGER.info(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID, "Converted JP2 to jpg");
+
+                return baos.toByteArray();
+            }
+        } catch (Exception exception) {
+            LOGGER.error(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+                    "Error while parsing iso to jpg : " + ExceptionUtils.getStackTrace(exception));
+
+        }
+        return null;
+    }
 
 }
