@@ -3,7 +3,6 @@ package io.mosip.registration.util.acktemplate;
 import static io.mosip.registration.constants.LoggerConstants.LOG_TEMPLATE_GENERATOR;
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_ID;
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_NAME;
-
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -761,6 +760,15 @@ public class TemplateGenerator extends BaseService {
 			String value = getValue(registration.getDemographics().get(field.getId()));
 			if(value != null || !value.isEmpty() || !"".equals(value)) {
 				data.put("primaryLabel", field.getLabel().get("primary"));
+				System.out.println("Value"+field.getLabel().get("primary") );
+               //TODO: just a hack to display the date in french format.
+				if(field.getLabel().get("primary").equalsIgnoreCase("Date de Naissance"))
+				{
+					String[] tab=value.split("/");
+					String dateformatted=tab[2]+"/"+tab[1]+"/"+tab[0];
+					System.out.println("   "+value+" _  "+dateformatted);
+					value=dateformatted;
+				}
 				data.put("secondaryLabel", field.getLabel().containsKey("secondary") ?
 						field.getLabel().get("secondary") : RegistrationConstants.EMPTY);
 				data.put("primaryValue", getValueForTemplate(value, platformLanguageCode));

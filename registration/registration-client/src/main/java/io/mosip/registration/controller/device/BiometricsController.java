@@ -405,7 +405,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 			registrationNavlabel.setVisible(false);
 			backButton.setVisible(false);
 			gheaderfooter.setVisible(false);
-			continueBtn.setText("enregistrer");
+			continueBtn.setText("Enregistrer");
 		} else {
 			registrationNavlabel.setVisible(true);
 			backButton.setVisible(true);
@@ -571,7 +571,6 @@ public class BiometricsController extends BaseController /* implements Initializ
 		disableLastCheckBoxSection();
 		this.currentModality = modality;
 		enableCurrentCheckBoxSection();
-
 		setScanButtonVisibility(false, scanBtn);
 		// Get the stream image from Bio ServiceImpl and load it in the image pane
 
@@ -679,7 +678,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 				subTypeLabel.getStyleClass().add(RegistrationConstants.BIOMETRICS_LABEL);
 			} else {
 
-				subTypeLabel.setText("Donnéés Biométriques de l'Opérateur/Superviseur");
+				subTypeLabel.setText("Données Biométriques de l'Opérateur/Superviseur");
 				subTypeLabel.getStyleClass().add(RegistrationConstants.BIOMETRICS_LABEL);
 			}
 

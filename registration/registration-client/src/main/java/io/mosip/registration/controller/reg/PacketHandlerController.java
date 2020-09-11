@@ -16,13 +16,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -155,7 +149,7 @@ public class PacketHandlerController extends BaseController implements Initializ
 						.valueOf(timestamp2).compareTo(Timestamp.valueOf(timestamp1))).findFirst().get();
 
 				lastSyncTime.setText(Timestamp.valueOf(latestUpdateTime).toLocalDateTime().format(
-						DateTimeFormatter.ofPattern(RegistrationConstants.ONBOARD_LAST_BIOMETRIC_UPDTAE_FORMAT)));
+						DateTimeFormatter.ofPattern(RegistrationConstants.ONBOARD_LAST_BIOMETRIC_UPDTAE_FORMAT,Locale.FRENCH)));
 
 				setLastPreRegPacketDownloadedTime();
 			}
@@ -1162,7 +1156,8 @@ public class PacketHandlerController extends BaseController implements Initializ
 			if (lastPreRegPacketDownloaded != null) {
 
 				DateTimeFormatter format = DateTimeFormatter
-						.ofPattern(RegistrationConstants.ONBOARD_LAST_BIOMETRIC_UPDTAE_FORMAT);
+						.ofPattern(RegistrationConstants.ONBOARD_LAST_BIOMETRIC_UPDTAE_FORMAT, Locale.FRENCH);
+
 
 				lastPreRegPacketDownloadedTime.setText(RegistrationUIConstants.LAST_DOWNLOADED + " "
 						+ lastPreRegPacketDownloaded.toLocalDateTime().format(format));

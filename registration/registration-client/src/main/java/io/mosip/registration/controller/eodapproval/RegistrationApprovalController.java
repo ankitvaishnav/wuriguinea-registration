@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 import java.util.WeakHashMap;
 import java.util.stream.Collectors;
 
+import io.mosip.registration.util.common.DateFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -343,7 +344,7 @@ public class RegistrationApprovalController extends BaseController implements In
 				int count = 1;
 				for (RegistrationApprovalDTO approvalDTO : listData) {
 					registrationApprovalVO.add(
-							new RegistrationApprovalVO("    " + count++, approvalDTO.getId(), approvalDTO.getDate(),
+							new RegistrationApprovalVO("    " + count++, approvalDTO.getId(), DateFormatter.formatDateByReplacement(approvalDTO.getDate()),
 									approvalDTO.getAcknowledgementFormPath(), RegistrationUIConstants.PENDING));
 				}
 				int rowNum = 0;

@@ -1262,7 +1262,6 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-pref-width: 100.0px;
 	-fx-text-fill: #020F59;
 }
-
 .scanButton{
 	-fx-background-color:#BCE0FD;
 	-fx-border-width: 1.0 1.0 1.0 1.0;
@@ -1666,7 +1665,15 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-pref-height: 39.0px;
 	-fx-pref-width: 269.0px;
 }
-
+.authenticationPwdLabel{
+	-fx-alignment: center;
+    -fx-padding: 0.0px 0.0px 0.0px 190.0px;
+}
+.authenticationSupPwdLabel{
+	-fx-alignment: center;
+    -fx-padding: 0.0px 0.0px 0.0px 20.0px;
+    -fx-text-fill: #020F59;
+}
 .authenticationStyle:focused{
 	-fx-text-fill: #666666;
 	-fx-border-width: 0.2 0.2 2.0 0.2;
@@ -2123,10 +2130,14 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-font-weight: lighter;
 }
 .onboardScanBtn{
-	-fx-background-color : #BCE0FD;
 	-fx-text-fill: #020F59;
 	-fx-border-color: #BCE0FD;
 	-fx-font-size: 12.0px;
+	-fx-padding : 1.0 0.0 1.0 -20.0;
+	-fx-background-color :#BCE0FD;
+	-fx-background-insets: 0.0 0.0 0.0 -20.0;
+	-fx-border-insets: 0 0.0 0.0 -20.0;
+
 }
 .onboardScanBtn:hover {
 	-fx-background-color:#FFFFFF;
@@ -2266,6 +2277,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-text-fill: #020F59;
 	-fx-font-weight: lighter;
 }
+*/
 .currentPage{
 	-fx-font-family: Roboto;
 	-fx-font-size: 14.0px;
