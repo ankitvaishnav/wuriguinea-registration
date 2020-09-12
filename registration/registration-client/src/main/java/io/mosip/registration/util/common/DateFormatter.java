@@ -84,8 +84,6 @@ public class DateFormatter {
         } catch (Exception e) {
             log.error("sessionId", "idType", "Unable to format date", dateFormatted);
         }
-        System.out.println("Initial date "+dateS);
-        System.out.println("Date formated"+dateFormatted);
         return dateFormatted;
 
     }
