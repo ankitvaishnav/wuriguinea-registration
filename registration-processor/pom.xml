@@ -289,7 +289,7 @@
 <!--		<module>registration-processor-packet-manager</module>-->
 <!--		<module>registration-processor-common-camel-bridge</module>-->
 <!--		<module>registration-processor-bio-dedupe-service-impl</module>-->
-		<module>registration-processor-print-service-impl</module>
+<!--		<module>registration-processor-print-service-impl</module>-->
 <!--		<module>registration-processor-info-storage-service</module>-->
 <!--		<module>registration-processor-registration-status-service-impl</module>-->
 <!--        &lt;!&ndash; <module>registration-processor-quality-checker</module> &ndash;&gt;-->
