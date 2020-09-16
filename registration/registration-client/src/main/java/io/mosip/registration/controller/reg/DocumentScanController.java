@@ -189,6 +189,10 @@ public class DocumentScanController extends BaseController {
 		Image backInWhite = new Image(getClass().getResourceAsStream(RegistrationConstants.BACK_FOCUSED));
 		Image backImage = new Image(getClass().getResourceAsStream(RegistrationConstants.BACK));
 		backBtn.hoverProperty().addListener((ov, oldValue, newValue) -> {
+			//INFO fixed null pointer
+			if(backImageView == null){
+				backImageView = new ImageView();
+			}
 			if (newValue) {
 				backImageView.setImage(backInWhite);
 			} else {
@@ -633,7 +637,7 @@ public class DocumentScanController extends BaseController {
 		BufferedImage bufferedImage;
 
 		if (selectedComboBox.getValue().getCode()
-				.matches(getValueFromApplicationContext(RegistrationConstants.POE_DOCUMENT_VALUE))) {
+				.equalsIgnoreCase(getValueFromApplicationContext(RegistrationConstants.POE_DOCUMENT_VALUE))) {
 			bufferedImage = webcamSarxosServiceImpl.captureImage(webcam);
 			webcamSarxosServiceImpl.close(webcam);
 			scanPopUpViewController.setDefaultImageGridPaneVisibility();
@@ -691,11 +695,15 @@ public class DocumentScanController extends BaseController {
 			if (selectedDocument != null) {
 				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 						RegistrationConstants.APPLICATION_ID, "Adding documents to Screen");
+				//INFO: ADDED
+				selectedComboBox.getValue().setScanned(true);
 
 				attachDocuments(selectedComboBox.getValue(), selectedDocVBox, byteArray, false);
 
 				scannedPages.clear();
 				popupStage.close();
+				//INFO: ADDED
+				selectedComboBox = null;
 
 				LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, RegistrationConstants.APPLICATION_NAME,
 						RegistrationConstants.APPLICATION_ID, "Documents added successfully");

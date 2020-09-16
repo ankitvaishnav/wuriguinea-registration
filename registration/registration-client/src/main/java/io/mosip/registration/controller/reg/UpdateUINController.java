@@ -106,7 +106,8 @@ public class UpdateUINController extends BaseController implements Initializable
 		parentFlow = parentFlowPane.getChildren();
 		groupedMap.forEach((groupName, list) -> {
 			GridPane checkBox = addCheckBox(groupName);
-			if (checkBox != null) {
+			//INFO condition update for age based guardian details selection
+			if (checkBox != null && !groupName.equalsIgnoreCase("GuardianDetails")) {
 				parentFlow.add(checkBox);
 			}
 		});		
@@ -116,6 +117,10 @@ public class UpdateUINController extends BaseController implements Initializable
 			Image backImage = new Image(getClass().getResourceAsStream(RegistrationConstants.BACK));
 
 			backBtn.hoverProperty().addListener((ov, oldValue, newValue) -> {
+				//INFO fixed null pointer
+				if(backImageView == null){
+					backImageView = new ImageView();
+				}
 				if (newValue) {
 					backImageView.setImage(backInWhite);
 				} else {
@@ -181,6 +186,19 @@ public class UpdateUINController extends BaseController implements Initializable
 					if(((CheckBox)checkBoxKeeper.get(key)).isSelected()) {
 						selectedFieldGroups.add(key);
 						for(UiSchemaDTO field : groupedMap.get(key)) {							
+							selectedFields.put(field.getId(), field);
+						}
+						//INFO customization for age based update
+						selectedFieldGroups.add("GuardianDetails");
+						for(UiSchemaDTO field : groupedMap.get("GuardianDetails")) {
+							selectedFields.put(field.getId(), field);
+						}
+						selectedFieldGroups.add("Nom");
+						for(UiSchemaDTO field : groupedMap.get("Nom")) {
+							selectedFields.put(field.getId(), field);
+						}
+						selectedFieldGroups.add("Date de Naissance");
+						for(UiSchemaDTO field : groupedMap.get("Date de Naissance")) {
 							selectedFields.put(field.getId(), field);
 						}
 					}

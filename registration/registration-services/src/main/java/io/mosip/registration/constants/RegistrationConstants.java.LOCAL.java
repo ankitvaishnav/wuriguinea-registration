@@ -697,8 +697,8 @@ public class RegistrationConstants {
 	public static final String TEMPLATE_IS_UIN_UPDATE = "IsUINUpdate";
 
 	public static final String MODIFY_DEMO_INFO = "modifyDemographicInfo";
-	public static final String MODIFY_ADDRESS_INFO = "modifyAddressInfo";
-	public static final String MODIFY_GUARDIAN_INFO = "modifyGuardianInfo";
+	public static final String MODIFY_ADD_INFO = "modifyAddressInfo";
+	public static final String MODIFY_Guardian_INFO = "modifyGuardianInfo";
 	public static final String MODIFY_DOCUMENTS = "modifyDocuments";
 	public static final String MODIFY_BIOMETRICS = "modifyBiometrics";
 	public static final String CLICK = "click";
@@ -875,7 +875,7 @@ public class RegistrationConstants {
 	public static final String LOST_UIN_SMS_TEMPLATE = "lostUIN-sms-notification";
 
 	// Notification Service
-	public static final String EMAIL_SUBJECT = "UNIR - Notification de l'enregistrement";
+	public static final String EMAIL_SUBJECT = "MOSIP REGISTRATION NOTIFICATION";
 	public static final String EMAIL_SERVICE = "email";
 	public static final String SMS_SERVICE = "sms";
 	public static final String NOTIFICATION_SERVICE = "REGISTRATION - NOTIFICATION SERVICE ";
@@ -1054,7 +1054,6 @@ public class RegistrationConstants {
 	public static final String DUPLICATE_IRIS = "DuplicateIris";
 	public static final String ISO_IMAGE_FILE = "ISOImage.iso";
 	public static final String LEFTHAND_SLAP_FINGERPRINT_PATH = "/fingerprints/leftSlap.jpg";
-	public static final String FACE_BIO_PATH = "/images/faceBio.png";
 	public static final String FACE_ISO = "/images/face.iso";
 	public static final String LEFT_EYE_ISO = "/images/leftEye.iso";
 	public static final String RIGHT_EYE_ISO = "/images/rightEye.iso";

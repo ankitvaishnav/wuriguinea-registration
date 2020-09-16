@@ -88,6 +88,10 @@ public class RegistrationPreviewController extends BaseController implements Ini
 		Image backImage = new Image(getClass().getResourceAsStream(RegistrationConstants.BACK));
 
 		backBtn.hoverProperty().addListener((ov, oldValue, newValue) -> {
+			//INFO fixed null pointer
+			if(backImageView == null){
+				backImageView = new ImageView();
+			}
 			if (newValue) {
 				backImageView.setImage(backInWhite);
 			} else {
@@ -235,8 +239,8 @@ public class RegistrationPreviewController extends BaseController implements Ini
 		}
 		List<String> modifyElements = new ArrayList<>();
 		modifyElements.add(RegistrationConstants.MODIFY_DEMO_INFO);
-		modifyElements.add(RegistrationConstants.MODIFY_ADD_INFO);
-		modifyElements.add(RegistrationConstants.MODIFY_Guardian_INFO);
+		modifyElements.add(RegistrationConstants.MODIFY_ADDRESS_INFO);
+		modifyElements.add(RegistrationConstants.MODIFY_GUARDIAN_INFO);
 		modifyElements.add(RegistrationConstants.MODIFY_DOCUMENTS);
 		modifyElements.add(RegistrationConstants.MODIFY_BIOMETRICS);
 		for (String element : modifyElements) {
@@ -256,11 +260,11 @@ public class RegistrationPreviewController extends BaseController implements Ini
 			modifyDocuments();
 		} else if (element.equals(RegistrationConstants.MODIFY_BIOMETRICS)) {
 			modifyBiometrics();
-		}else if (element.equals(RegistrationConstants.MODIFY_ADD_INFO)) {
-		modifyDemographicInfo();
-	   }else if (element.equals(RegistrationConstants.MODIFY_Guardian_INFO)) {
-		modifyDemographicInfo();
-	   }
+		}else if (element.equals(RegistrationConstants.MODIFY_ADDRESS_INFO)) {
+			modifyDemographicInfo();
+	   	}else if (element.equals(RegistrationConstants.MODIFY_GUARDIAN_INFO)) {
+			modifyDemographicInfo();
+	   	}
 	}
 
 	public void modifyDemographicInfo() {

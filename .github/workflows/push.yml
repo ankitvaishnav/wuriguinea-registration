@@ -41,7 +41,8 @@ jobs:
 
     - name: Build with Maven
       run: |
-        #cd registrcdation-processor
+        ls -lrt
+        cd registration-processor
         mvn -B package -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true -Dgpg.skip=true --file pom.xml
 
     - name: Ready the springboot artifacts
@@ -61,9 +62,9 @@ jobs:
         #cd registration/registration-client/target
         ls -ltr registration/registration-client/
         ls -ltr registration/registration-client/target/
-        #mv registration/registration-client/target/*.zip registration/registration-client/target/reg-client.zip
-        #curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.1.1/ -T registration/registration-client/target/MANIFEST.MF
-        #curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.1.1/ -T registration/registration-client/target/reg-client.zip
+        mv registration/registration-client/target/*.zip registration/registration-client/target/reg-client.zip
+        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.1.1/ -T registration/registration-client/target/MANIFEST.MF
+        curl -u ${{secrets.jfrog_user}}:${{secrets.jfrog_secret}} -X PUT http://52.172.8.144:8040/artifactory/libs-release/io/mosip/wuri/registration/registration-client/1.1.1/ -T registration/registration-client/target/reg-client.zip
         #mv registration/registration-client/target/*.zip registration/registration-client/target/reg-client.zip
         #zip  registration/registration-client/target/reg-client.zip registration/registration-client/target/MANIFEST.MF
         #zip -r registration/registration-client/target/reg-client.zip registration/registration-client/target/lib/
@@ -85,7 +86,8 @@ jobs:
         with:
           name: release
           path: ./
-
+      - name: checking the release.zip
+        run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -127,7 +129,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
+      NAMESPACE: wuriguinea
       SERVICE_NAME: registration-processor-print-service
       SERVICE_LOCATION: registration-processor/post-processor/registration-processor-print-service
 
@@ -137,8 +139,12 @@ jobs:
         with:
           name: release
           path: ./
-      - run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION }}/target/*" -d "./${{ env.SERVICE_LOCATION }}/target"
-        
+    #  - name: checking the release.zip
+    #    run: |
+     #      ls -lrt
+     #      unzip release.zip
+     #      ls -lst registration-processor/
+           
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -173,12 +179,13 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+ 
   docker-registration-processor-message-sender-stage:
     needs: build
 
     runs-on: ubuntu-latest
     env:
-      NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
+      NAMESPACE: wuriguinea
       SERVICE_NAME: registration-processor-message-sender-stage
       SERVICE_LOCATION: registration-processor/post-processor/registration-processor-message-sender-stage
 
@@ -188,7 +195,8 @@ jobs:
         with:
           name: release
           path: ./
-
+     # - name: checking the release.zip
+      #  run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -223,12 +231,13 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+ 
   docker-registration-processor-printing-stage:
     needs: build
 
     runs-on: ubuntu-latest
     env:
-      NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
+      NAMESPACE: wuriguinea
       SERVICE_NAME: registration-processor-printing-stage
       SERVICE_LOCATION: registration-processor/post-processor/registration-processor-printing-stage
 
@@ -238,7 +247,8 @@ jobs:
         with:
           name: release
           path: ./
-
+      - name: checking the release.zip
+        run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -273,13 +283,14 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
-          
+ 
+
   docker-registration-processor-registration-transaction-service:
-    needs: build 
+    needs: build
 
     runs-on: ubuntu-latest
     env:
-      NAMESPACE: ${{ secrets.dev_namespace_docker_hub }}
+      NAMESPACE: wuriguinea
       SERVICE_NAME: registration-processor-registration-transaction-service
       SERVICE_LOCATION: registration-processor/post-processor/registration-processor-registration-transaction-service
 
@@ -289,7 +300,8 @@ jobs:
         with:
           name: release
           path: ./
-
+      - name: checking the release.zip
+        run: ls -lrt
       - name: Setup branch name
         run: |
           # Strip git ref prefix from version
@@ -324,3 +336,4 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+ 
