@@ -714,6 +714,12 @@ public class RegistrationConstants {
 	/** The Constant MODIFY_DEMO_INFO. */
 	public static final String MODIFY_DEMO_INFO = "modifyDemographicInfo";
 
+	/** The Constant MODIFY_ADD_INFO. */
+	public static final String MODIFY_ADD_INFO = "modifyAddressInfo";
+
+	/** The Constant MODIFY_Guardian_INFO. */
+	public static final String MODIFY_Guardian_INFO = "modifyGuardianInfo";
+
 	/** The Constant MODIFY_DOCUMENTS. */
 	public static final String MODIFY_DOCUMENTS = "modifyDocuments";
 
