@@ -9,6 +9,19 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      NAMESPACE: wuriguinea
+      SERVICE_NAME4: registration-processor-osi-validator-stage
+      SERVICE_LOCATION4: registration-processor/pre-processor/registration-processor-osi-validator-stage  
+      SERVICE_NAME: registration-processor-print-service
+      SERVICE_LOCATION: registration-processor/post-processor/registration-processor-print-service
+      SERVICE_NAME1: registration-processor-message-sender-stage
+      SERVICE_LOCATION1: registration-processor/post-processor/registration-processor-message-sender-stage
+      SERVICE_NAME2: registration-processor-printing-stage
+      SERVICE_LOCATION2: registration-processor/post-processor/registration-processor-printing-stage
+      SERVICE_NAME3: registration-processor-registration-transaction-service
+      SERVICE_LOCATION3: registration-processor/post-processor/registration-processor-registration-transaction-service
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -71,29 +84,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
 
-  docker-images:
-    needs: build
-
-    runs-on: ubuntu-latest
-    env:
-      NAMESPACE: wuriguinea
-      SERVICE_NAME4: registration-processor-osi-validator-stage
-      SERVICE_LOCATION4: registration-processor/pre-processor/registration-processor-osi-validator-stage  
-      SERVICE_NAME: registration-processor-print-service
-      SERVICE_LOCATION: registration-processor/post-processor/registration-processor-print-service
-      SERVICE_NAME1: registration-processor-message-sender-stage
-      SERVICE_LOCATION1: registration-processor/post-processor/registration-processor-message-sender-stage
-      SERVICE_NAME2: registration-processor-printing-stage
-      SERVICE_LOCATION2: registration-processor/post-processor/registration-processor-printing-stage
-      SERVICE_NAME3: registration-processor-registration-transaction-service
-      SERVICE_LOCATION3: registration-processor/post-processor/registration-processor-registration-transaction-service
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v1
-        with:
-          name: release
-          path: ./
       - name: checking the release.zip
         run: ls -lrt
       - name: Setup branch name
@@ -108,9 +98,6 @@ jobs:
         with:
           xml-file: ./${{ env.SERVICE_LOCATION }}/pom.xml
           xpath: /*[local-name()="project"]/*[local-name()="version"]
-
-      - name: Unzip and extract the registration-processor-osi-validator-stage
-        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION }}/target/*" -d "./${{ env.SERVICE_LOCATION }}/target"
 
       - name: Build image
         run: |
@@ -243,4 +230,3 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME4 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
- 
