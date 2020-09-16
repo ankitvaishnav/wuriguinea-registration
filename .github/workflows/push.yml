@@ -99,14 +99,9 @@ jobs:
           xml-file: ./${{ env.SERVICE_LOCATION }}/pom.xml
           xpath: /*[local-name()="project"]/*[local-name()="version"]
 
-    - name: Build image
-      run: |
-          cd "./${{env.SERVICE_LOCATION}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
-
-    - name: Log into registry
-      run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
-
+    - name: checking the files
+      run: ls -lrt "./${{env.SERVICE_LOCATION}}"
+      
     - name: Build image Print service
       run: |
           cd "./${{env.SERVICE_LOCATION}}"
