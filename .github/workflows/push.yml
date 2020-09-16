@@ -57,6 +57,13 @@ jobs:
         ls -lrt
         cd registration-processor
         mvn -B clean install -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true -Dgpg.skip=true --file pom.xml
+    - name: checking the files
+      run: |
+          ls -lrt "./${{env.SERVICE_LOCATION}}"
+          ls -lrt "./${{env.SERVICE_LOCATION2}}"
+          ls -lrt "./${{env.SERVICE_LOCATION3}}"
+          ls -lrt "./${{env.SERVICE_LOCATION1}}"
+          ls -lrt "./${{env.SERVICE_LOCATION4}}"      
 
     - name: Ready the springboot artifacts
       run: find -name '*.jar' -executable -type f  -exec zip release.zip {} +
