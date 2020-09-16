@@ -77,7 +77,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NAMESPACE: wuriguinea
-
+      SERVICE_NAME4: registration-processor-osi-validator-stage
+      SERVICE_LOCATION4: registration-processor/pre-processor/registration-processor-osi-validator-stage  
+      SERVICE_NAME: registration-processor-print-service
+      SERVICE_LOCATION: registration-processor/post-processor/registration-processor-print-service
+      SERVICE_NAME1: registration-processor-message-sender-stage
+      SERVICE_LOCATION1: registration-processor/post-processor/registration-processor-message-sender-stage
+      SERVICE_NAME2: registration-processor-printing-stage
+      SERVICE_LOCATION2: registration-processor/post-processor/registration-processor-printing-stage
+      SERVICE_NAME3: registration-processor-registration-transaction-service
+      SERVICE_LOCATION3: registration-processor/post-processor/registration-processor-registration-transaction-service
 
     steps:
       - uses: actions/checkout@v2
@@ -113,7 +122,7 @@ jobs:
 
       - name: Push image
         run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME
+          IMAGE_ID=$NAMESPACE/$SERVICE_NAME4
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -121,55 +130,34 @@ jobs:
           VERSION=$BRANCH_NAME
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
+          docker tag $SERVICE_NAME4 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
           
-  docker-registration-processor-print-service:
-    needs: build
 
-    runs-on: ubuntu-latest
-    env:
-      NAMESPACE: wuriguinea
-      SERVICE_NAME: registration-processor-print-service
-      SERVICE_LOCATION: registration-processor/post-processor/registration-processor-print-service
-      SERVICE_NAME1: registration-processor-message-sender-stage
-      SERVICE_LOCATION1: registration-processor/post-processor/registration-processor-message-sender-stage
-      SERVICE_NAME2: registration-processor-printing-stage
-      SERVICE_LOCATION2: registration-processor/post-processor/registration-processor-printing-stage
-      SERVICE_NAME3: registration-processor-registration-transaction-service
-      SERVICE_LOCATION3: registration-processor/post-processor/registration-processor-registration-transaction-service
-    
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v1
-        with:
-          name: release
-          path: ./
-    #  - name: checking the release.zip
-    #    run: |
-     #      ls -lrt
-     #      unzip release.zip
-     #      ls -lst registration-processor/
-           
-      - name: Setup branch name
-        run: |
-          # Strip git ref prefix from version
-          echo "::set-env name=BRANCH_NAME::$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')"
-          echo ${{ env.BRANCH_NAME }}
-      - name: Get version info from pom
-        id: getPomVersion
-        uses: mavrosxristoforos/get-xml-info@1.0
-        with:
-          xml-file: ./${{ env.SERVICE_LOCATION }}/pom.xml 
-          xpath: /*[local-name()="project"]/*[local-name()="version"] 
-      
       - name: Unzip and extract the ${{ env.SERVICE_NAME }}
         run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION }}/target/*" -d "./${{ env.SERVICE_LOCATION }}/target"
       
-      - name: Build image osi
+      - name: Unzip and extract the ${{ env.SERVICE_NAME1 }}
+        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION1 }}/target/*" -d "./${{ env.SERVICE_LOCATION1 }}/target"
+
+      - name: Unzip and extract the ${{ env.SERVICE_NAME2}}
+        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION2 }}/target/*" -d "./${{ env.SERVICE_LOCATION2 }}/target"
+
+      - name: Unzip and extract the ${{ env.SERVICE_NAME3 }}
+        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION3}}/target/*" -d "./${{ env.SERVICE_LOCATION3 }}/target"
+
+      - name: Unzip and extract the ${{ env.SERVICE_NAME4}}
+        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION4 }}/target/*" -d "./${{ env.SERVICE_LOCATION4 }}/target"
+
+      - name: Build image Print service
         run: |
           cd "./${{env.SERVICE_LOCATION}}"
           docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
+
+      - name: Build image osi
+        run: |
+          cd "./${{env.SERVICE_LOCATION4}}"
+          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME4 }}
           
       - name: Build Image registration-processor-message-sender-stage
         run: |
@@ -189,7 +177,7 @@ jobs:
       - name: Log into registry
         run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
         
-      - name: Push image osi
+      - name: Push image Print service
         run: |
           IMAGE_ID=$NAMESPACE/$SERVICE_NAME
           
@@ -241,5 +229,18 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME3 $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+  
+      - name: Push image osi
+        run: |
+          IMAGE_ID=$NAMESPACE/$SERVICE_NAME4
+          
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          echo "push version ${{steps.getPomVersion.outputs.info}}"
+          VERSION=$BRANCH_NAME
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          docker tag $SERVICE_NAME4 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
  
