@@ -71,14 +71,13 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
 
-  docker-registration-processor-osi-validator-stage:
+  docker-images:
     needs: build
 
     runs-on: ubuntu-latest
     env:
       NAMESPACE: wuriguinea
-      SERVICE_NAME: registration-processor-osi-validator-stage
-      SERVICE_LOCATION: registration-processor/pre-processor/registration-processor-osi-validator-stage
+
 
     steps:
       - uses: actions/checkout@v2
@@ -124,6 +123,7 @@ jobs:
           echo VERSION=$VERSION
           docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+          
   docker-registration-processor-print-service:
     needs: build
 
@@ -132,7 +132,13 @@ jobs:
       NAMESPACE: wuriguinea
       SERVICE_NAME: registration-processor-print-service
       SERVICE_LOCATION: registration-processor/post-processor/registration-processor-print-service
-
+      SERVICE_NAME1: registration-processor-message-sender-stage
+      SERVICE_LOCATION1: registration-processor/post-processor/registration-processor-message-sender-stage
+      SERVICE_NAME2: registration-processor-printing-stage
+      SERVICE_LOCATION2: registration-processor/post-processor/registration-processor-printing-stage
+      SERVICE_NAME3: registration-processor-registration-transaction-service
+      SERVICE_LOCATION3: registration-processor/post-processor/registration-processor-registration-transaction-service
+    
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1
@@ -160,118 +166,30 @@ jobs:
       - name: Unzip and extract the ${{ env.SERVICE_NAME }}
         run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION }}/target/*" -d "./${{ env.SERVICE_LOCATION }}/target"
       
-      - name: Build image
+      - name: Build image osi
         run: |
           cd "./${{env.SERVICE_LOCATION}}"
           docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
-      - name: Log into registry
-        run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
-        
-      - name: Push image
-        run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME
           
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          echo "push version ${{steps.getPomVersion.outputs.info}}"
-          VERSION=$BRANCH_NAME
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
- 
-  docker-registration-processor-message-sender-stage:
-    needs: build
-
-    runs-on: ubuntu-latest
-    env:
-      NAMESPACE: wuriguinea
-      SERVICE_NAME: registration-processor-message-sender-stage
-      SERVICE_LOCATION: registration-processor/post-processor/registration-processor-message-sender-stage
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v1
-        with:
-          name: release
-          path: ./
-     # - name: checking the release.zip
-      #  run: ls -lrt
-      - name: Setup branch name
+      - name: Build Image registration-processor-message-sender-stage
         run: |
-          # Strip git ref prefix from version
-          echo "::set-env name=BRANCH_NAME::$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')"
-          echo ${{ env.BRANCH_NAME }}
-      - name: Get version info from pom
-        id: getPomVersion
-        uses: mavrosxristoforos/get-xml-info@1.0
-        with:
-          xml-file: ./${{ env.SERVICE_LOCATION }}/pom.xml 
-          xpath: /*[local-name()="project"]/*[local-name()="version"] 
-      
-      - name: Unzip and extract the ${{ env.SERVICE_NAME }}
-        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION }}/target/*" -d "./${{ env.SERVICE_LOCATION }}/target"
-      
-      - name: Build image
-        run: |
-          cd "./${{env.SERVICE_LOCATION}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
-      - name: Log into registry
-        run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
-        
-      - name: Push image
-        run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME
+          cd "./${{env.SERVICE_LOCATION1}}"
+          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME1 }}
           
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          echo "push version ${{steps.getPomVersion.outputs.info}}"
-          VERSION=$BRANCH_NAME
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
- 
-  docker-registration-processor-printing-stage:
-    needs: build
-
-    runs-on: ubuntu-latest
-    env:
-      NAMESPACE: wuriguinea
-      SERVICE_NAME: registration-processor-printing-stage
-      SERVICE_LOCATION: registration-processor/post-processor/registration-processor-printing-stage
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v1
-        with:
-          name: release
-          path: ./
-      - name: checking the release.zip
-        run: ls -lrt
-      - name: Setup branch name
+      - name: Build Image registration-processor-printing-stage
         run: |
-          # Strip git ref prefix from version
-          echo "::set-env name=BRANCH_NAME::$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')"
-          echo ${{ env.BRANCH_NAME }}
-      - name: Get version info from pom
-        id: getPomVersion
-        uses: mavrosxristoforos/get-xml-info@1.0
-        with:
-          xml-file: ./${{ env.SERVICE_LOCATION }}/pom.xml 
-          xpath: /*[local-name()="project"]/*[local-name()="version"] 
-      
-      - name: Unzip and extract the ${{ env.SERVICE_NAME }}
-        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION }}/target/*" -d "./${{ env.SERVICE_LOCATION }}/target"
-      
-      - name: Build image
+          cd "./${{env.SERVICE_LOCATION2}}"
+          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME2 }}
+          
+      - name: Build Image registration-processor-registration-transaction-service
         run: |
-          cd "./${{env.SERVICE_LOCATION}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
+          cd "./${{env.SERVICE_LOCATION3}}"
+          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME3 }}
+                      
       - name: Log into registry
         run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
         
-      - name: Push image
+      - name: Push image osi
         run: |
           IMAGE_ID=$NAMESPACE/$SERVICE_NAME
           
@@ -285,48 +203,9 @@ jobs:
           docker push $IMAGE_ID:$VERSION
  
 
-  docker-registration-processor-registration-transaction-service:
-    needs: build
-
-    runs-on: ubuntu-latest
-    env:
-      NAMESPACE: wuriguinea
-      SERVICE_NAME: registration-processor-registration-transaction-service
-      SERVICE_LOCATION: registration-processor/post-processor/registration-processor-registration-transaction-service
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v1
-        with:
-          name: release
-          path: ./
-      - name: checking the release.zip
-        run: ls -lrt
-      - name: Setup branch name
+      - name: Push image registration-processor-message-sender-stage
         run: |
-          # Strip git ref prefix from version
-          echo "::set-env name=BRANCH_NAME::$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')"
-          echo ${{ env.BRANCH_NAME }}
-      - name: Get version info from pom
-        id: getPomVersion
-        uses: mavrosxristoforos/get-xml-info@1.0
-        with:
-          xml-file: ./${{ env.SERVICE_LOCATION }}/pom.xml 
-          xpath: /*[local-name()="project"]/*[local-name()="version"] 
-      
-      - name: Unzip and extract the ${{ env.SERVICE_NAME }}
-        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION }}/target/*" -d "./${{ env.SERVICE_LOCATION }}/target"
-      
-      - name: Build image
-        run: |
-          cd "./${{env.SERVICE_LOCATION}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
-      - name: Log into registry
-        run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
-        
-      - name: Push image
-        run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME
+          IMAGE_ID=$NAMESPACE/$SERVICE_NAME1
           
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -334,6 +213,33 @@ jobs:
           VERSION=$BRANCH_NAME
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
-          docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
+          docker tag $SERVICE_NAME1 $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+ 
+      - name: Push image registration-processor-printing-stage
+        run: |
+          IMAGE_ID=$NAMESPACE/$SERVICE_NAME2
+          
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          echo "push version ${{steps.getPomVersion.outputs.info}}"
+          VERSION=$BRANCH_NAME
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          docker tag $SERVICE_NAME2 $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+ 
+ 
+      - name: Push image registration-processor-registration-transaction-service
+        run: |
+          IMAGE_ID=$NAMESPACE/$SERVICE_NAME3
+          
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          echo "push version ${{steps.getPomVersion.outputs.info}}"
+          VERSION=$BRANCH_NAME
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          docker tag $SERVICE_NAME3 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
  
