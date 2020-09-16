@@ -84,88 +84,59 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
 
-      - name: checking the release.zip
-        run: ls -lrt
-      - name: Setup branch name
-        run: |
+    - name: checking the release.zip
+      run: ls -lrt
+    - name: Setup branch name
+      run: |
           # Strip git ref prefix from version
           echo "::set-env name=BRANCH_NAME::$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')"
           echo ${{ env.BRANCH_NAME }}
 
-      - name: Get version info from pom
-        id: getPomVersion
-        uses: mavrosxristoforos/get-xml-info@1.0
-        with:
+    - name: Get version info from pom
+      id: getPomVersion
+      uses: mavrosxristoforos/get-xml-info@1.0
+      with:
           xml-file: ./${{ env.SERVICE_LOCATION }}/pom.xml
           xpath: /*[local-name()="project"]/*[local-name()="version"]
 
-      - name: Build image
-        run: |
+    - name: Build image
+      run: |
           cd "./${{env.SERVICE_LOCATION}}"
           docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
 
-      - name: Log into registry
-        run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
+    - name: Log into registry
+      run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
 
-      - name: Push image
-        run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME4
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          echo "push version ${{steps.getPomVersion.outputs.info}}"
-          VERSION=$BRANCH_NAME
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $SERVICE_NAME4 $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
-          
-
-      - name: Unzip and extract the ${{ env.SERVICE_NAME }}
-        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION }}/target/*" -d "./${{ env.SERVICE_LOCATION }}/target"
-      
-      - name: Unzip and extract the ${{ env.SERVICE_NAME1 }}
-        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION1 }}/target/*" -d "./${{ env.SERVICE_LOCATION1 }}/target"
-
-      - name: Unzip and extract the ${{ env.SERVICE_NAME2}}
-        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION2 }}/target/*" -d "./${{ env.SERVICE_LOCATION2 }}/target"
-
-      - name: Unzip and extract the ${{ env.SERVICE_NAME3 }}
-        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION3}}/target/*" -d "./${{ env.SERVICE_LOCATION3 }}/target"
-
-      - name: Unzip and extract the ${{ env.SERVICE_NAME4}}
-        run: unzip -uj "release.zip" "${{ env.SERVICE_LOCATION4 }}/target/*" -d "./${{ env.SERVICE_LOCATION4 }}/target"
-
-      - name: Build image Print service
-        run: |
+    - name: Build image Print service
+      run: |
           cd "./${{env.SERVICE_LOCATION}}"
           docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
 
-      - name: Build image osi
-        run: |
+    - name: Build image osi
+      run: |
           cd "./${{env.SERVICE_LOCATION4}}"
           docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME4 }}
           
-      - name: Build Image registration-processor-message-sender-stage
-        run: |
+    - name: Build Image registration-processor-message-sender-stage
+      run: |
           cd "./${{env.SERVICE_LOCATION1}}"
           docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME1 }}
           
-      - name: Build Image registration-processor-printing-stage
-        run: |
+    - name: Build Image registration-processor-printing-stage
+      run: |
           cd "./${{env.SERVICE_LOCATION2}}"
           docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME2 }}
           
-      - name: Build Image registration-processor-registration-transaction-service
-        run: |
+    - name: Build Image registration-processor-registration-transaction-service
+      run: |
           cd "./${{env.SERVICE_LOCATION3}}"
           docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME3 }}
                       
-      - name: Log into registry
-        run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
+    - name: Log into registry
+      run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
         
-      - name: Push image Print service
-        run: |
+    - name: Push image Print service
+      run: |
           IMAGE_ID=$NAMESPACE/$SERVICE_NAME
           
           # Change all uppercase to lowercase
@@ -178,8 +149,8 @@ jobs:
           docker push $IMAGE_ID:$VERSION
  
 
-      - name: Push image registration-processor-message-sender-stage
-        run: |
+    - name: Push image registration-processor-message-sender-stage
+      run: |
           IMAGE_ID=$NAMESPACE/$SERVICE_NAME1
           
           # Change all uppercase to lowercase
@@ -191,8 +162,8 @@ jobs:
           docker tag $SERVICE_NAME1 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
  
-      - name: Push image registration-processor-printing-stage
-        run: |
+    - name: Push image registration-processor-printing-stage
+      run: |
           IMAGE_ID=$NAMESPACE/$SERVICE_NAME2
           
           # Change all uppercase to lowercase
@@ -205,8 +176,8 @@ jobs:
           docker push $IMAGE_ID:$VERSION
  
  
-      - name: Push image registration-processor-registration-transaction-service
-        run: |
+    - name: Push image registration-processor-registration-transaction-service
+      run: |
           IMAGE_ID=$NAMESPACE/$SERVICE_NAME3
           
           # Change all uppercase to lowercase
@@ -218,8 +189,8 @@ jobs:
           docker tag $SERVICE_NAME3 $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
   
-      - name: Push image osi
-        run: |
+    - name: Push image osi
+      run: |
           IMAGE_ID=$NAMESPACE/$SERVICE_NAME4
           
           # Change all uppercase to lowercase
