@@ -291,7 +291,7 @@
 <!--		<module>registration-processor-bio-dedupe-service-impl</module>-->
 <!--		<module>registration-processor-print-service-impl</module>-->
 <!--		<module>registration-processor-info-storage-service</module>-->
-<!--		<module>registration-processor-registration-status-service-impl</module>-->
+		<module>registration-processor-registration-status-service-impl</module>
 <!--        &lt;!&ndash; <module>registration-processor-quality-checker</module> &ndash;&gt;-->
 <!--		<module>registration-processor-message-sender-impl</module>-->
 <!--		<module>init</module>-->
