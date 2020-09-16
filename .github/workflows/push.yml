@@ -100,17 +100,21 @@ jobs:
           xpath: /*[local-name()="project"]/*[local-name()="version"]
 
     - name: checking the files
-      run: ls -lrt "./${{env.SERVICE_LOCATION}}"
-      
-    - name: Build image Print service
       run: |
-          cd "./${{env.SERVICE_LOCATION}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
-
-    - name: Build image osi
+          ls -lrt "./${{env.SERVICE_LOCATION}}"
+          ls -lrt "./${{env.SERVICE_LOCATION2}}"
+          ls -lrt "./${{env.SERVICE_LOCATION3}}"
+          ls -lrt "./${{env.SERVICE_LOCATION1}}"
+          ls -lrt "./${{env.SERVICE_LOCATION4}}"      
+    - name: Build image Print service
       run: |
           cd "./${{env.SERVICE_LOCATION4}}"
           docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME4 }}
+
+    - name: Build image osi
+      run: |
+          cd "./${{env.SERVICE_LOCATION}}"
+          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
           
     - name: Build Image registration-processor-message-sender-stage
       run: |
