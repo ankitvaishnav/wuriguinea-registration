@@ -3,7 +3,7 @@ name: build, dockerize & push images
 on:
   push:
     branches:
-      - 1.1.1
+      - UNIR*
   
 jobs:
   build:
