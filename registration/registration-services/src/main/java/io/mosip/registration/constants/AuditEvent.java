@@ -109,6 +109,8 @@ public enum AuditEvent {
 	REG_SUPERVISOR_AUTH_FACE("REG-EVT-061", USER_EVENT.getCode(), "REG_SUPERVISOR_AUTH_FACE", "Supervisor authentication with face: Capture and submit"),
 	REG_SUPERVISOR_AUTH_PREVIEW("REG-EVT-062", USER_EVENT.getCode(), "REG_SUPERVISOR_AUTH_PREVIEW", "Back to Preview"),
 
+	REG_BIO_EXCEPTION_REMOVING("REG-EVT-065", USER_EVENT.getCode(), "REG_BIO_EXCEPTION_REMOVING", "Biometric Exceptions: Removing"),
+
 	// Approve Registration
 	APPR_VIEW_REG("REG-EVT-063", USER_EVENT.getCode(), "APPR_VIEW_REG", "View registration detail"),
 	APPR_REG("REG-EVT-064", USER_EVENT.getCode(), "APPR_REG", "Approve registration"),
