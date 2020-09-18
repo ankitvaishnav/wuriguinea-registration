@@ -9,19 +9,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      NAMESPACE: wuriguinea
-      SERVICE_NAME4: registration-processor-osi-validator-stage
-      SERVICE_LOCATION4: registration-processor/pre-processor/registration-processor-osi-validator-stage  
-      SERVICE_NAME: registration-processor-print-service
-      SERVICE_LOCATION: registration-processor/post-processor/registration-processor-print-service
-      SERVICE_NAME1: registration-processor-message-sender-stage
-      SERVICE_LOCATION1: registration-processor/post-processor/registration-processor-message-sender-stage
-      SERVICE_NAME2: registration-processor-printing-stage
-      SERVICE_LOCATION2: registration-processor/post-processor/registration-processor-printing-stage
-      SERVICE_NAME3: registration-processor-registration-transaction-service
-      SERVICE_LOCATION3: registration-processor/post-processor/registration-processor-registration-transaction-service
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -56,14 +43,7 @@ jobs:
       run: |
         ls -lrt
         cd registration-processor
-        mvn -B clean install -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true -Dgpg.skip=true --file pom.xml
-    - name: checking the files
-      run: |
-          ls -lrt "./${{env.SERVICE_LOCATION}}"
-          ls -lrt "./${{env.SERVICE_LOCATION2}}"
-          ls -lrt "./${{env.SERVICE_LOCATION3}}"
-          ls -lrt "./${{env.SERVICE_LOCATION1}}"
-          ls -lrt "./${{env.SERVICE_LOCATION4}}"      
+        mvn -B package -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true -Dgpg.skip=true --file pom.xml
 
     - name: Ready the springboot artifacts
       run: find -name '*.jar' -executable -type f  -exec zip release.zip {} +
@@ -90,120 +70,3 @@ jobs:
         #zip -r registration/registration-client/target/reg-client.zip registration/registration-client/target/lib/
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
-
-    - name: checking the release.zip
-      run: ls -lrt
-    - name: Setup branch name
-      run: |
-          # Strip git ref prefix from version
-          echo "::set-env name=BRANCH_NAME::$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')"
-          echo ${{ env.BRANCH_NAME }}
-
-    - name: Get version info from pom
-      id: getPomVersion
-      uses: mavrosxristoforos/get-xml-info@1.0
-      with:
-          xml-file: ./${{ env.SERVICE_LOCATION }}/pom.xml
-          xpath: /*[local-name()="project"]/*[local-name()="version"]
-
-    - name: checking the files
-      run: |
-          ls -lrt "./${{env.SERVICE_LOCATION}}"
-          ls -lrt "./${{env.SERVICE_LOCATION2}}"
-          ls -lrt "./${{env.SERVICE_LOCATION3}}"
-          ls -lrt "./${{env.SERVICE_LOCATION1}}"
-          ls -lrt "./${{env.SERVICE_LOCATION4}}"      
-    - name: Build image Print service
-      run: |
-          cd "./${{env.SERVICE_LOCATION4}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME4 }}
-
-    - name: Build image osi
-      run: |
-          cd "./${{env.SERVICE_LOCATION}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME }}
-          
-    - name: Build Image registration-processor-message-sender-stage
-      run: |
-          cd "./${{env.SERVICE_LOCATION1}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME1 }}
-          
-    - name: Build Image registration-processor-printing-stage
-      run: |
-          cd "./${{env.SERVICE_LOCATION2}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME2 }}
-          
-    - name: Build Image registration-processor-registration-transaction-service
-      run: |
-          cd "./${{env.SERVICE_LOCATION3}}"
-          docker build . --file Dockerfile --tag ${{ env.SERVICE_NAME3 }}
-                      
-    - name: Log into registry
-      run: echo "${{ secrets.release_docker_hub }}" | docker login -u ${{ secrets.actor_docker_hub }} --password-stdin
-        
-    - name: Push image Print service
-      run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME
-          
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          echo "push version ${{steps.getPomVersion.outputs.info}}"
-          VERSION=$BRANCH_NAME
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $SERVICE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
- 
-
-    - name: Push image registration-processor-message-sender-stage
-      run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME1
-          
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          echo "push version ${{steps.getPomVersion.outputs.info}}"
-          VERSION=$BRANCH_NAME
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $SERVICE_NAME1 $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
- 
-    - name: Push image registration-processor-printing-stage
-      run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME2
-          
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          echo "push version ${{steps.getPomVersion.outputs.info}}"
-          VERSION=$BRANCH_NAME
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $SERVICE_NAME2 $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
- 
- 
-    - name: Push image registration-processor-registration-transaction-service
-      run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME3
-          
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          echo "push version ${{steps.getPomVersion.outputs.info}}"
-          VERSION=$BRANCH_NAME
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $SERVICE_NAME3 $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
-  
-    - name: Push image osi
-      run: |
-          IMAGE_ID=$NAMESPACE/$SERVICE_NAME4
-          
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          echo "push version ${{steps.getPomVersion.outputs.info}}"
-          VERSION=$BRANCH_NAME
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $SERVICE_NAME4 $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
