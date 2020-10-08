@@ -881,8 +881,10 @@ top right bottom left
 	-fx-prompt-text-fill: #020F59;
 	-fx-font-size: 1.2em;
 	-fx-text-fill : #020F59;
-	-fx-padding : -7.0px 0.0px -2.0px -2.0px;
-	-fx-border-insets : 5 -2 -5 44;
+	-fx-padding : -10.0px 0.0px -5.0px -2.0px;
+    -fx-border-insets : -5 -2 -5 44;
+	/*-fx-padding : -7.0px 0.0px -2.0px -2.0px;
+	-fx-border-insets : 5 -2 -5 44;*/
 }
 .demographicLangHeader{
 	-fx-font-size : 1.4em;
