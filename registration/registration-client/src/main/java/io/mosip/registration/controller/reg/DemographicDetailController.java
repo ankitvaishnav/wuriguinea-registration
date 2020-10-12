@@ -499,7 +499,6 @@ public class DemographicDetailController extends BaseController {
 
 		Label dobHiddenLabel = new Label();
 		dobHiddenLabel.setText(" ");
-		//dobHiddenLabel.setMinWidth(40);
 		dobHiddenLabel.setVisible(false);
 		dobHiddenLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_LABEL);
 		dobHiddenLabel.setId(fieldId + "__" + languageType + RegistrationConstants.LABEL);
