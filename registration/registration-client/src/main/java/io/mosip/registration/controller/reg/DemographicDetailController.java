@@ -494,20 +494,22 @@ public class DemographicDetailController extends BaseController {
 
 	public VBox addContentForDobAndAge(String fieldId, String languageType) {
 
-
 		VBox vBoxDOBLabel = new VBox();
-		vBoxDOBLabel.setMinWidth(100);
+		vBoxDOBLabel.setMinWidth(120);
 
 		Label dobHiddenLabel = new Label();
-		 dobHiddenLabel.setText(" ");
+		dobHiddenLabel.setText(" ");
+		//dobHiddenLabel.setMinWidth(40);
 		dobHiddenLabel.setVisible(false);
-		dobHiddenLabel.setId(fieldId + "__dobHiddenLabel" + languageType + RegistrationConstants.LABEL);
 		dobHiddenLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_LABEL);
+		dobHiddenLabel.setId(fieldId + "__" + languageType + RegistrationConstants.LABEL);
 
 		Label dobLabel = new Label();
-		dobLabel.setText("Date de naissance");
+		dobLabel.setMaxWidth(125);
+		dobLabel.setMinHeight(50);
+		dobLabel.setText(RegistrationConstants.DOBLABEL);
+		dobLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_DOBLABEL);
 		dobLabel.setId(fieldId + "__dobLabel" + languageType + RegistrationConstants.LABEL);
-		dobLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_LABEL);
 
 		vBoxDOBLabel.getChildren().addAll(dobHiddenLabel, dobLabel);
 
@@ -516,7 +518,7 @@ public class DemographicDetailController extends BaseController {
 		TextField dd = new TextField();
 		dd.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		dd.setId(fieldId + "__" + RegistrationConstants.DD + languageType);
-		dd.setMinWidth(25);
+		dd.setMinWidth(30);
 		Label ddLabel = new Label();
 		ddLabel.setVisible(false);
 		ddLabel.setId(fieldId + "__" + RegistrationConstants.DD + languageType + RegistrationConstants.LABEL);
@@ -540,7 +542,7 @@ public class DemographicDetailController extends BaseController {
 
 		VBox vBoxYYYY = new VBox();
 		TextField yyyy = new TextField();
-		yyyy.setMinWidth(55);
+		yyyy.setMinWidth(52);
 		yyyy.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		yyyy.setId(fieldId + "__" + RegistrationConstants.YYYY + languageType);
 		Label yyyyLabel = new Label();
@@ -573,12 +575,12 @@ public class DemographicDetailController extends BaseController {
 				: applicationLabelBundle.getString(RegistrationConstants.YYYY));
 
 		HBox hB = new HBox();
-		hB.setSpacing(10);
+		hB.setSpacing(5);
 		hB.getChildren().addAll(vBoxDOBLabel, vBoxDD, vBoxMM, vBoxYYYY);
 
 		VBox vboxAgeField = new VBox();
 		TextField ageField = new TextField();
-		ageField.setMinWidth(30);
+		ageField.setMinWidth(45);
 		ageField.setId(fieldId + "__" + RegistrationConstants.AGE_FIELD + languageType);
 		ageField.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		Label ageFieldLabel = new Label();
@@ -602,7 +604,7 @@ public class DemographicDetailController extends BaseController {
 
 		VBox orVbox = new VBox();
 		orVbox.setMinWidth(30);
-		orVbox.setSpacing(25);
+		orVbox.setSpacing(15);
 		orVbox.getChildren().addAll(new Label(), orLabel);
 
 		HBox hB2 = new HBox();
