@@ -340,7 +340,6 @@ public class DemographicDetailController extends BaseController {
 					LOGGER.info(orderOfAddress.get(k) + " is not a valid field", APPLICATION_NAME,
 							RegistrationConstants.APPLICATION_ID,
 							runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
-
 				}
 			}
 		} catch (RuntimeException runtimeException) {
@@ -495,11 +494,30 @@ public class DemographicDetailController extends BaseController {
 
 	public VBox addContentForDobAndAge(String fieldId, String languageType) {
 
+		VBox vBoxDOBLabel = new VBox();
+		vBoxDOBLabel.setMinWidth(120);
+
+		Label dobHiddenLabel = new Label();
+		dobHiddenLabel.setText(" ");
+		dobHiddenLabel.setVisible(false);
+		dobHiddenLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_LABEL);
+		dobHiddenLabel.setId(fieldId + "__" + languageType + RegistrationConstants.LABEL);
+
+		Label dobLabel = new Label();
+		dobLabel.setMaxWidth(125);
+		dobLabel.setMinHeight(50);
+		dobLabel.setText(RegistrationConstants.DOBLABEL);
+		dobLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_DOBLABEL);
+		dobLabel.setId(fieldId + "__dobLabel" + languageType + RegistrationConstants.LABEL);
+
+		vBoxDOBLabel.getChildren().addAll(dobHiddenLabel, dobLabel);
+
 		VBox vBoxDD = new VBox();
 
 		TextField dd = new TextField();
 		dd.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		dd.setId(fieldId + "__" + RegistrationConstants.DD + languageType);
+		dd.setMinWidth(30);
 		Label ddLabel = new Label();
 		ddLabel.setVisible(false);
 		ddLabel.setId(fieldId + "__" + RegistrationConstants.DD + languageType + RegistrationConstants.LABEL);
@@ -510,6 +528,7 @@ public class DemographicDetailController extends BaseController {
 
 		VBox vBoxMM = new VBox();
 		TextField mm = new TextField();
+		mm.setMinWidth(40);
 		mm.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		mm.setId(fieldId + "__" + RegistrationConstants.MM + languageType);
 		Label mmLabel = new Label();
@@ -522,6 +541,7 @@ public class DemographicDetailController extends BaseController {
 
 		VBox vBoxYYYY = new VBox();
 		TextField yyyy = new TextField();
+		yyyy.setMinWidth(52);
 		yyyy.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		yyyy.setId(fieldId + "__" + RegistrationConstants.YYYY + languageType);
 		Label yyyyLabel = new Label();
@@ -554,17 +574,16 @@ public class DemographicDetailController extends BaseController {
 				: applicationLabelBundle.getString(RegistrationConstants.YYYY));
 
 		HBox hB = new HBox();
-		hB.setSpacing(7);
-		hB.getChildren().addAll(vBoxDD, vBoxMM, vBoxYYYY);
+		hB.setSpacing(5);
+		hB.getChildren().addAll(vBoxDOBLabel, vBoxDD, vBoxMM, vBoxYYYY);
 
-		HBox hB2 = new HBox();
 		VBox vboxAgeField = new VBox();
 		TextField ageField = new TextField();
+		ageField.setMinWidth(45);
 		ageField.setId(fieldId + "__" + RegistrationConstants.AGE_FIELD + languageType);
 		ageField.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		Label ageFieldLabel = new Label();
-		ageFieldLabel
-				.setId(fieldId + "__" + RegistrationConstants.AGE_FIELD + languageType + RegistrationConstants.LABEL);
+		ageFieldLabel.setId(fieldId + "__" + RegistrationConstants.AGE_FIELD + languageType + RegistrationConstants.LABEL);
 		ageFieldLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_LABEL);
 		ageFieldLabel.setVisible(false);
 		vboxAgeField.getChildren().addAll(ageFieldLabel, ageField);
@@ -576,18 +595,19 @@ public class DemographicDetailController extends BaseController {
 		ageFieldLabel.setText(localLanguage ? localLabelBundle.getString(RegistrationConstants.AGE_FIELD)
 				: applicationLabelBundle.getString(RegistrationConstants.AGE_FIELD));
 
-		hB.setPrefWidth(250);
-
-		hB2.setSpacing(10);
+		hB.setMaxWidth(200);
 
 		Label orLabel = new Label(localLanguage ? localLabelBundle.getString("ageOrDOBField")
 				: applicationLabelBundle.getString("ageOrDOBField"));
         orLabel.setStyle("-fx-text-fill:#020F59");
 
 		VBox orVbox = new VBox();
-		orVbox.setPrefWidth(100);
+		orVbox.setMinWidth(30);
+		orVbox.setSpacing(15);
 		orVbox.getChildren().addAll(new Label(), orLabel);
 
+		HBox hB2 = new HBox();
+		hB2.setSpacing(5);
 		hB2.getChildren().addAll(hB, orVbox, vboxAgeField);
 
 		VBox vB = new VBox();

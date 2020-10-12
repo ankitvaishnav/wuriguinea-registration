@@ -714,7 +714,7 @@ public class TemplateGenerator extends BaseService {
 					RegistrationConstants.TEMPLATE_STYLE_HIDE_PROPERTY);
 		}
 	}
-//TODO:to calcuate if the date is greater than 18
+/*to calcuate if the date is greater than 18 */
 
 	int getAge(String year, String month, String date) {
 		if (year != null && !year.isEmpty() && month != null && !month.isEmpty() && date != null && !date.isEmpty()) {
