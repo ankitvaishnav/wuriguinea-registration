@@ -2362,7 +2362,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-font-size: 14.0px;
 	-fx-border-width : 0.0 0.0 1.0 0.0;
 	-fx-border-color: #020F59;
-	-fx-background-color:#175768;
+	-fx-background-color:#020F59;
 }
 .schedulerTitleMsg{
 	-fx-font-size: 14.0px;
@@ -2374,7 +2374,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 }
 .authenticationErrorMsgTitle{
 	-fx-font-size: 16.0px;
-	-fx-text-fill: #175768;
+	-fx-text-fill: #020F59;
 }
 .authenticationPageTitle{
 	-fx-font-size: 18.0px;
