@@ -420,9 +420,9 @@
                             <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label styleClass="newsUpdatesTitle" text="Corrections mineures" />
-                              <Label styleClass="newsUpdateTime" text="Lundi 10 Jan 8:00" GridPane.rowIndex="1" />
-                              <Label styleClass="newsUpdateTime" text="Correction de petits bugs et améliorations du layout" GridPane.rowIndex="2" />
+                              <Label styleClass="newsUpdatesTitle" text="" />
+                              <Label styleClass="newsUpdateTime" text="" GridPane.rowIndex="1" />
+                              <Label styleClass="newsUpdateTime" text="" GridPane.rowIndex="2" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
