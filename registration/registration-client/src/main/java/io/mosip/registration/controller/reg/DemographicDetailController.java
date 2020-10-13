@@ -847,20 +847,14 @@ public class DemographicDetailController extends BaseController {
 				if (maxAge >= Integer.parseInt(ageField.getText())) {
 					age = Integer.parseInt(ageField.getText());
 
-					// Not to re-calulate DOB and populate DD, MM and YYYY UI fields based on Age,
-					// since Age was calculated based on DOB entered by the user. Calculate DOB and
-					// populate DD, MM and YYYY UI fields based on user entered Age.
+					// When user enter age, the estimated mm = 01, and dd = 01
 					Calendar defaultDate = Calendar.getInstance();
-					defaultDate.set(Calendar.DATE, 1);
-					defaultDate.set(Calendar.MONTH, 0);
 					defaultDate.add(Calendar.YEAR, -age);
 
-					dd.setText(String.valueOf(defaultDate.get(Calendar.DATE)));
-					dd.requestFocus();
-					mm.setText(String.valueOf(defaultDate.get(Calendar.MONTH + 1)));
-					mm.requestFocus();
-					yyyy.setText(String.valueOf(defaultDate.get(Calendar.YEAR)));
-					yyyy.requestFocus();
+					dd.setText("01");
+					mm.setText("01");
+					String yyyyText = String.valueOf(defaultDate.get(Calendar.YEAR));
+					yyyy.setText(yyyyText);
 					dd.requestFocus();
 
 					// TODO NOT REQUIRED NOW

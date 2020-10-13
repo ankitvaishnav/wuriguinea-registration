@@ -2340,6 +2340,8 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 
 .schedulerMsg{
 	-fx-font-size: 12.0px;
+	-fx-text-fill:#020F59;
+	-fx-font-weight: bold;
 }
 .schedulerTimer{
 	-fx-text-fill:red;
@@ -2355,7 +2357,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-cursor:hand;
 }
 .schedulerStage{
-	-fx-border-color: #0B6A82;
+	-fx-border-color: #020F59;
 	-fx-background-color:white;
 }
 .schedulerTitle{
