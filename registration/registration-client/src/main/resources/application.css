@@ -2340,8 +2340,6 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 
 .schedulerMsg{
 	-fx-font-size: 12.0px;
-	-fx-text-fill:#020F59;
-	-fx-font-weight: bold;
 }
 .schedulerTimer{
 	-fx-text-fill:red;
@@ -2352,7 +2350,19 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-radius: 4.0,4.0,4.0,4.0;
 	-fx-border-color: #BCE0FD;
 	-fx-background-color:#BCE0FD;
-	-fx-text-fill: white;
+	-fx-text-fill:#020F59;
+    -fx-font-weight: bold;
+	-fx-font-family: Roboto;
+	-fx-cursor:hand;
+}
+.schedulerContinueBtn:hover{
+	-fx-font-size: 14.0px;
+	-fx-background-radius: 4.0,4.0,4.0,4.0;
+	-fx-border-radius: 4.0,4.0,4.0,4.0;
+	-fx-border-color: #BCE0FD;
+	-fx-background-color:#FFFFFF;
+	-fx-text-fill:#020F59;
+    -fx-font-weight: bold;
 	-fx-font-family: Roboto;
 	-fx-cursor:hand;
 }
