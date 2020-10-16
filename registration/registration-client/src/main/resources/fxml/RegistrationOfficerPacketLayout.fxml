@@ -458,18 +458,18 @@
             </GridPane>
             <HBox prefHeight="56.0" prefWidth="264.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <HBox prefHeight="56.0" prefWidth="123.0">
+                  <HBox prefHeight="56.0" prefWidth="53.0">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="134.0" styleClass="powerdBy" text="%wuri.guinea" textAlignment="CENTER">
+                        <Label prefHeight="30.0" prefWidth="64.0" styleClass="powerdBy" text="%wuri.guinea" textAlignment="CENTER">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="55.0">
                      <children>
-            		   <Label prefHeight="30.0" prefWidth="204.0" styleClass="powerdBy" text="%regClientVersion" textAlignment="CENTER">
+            		   <Label prefHeight="30.0" prefWidth="59.0" styleClass="powerdBy" text="%regClientVersion" textAlignment="CENTER">
                            <font>
                               <Font size="20.0" />
                            </font>

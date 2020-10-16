@@ -1118,6 +1118,11 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-radius: 3,3,3,3;
 }
 
+.biometricPaneText{
+	-fx-text-alignment: center;
+	-fx-text-fill: red;
+}
+
 .fingerPrintPanesSelected{
 	-fx-background-color : #F0F0F0;
 	-fx-border-color : #EFEFEF;
@@ -1624,8 +1629,8 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-font-family: Roboto;
 }
 .approveButton:hover {
-	-fx-background-color:#BCE0FD;
-	-fx-border-color: #BCE0FD;
+	-fx-background-color:#FFFFFF;
+	-fx-border-color: #020F59;
 	-fx-text-fill: #020F59;
 }
 .approveButton:pressed {
@@ -1644,11 +1649,12 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-radius: 3.0,3.0,3.0,3.0;
 	-fx-background-color:#BCE0FD;
 	-fx-border-color: #BCE0FD;
+	-fx-text-fill: #020F59;
 	-fx-font-family: Roboto;
 }
 .rejectButton:hover {
-	-fx-background-color:#BCE0FD;
-	-fx-border-color: #BCE0FD;
+	-fx-background-color:#FFFFFF;
+	-fx-border-color: #020F59;
 	-fx-text-fill: #020F59;
 }
 .rejectButton:pressed {
