@@ -770,6 +770,7 @@ public class BiometricsController extends BaseController /* implements Initializ
 		retryBox.setVisible(true);
 		biometricBox.setVisible(true);
 		biometricType.setText(applicationLabelBundle.getString(modality));
+		biometricType.getStyleClass().add(RegistrationConstants.BIOMETRIC_PANES_TEXT);
 
 		disableLastCheckBoxSection();
 		this.currentModality = modality;
@@ -1012,7 +1013,7 @@ public class BiometricsController extends BaseController /* implements Initializ
         auditFactory.audit(getAuditEventForScan(currentModality), Components.REG_BIOMETRICS, SessionContext.userId(),
                 AuditReferenceIdTypes.USER_ID.getReferenceTypeId());
 
-        scanPopUpViewController.init(this, "Biometrics");
+        scanPopUpViewController.init(this, "Biométries");
 
 		Service<MdmBioDevice> deviceSearchTask = new Service<MdmBioDevice>() {
 			@Override
