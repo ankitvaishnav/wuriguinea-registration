@@ -814,6 +814,14 @@ Working on new Css by taleev
 	-fx-padding: 2.0px;
 }
 
+.whiteColor{
+-fx-text-fill: #FFFFFF;
+}
+
+.bottomFooterLogin{
+	-fx-background-color: #020F59;
+}
+
 .contiuneButton:hover {
 	-fx-background-color:#FFFFFF;
 	-fx-border-color: #020F59;

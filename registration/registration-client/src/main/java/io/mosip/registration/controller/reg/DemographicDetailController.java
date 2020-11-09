@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
@@ -67,6 +68,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.beans.property.SimpleBooleanProperty;
+import javax.swing.*;
 
 /**
  * {@code DemographicDetailController} is to capture the demographic details
@@ -178,6 +186,62 @@ public class DemographicDetailController extends BaseController {
 	 *
 	 * @see javafx.fxml.Initializable#initialize()
 	 */
+
+	Button tsButton = new Button();
+	Label tsLabel= new Label();
+	HBox tsHBox = new HBox();
+	SimpleBooleanProperty switchedOn = new SimpleBooleanProperty(true);
+	public SimpleBooleanProperty switchOnProperty()
+	{
+		return switchedOn;
+	}
+
+	/*Toggle button initilisation */
+    private void iniToggleButton()
+	{
+		tsHBox.getChildren().clear();
+		tsHBox.getChildren().addAll(tsButton, tsLabel);
+		parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianUIN")).setDisable(true);
+		switchedOn.addListener((a, b, c) -> {
+			if (c) {
+				tsLabel.setText("");
+				tsLabel.toFront();
+				parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianUIN")).setDisable(true);
+				parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianRID")).setDisable(false);
+			} else {
+				tsLabel.setText("");
+				tsButton.toFront();
+				parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianUIN")).setDisable(false);
+				parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianRID")).setDisable(true);
+			}});
+
+		tsButton.setOnAction((e) -> {
+			switchedOn.set(!switchedOn.get());
+		});
+		tsLabel.setOnMouseClicked((e) -> {
+			switchedOn.set(!switchedOn.get());
+		});
+		bindProperties();
+	}
+
+	/* Style for the toogleButton */
+	private void setStyle() {
+		tsHBox.setMaxWidth(35);
+		tsHBox.setMaxHeight(10);
+		tsHBox.setAlignment(Pos.CENTER);
+		tsButton.setStyle("-fx-background-color: #020F59; -fx-border-width: 0.0;-fx-text-fill:#020F59; -fx-background-radius: 5em; -fx-font-size: 1em;" +
+				"-fx-min-width: 13px; -fx-min-height: 13px; -fx-max-width: 13px; -fx-max-height: 13px;");
+		tsHBox.setStyle("-fx-background-color: white; -fx-border-color:#020F59; -fx-border-radius:45px; -fx-border-width: 1;");
+	}
+
+	/*Binding the composant for toggle buttion together*/
+	private void bindProperties() {
+		tsLabel.prefWidthProperty().bind(tsHBox.widthProperty().divide(2));
+		tsLabel.prefHeightProperty().bind(tsHBox.heightProperty());
+		tsButton.prefWidthProperty().bind(tsHBox.widthProperty().divide(2));
+		tsButton.prefHeightProperty().bind(tsHBox.heightProperty());
+	}
+
 	@FXML
 	private void initialize() throws IOException {
 
@@ -257,12 +321,11 @@ public class DemographicDetailController extends BaseController {
 			guardianFields.add("parentOrGuardianRID");
 			guardianFields.add("parentOrGuardianUIN");
 
-            // Logical grouping in schema with position, precreate gridpane categoris in fxml
+			// Logical grouping in schema with position, precreate gridpane categoris in fxml
             Iterator<Entry<String, UiSchemaDTO>> iterator = validation.getValidationMap().entrySet().iterator();
             while (iterator.hasNext()) {
                 UiSchemaDTO left = null;
                 UiSchemaDTO dto = iterator.next().getValue();
-				//System.out.println("POST:   "+dto.getId()+" "+dto.getLayoutCategory());
 
 				if (infoFields.contains(dto.getId())) {
 					if (isDemographicField(dto)) {
@@ -320,11 +383,10 @@ public class DemographicDetailController extends BaseController {
                         childFlowPaneGuardian.getChildren().add(mainGridPane);
                         position3++;
                         positionTracker.put(mainGridPane.getId(), position3);
+						mainGridPane.add(tsHBox, 2, 0);
                     }
 				}
             }
-
-
 			addFirstOrderAddress(listOfComboBoxWithObject.get(orderOfAddress.get(0)), 1,
 					applicationContext.getApplicationLanguage());
 
@@ -342,6 +404,11 @@ public class DemographicDetailController extends BaseController {
 							runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
 				}
 			}
+
+			// Toggle buttion methode application
+			iniToggleButton();
+			setStyle();
+
 		} catch (RuntimeException runtimeException) {
 			LOGGER.error("REGISTRATION - CONTROLLER", APPLICATION_NAME, RegistrationConstants.APPLICATION_ID,
 					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
@@ -783,7 +850,9 @@ public class DemographicDetailController extends BaseController {
 					}
 				}
 			});
-            ageField.textProperty().addListener(new ChangeListener<String>() {
+
+
+			ageField.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
 
@@ -1045,6 +1114,7 @@ public class DemographicDetailController extends BaseController {
 			for (int i = p + 1; i < size; i++) {
 				listOfComboBoxWithObject.get(orderOfAddress.get(i)).getItems().clear();
 			}
+
 		} catch (RuntimeException runtimeException) {
 			LOGGER.error(" falied due to invalid field", APPLICATION_NAME, RegistrationConstants.APPLICATION_ID,
 					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));

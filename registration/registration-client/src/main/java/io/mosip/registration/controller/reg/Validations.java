@@ -271,13 +271,13 @@ public class Validations extends BaseController {
 	 * @return true, if successful
 	 */
 	public boolean validateTextField(Pane parentPane, TextField node, String id, boolean isPreviousValid) {
-		if (node.getId().contains(RegistrationConstants.LOCAL_LANGUAGE)) {
+		/*if (node.getId().contains(RegistrationConstants.LOCAL_LANGUAGE)) {
 			return languageSpecificValidation(parentPane, node, id, localMessageBundle, localLanguageblackListedWords,
 					isPreviousValid);
-		} else {
+		} else {*/
 			return languageSpecificValidation(parentPane, node, id, applicationMessageBundle,
 					applicationLanguageblackListedWords, isPreviousValid);
-		}
+		//}
 	}
 
 	/**
@@ -339,7 +339,7 @@ public class Validations extends BaseController {
 
 				if (!node.isDisabled() && isInputValid) {
 					String regex = getRegex(id, RegistrationUIConstants.REGEX_TYPE);
-					if (regex != null) {
+					if (regex != null && !inputText.isEmpty()) {
 						if (inputText.matches(regex)) {
 							isInputValid = validateBlackListedWords(parentPane, node, id, blackListedWords, showAlert,
 									String.format("%s %s %s",
