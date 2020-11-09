@@ -387,9 +387,6 @@ public class DemographicDetailController extends BaseController {
                     }
 				}
             }
-             // Toggle buttion methode application
-			iniToggleButton();
-			setStyle();
 			addFirstOrderAddress(listOfComboBoxWithObject.get(orderOfAddress.get(0)), 1,
 					applicationContext.getApplicationLanguage());
 
