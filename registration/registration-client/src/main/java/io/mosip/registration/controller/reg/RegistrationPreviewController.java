@@ -245,8 +245,11 @@ public class RegistrationPreviewController extends BaseController implements Ini
 		modifyElements.add(RegistrationConstants.MODIFY_BIOMETRICS);
 		for (String element : modifyElements) {
 			Element button = document.getElementById(element);
-			((EventTarget) button).addEventListener(RegistrationConstants.CLICK, event -> modifyElement(element),
-					false);
+			if(button != null)
+			{
+				((EventTarget) button).addEventListener(RegistrationConstants.CLICK, event -> modifyElement(element),
+						false);
+			}
 		}
 	}
 

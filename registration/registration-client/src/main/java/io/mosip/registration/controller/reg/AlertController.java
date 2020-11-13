@@ -74,6 +74,7 @@ public class AlertController extends BaseController implements Initializable {
 	}
 
 	public void generateAlertResponse(String title, String contextString) {
+
 		LOGGER.info(LOG_ALERT_GENERATION, APPLICATION_NAME, APPLICATION_ID, "Alert generation has been started");
 
 		String[] split = contextString.split(RegistrationConstants.SPLITTER);

@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -1028,6 +1030,17 @@ public class DocumentScanController extends BaseController {
 	/**
 	 * This method is to go to previous page
 	 */
+/*	@FXML
+//	private Button backBtn;
+	public void back(ActionEvent event){
+		backBtn.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent> (){
+			@Override
+			public void handle(KeyEvent event) {
+				if(KeyCode.ENTER.equals(event.getCode()))
+					System.out.println("Press");
+			}
+		});
+	}*/
 	@FXML
 	private void back() {
 		auditFactory.audit(AuditEvent.REG_DOC_BACK, Components.REG_DOCUMENTS, SessionContext.userId(),

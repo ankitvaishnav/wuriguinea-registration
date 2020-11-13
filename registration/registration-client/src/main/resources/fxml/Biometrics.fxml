@@ -411,7 +411,7 @@
                     <children>
                         <GridPane fx:id="backButton" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                             <children>
-                                <Button fx:id="backBtn" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#previous" styleClass="backButton" text="%back" GridPane.valignment="TOP">
+                                <Button fx:id="backBtn" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#previous" defaultButton="true" styleClass="backButton" text="%back" GridPane.valignment="TOP">
                                 </Button>
                             </children>
                             <columnConstraints>
@@ -423,7 +423,7 @@
                         </GridPane>
                         <GridPane GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                             <children>
-                                <Button fx:id="continueBtn" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#next" styleClass="contiuneButton" text="%continue" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                                <Button fx:id="continueBtn" minWidth="${backButton.width/2}" mnemonicParsing="false" onAction="#next" defaultButton="true" styleClass="contiuneButton" text="%continue" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                                 </Button>
                             </children>
                             <columnConstraints>

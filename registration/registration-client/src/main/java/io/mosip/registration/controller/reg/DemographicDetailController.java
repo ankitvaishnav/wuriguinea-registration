@@ -3,6 +3,7 @@ package io.mosip.registration.controller.reg;
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_NAME;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.*;
 import java.util.Map.Entry;
@@ -11,7 +12,12 @@ import java.util.stream.Collectors;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -242,6 +248,7 @@ public class DemographicDetailController extends BaseController {
 		tsButton.prefHeightProperty().bind(tsHBox.heightProperty());
 	}
 
+
 	@FXML
 	private void initialize() throws IOException {
 
@@ -408,6 +415,7 @@ public class DemographicDetailController extends BaseController {
 			// Toggle buttion methode application
 			iniToggleButton();
 			setStyle();
+
 
 		} catch (RuntimeException runtimeException) {
 			LOGGER.error("REGISTRATION - CONTROLLER", APPLICATION_NAME, RegistrationConstants.APPLICATION_ID,
@@ -908,7 +916,6 @@ public class DemographicDetailController extends BaseController {
 		}
 
 	}
-
 	public void ageValidation(Pane dobParentPane, TextField ageField, Label dobMessage, Boolean oldValue, TextField dd,
 			TextField mm, TextField yyyy) {
 		if (ageField.getText().matches(RegistrationConstants.NUMBER_OR_NOTHING_REGEX)) {
@@ -1380,6 +1387,7 @@ public class DemographicDetailController extends BaseController {
 	/**
 	 * Method to go back to previous page
 	 */
+
 	@FXML
 	private void back() {
 		try {
@@ -1394,10 +1402,10 @@ public class DemographicDetailController extends BaseController {
 					exception.getMessage() + ExceptionUtils.getStackTrace(exception));
 		}
 	}
-
 	/**
 	 * Method to go back to next page
 	 */
+
 	@FXML
 	private void next() throws InvalidApplicantArgumentException, ParseException {
 

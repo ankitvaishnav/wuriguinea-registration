@@ -24,6 +24,8 @@ import java.util.Timer;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -383,6 +385,13 @@ public class BaseController {
 			alertStage = new Stage();
 			Pane authRoot = BaseController.load(getClass().getResource(RegistrationConstants.ALERT_GENERATION));
 			Scene scene = new Scene(authRoot);
+			scene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent> (){
+				@Override
+				public void handle(KeyEvent event) {
+					if(KeyCode.ENTER.equals(event.getCode()))
+						alertStage.close();
+				}
+			});
 			scene.getStylesheets().add(ClassLoader.getSystemClassLoader()
 					.getResource(RegistrationConstants.CSS_FILE_PATH).toExternalForm());
 			alertStage.initStyle(StageStyle.UNDECORATED);
@@ -401,6 +410,7 @@ public class BaseController {
 				alertStage.initOwner(fXComponents.getStage());
 				alertTypeCheck(title, context, alertStage);
 			}
+
 		} catch (IOException ioException) {
 			LOGGER.error("REGISTRATION - ALERT - BASE_CONTROLLER", APPLICATION_NAME, APPLICATION_ID,
 					ioException.getMessage() + ExceptionUtils.getStackTrace(ioException));

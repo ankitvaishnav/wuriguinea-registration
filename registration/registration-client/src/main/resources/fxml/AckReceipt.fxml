@@ -130,7 +130,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="newRegistration" mnemonicParsing="false" onAction="#goToNewRegistration" styleClass="ackPageButton" text="%newregistration" GridPane.columnIndex="3">
+                  <Button fx:id="newRegistration" mnemonicParsing="false" onAction="#goToNewRegistration" defaultButton="true" styleClass="ackPageButton" text="%newregistration" GridPane.columnIndex="3">
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>

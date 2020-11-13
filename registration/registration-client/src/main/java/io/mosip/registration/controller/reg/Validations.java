@@ -271,13 +271,13 @@ public class Validations extends BaseController {
 	 * @return true, if successful
 	 */
 	public boolean validateTextField(Pane parentPane, TextField node, String id, boolean isPreviousValid) {
-		/*if (node.getId().contains(RegistrationConstants.LOCAL_LANGUAGE)) {
+		if (node.getId().contains(RegistrationConstants.LOCAL_LANGUAGE)) {
 			return languageSpecificValidation(parentPane, node, id, localMessageBundle, localLanguageblackListedWords,
 					isPreviousValid);
-		} else {*/
+		} else {
 			return languageSpecificValidation(parentPane, node, id, applicationMessageBundle,
 					applicationLanguageblackListedWords, isPreviousValid);
-		//}
+		}
 	}
 
 	/**

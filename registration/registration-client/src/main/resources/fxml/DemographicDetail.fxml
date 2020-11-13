@@ -643,7 +643,7 @@
                                   GridPane.rowIndex="1" GridPane.valignment="TOP">
                             <children>
                                 <Button fx:id="backBtn" minWidth="${backButton.width/2}" mnemonicParsing="false"
-                                        onAction="#back" styleClass="backButton" text="%back" visible="false"
+                                        onAction="#back" defaultButton="true" styleClass="backButton" text="%back" visible="false"
                                         GridPane.valignment="TOP">
                                 </Button>
                             </children>
@@ -658,7 +658,7 @@
                                   GridPane.valignment="TOP">
                             <children>
                                 <Button fx:id="continueBtn" minWidth="${backButton.width/2}" mnemonicParsing="false"
-                                        onAction="#next" styleClass="contiuneButton" text="%continue"
+                                        onAction="#next" defaultButton="true" styleClass="contiuneButton" text="%continue"
                                         GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                                 </Button>
                             </children>
