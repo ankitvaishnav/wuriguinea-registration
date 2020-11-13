@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -181,6 +183,7 @@ public class DocumentScanController extends BaseController {
 	 *
 	 * @see javafx.fxml.Initializable#initialize()
 	 */
+
 	@FXML
 	private void initialize() {
 		LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, APPLICATION_NAME,
@@ -221,6 +224,9 @@ public class DocumentScanController extends BaseController {
 			} else {
 				continueBtn.setDisable(true);
 			}
+			//Binding the Enter key to button
+			backBtn.defaultButtonProperty().bind(backBtn.focusedProperty());
+			continueBtn.defaultButtonProperty().bind(continueBtn.focusedProperty());
 
 		} catch (RuntimeException exception) {
 			LOGGER.error("REGISTRATION - DOCUMENT_SCAN_CONTROLLER", APPLICATION_NAME,

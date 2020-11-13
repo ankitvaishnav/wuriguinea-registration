@@ -116,7 +116,7 @@
 	<GridPane styleClass="bottomFooterLogin">
 		<HBox id="footer-section" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="1280.0">
 			<children >
-				<Label prefHeight="17.0" prefWidth="150.0" text="  " />
+				<Label prefHeight="17.0" prefWidth="100.0" text="  " />
 				<Label prefHeight="17.0" prefWidth="50.0" text="%wuri.guinea" styleClass="whiteColor" />
 				<Label text="  " />
 				<Label prefHeight="17.0" prefWidth="40" text="%regClientVersion" styleClass="whiteColor" />

@@ -231,7 +231,7 @@
          <children>
             <HBox alignment="CENTER" spacing="5.0" styleClass="homeBox" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" onAction="#goToHomePageFromRegistration" styleClass="homeButton" text="%home" />
+                  <Button mnemonicParsing="false" onAction="#goToHomePageFromRegistration" defaultButton="true" styleClass="homeButton" text="%home" />
                   <Label fx:id="registrationNavlabel" styleClass="headerLabel" text="%/registration" />
                </children>
             </HBox>

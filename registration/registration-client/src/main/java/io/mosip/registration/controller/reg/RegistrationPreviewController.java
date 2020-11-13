@@ -116,6 +116,9 @@ public class RegistrationPreviewController extends BaseController implements Ini
 			registrationNavlabel.setText(
 					ApplicationContext.applicationLanguageBundle().getString(RegistrationConstants.LOSTUINLBL));
 		}
+		//Binding the Enter key to button
+		backBtn.defaultButtonProperty().bind(backBtn.focusedProperty());
+		nextButton.defaultButtonProperty().bind(nextButton.focusedProperty());
 	}
 
 	@FXML
@@ -245,8 +248,11 @@ public class RegistrationPreviewController extends BaseController implements Ini
 		modifyElements.add(RegistrationConstants.MODIFY_BIOMETRICS);
 		for (String element : modifyElements) {
 			Element button = document.getElementById(element);
-			((EventTarget) button).addEventListener(RegistrationConstants.CLICK, event -> modifyElement(element),
-					false);
+			if(button != null)
+			{
+				((EventTarget) button).addEventListener(RegistrationConstants.CLICK, event -> modifyElement(element),
+						false);
+			}
 		}
 	}
 

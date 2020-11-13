@@ -1026,7 +1026,9 @@ public class AuthenticationController extends BaseController implements Initiali
 		isEODAuthentication = true;
 		baseController = parentControllerObj;
 		getAuthenticationModes(authType);
-
+		//Button key binding
+		backBtn.defaultButtonProperty().bind(backBtn.focusedProperty());
+		operatorAuthContinue.defaultButtonProperty().bind(operatorAuthContinue.focusedProperty());
 	}
 
 	public void initData(String authType) throws RegBaseCheckedException {

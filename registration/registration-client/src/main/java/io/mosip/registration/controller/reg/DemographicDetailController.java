@@ -3,6 +3,7 @@ package io.mosip.registration.controller.reg;
 import static io.mosip.registration.constants.RegistrationConstants.APPLICATION_NAME;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.*;
 import java.util.Map.Entry;
@@ -11,7 +12,12 @@ import java.util.stream.Collectors;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -152,6 +158,8 @@ public class DemographicDetailController extends BaseController {
 	private Label registrationNavlabel;
 	@FXML
 	private AnchorPane keyboardPane;
+	@FXML
+	private Button continueBtn;
     @FXML
     private AnchorPane personalInfoPane;
 	private boolean lostUIN = false;
@@ -180,13 +188,6 @@ public class DemographicDetailController extends BaseController {
 
 	@Autowired
 	private BiometricsController guardianBiometricsController;
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see javafx.fxml.Initializable#initialize()
-	 */
-
 	Button tsButton = new Button();
 	Label tsLabel= new Label();
 	HBox tsHBox = new HBox();
@@ -241,6 +242,11 @@ public class DemographicDetailController extends BaseController {
 		tsButton.prefWidthProperty().bind(tsHBox.widthProperty().divide(2));
 		tsButton.prefHeightProperty().bind(tsHBox.heightProperty());
 	}
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see javafx.fxml.Initializable#initialize()
+	 */
 
 	@FXML
 	private void initialize() throws IOException {
@@ -408,6 +414,7 @@ public class DemographicDetailController extends BaseController {
 			// Toggle buttion methode application
 			iniToggleButton();
 			setStyle();
+			continueBtn.defaultButtonProperty().bind(continueBtn.focusedProperty());
 
 		} catch (RuntimeException runtimeException) {
 			LOGGER.error("REGISTRATION - CONTROLLER", APPLICATION_NAME, RegistrationConstants.APPLICATION_ID,
@@ -908,7 +915,6 @@ public class DemographicDetailController extends BaseController {
 		}
 
 	}
-
 	public void ageValidation(Pane dobParentPane, TextField ageField, Label dobMessage, Boolean oldValue, TextField dd,
 			TextField mm, TextField yyyy) {
 		if (ageField.getText().matches(RegistrationConstants.NUMBER_OR_NOTHING_REGEX)) {
@@ -1380,6 +1386,7 @@ public class DemographicDetailController extends BaseController {
 	/**
 	 * Method to go back to previous page
 	 */
+
 	@FXML
 	private void back() {
 		try {
@@ -1394,10 +1401,10 @@ public class DemographicDetailController extends BaseController {
 					exception.getMessage() + ExceptionUtils.getStackTrace(exception));
 		}
 	}
-
 	/**
 	 * Method to go back to next page
 	 */
+
 	@FXML
 	private void next() throws InvalidApplicantArgumentException, ParseException {
 

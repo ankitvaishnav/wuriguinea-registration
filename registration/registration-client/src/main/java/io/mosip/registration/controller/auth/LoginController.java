@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -74,6 +76,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 
 /**
  * Class for loading Login screen with Username and password
@@ -158,6 +161,11 @@ public class LoginController extends BaseController implements Initializable {
 	@FXML
 	private ProgressIndicator progressIndicator;
 
+	@FXML
+	private Button backBtn;
+	@FXML
+	private Button operatorAuthContinue;
+
 	private Service<List<String>> taskService;
 
 	private List<String> loginList = new ArrayList<>();
@@ -230,6 +238,10 @@ public class LoginController extends BaseController implements Initializable {
 			seconds = seconds.length() < 2 ? "0" + seconds : seconds;
 			otpValidity.setText(RegistrationUIConstants.OTP_VALIDITY + " " + minutes + ":" + seconds + " "
 					+ RegistrationUIConstants.MINUTES);
+			//Button key binding
+			backBtn.defaultButtonProperty().bind(backBtn.focusedProperty());
+			operatorAuthContinue.defaultButtonProperty().bind(operatorAuthContinue.focusedProperty());
+
 		} catch (RuntimeException runtimeExceptionexception) {
 			LOGGER.error(LoggerConstants.LOG_REG_LOGIN, APPLICATION_NAME, APPLICATION_ID,
 					runtimeExceptionexception.getMessage() + ExceptionUtils.getStackTrace(runtimeExceptionexception));
@@ -310,8 +322,7 @@ public class LoginController extends BaseController implements Initializable {
 		scene = getScene(loginRoot);
 		loadUIElementsFromSchema();
 		pageFlow.loadPageFlow();
-		Screen screen = Screen.getPrimary();
-		Rectangle2D bounds = screen.getVisualBounds();
+		Screen screen = Screen.getPrimary();		Rectangle2D bounds = screen.getVisualBounds();
 		primaryStage.setX(bounds.getMinX());
 		primaryStage.setY(bounds.getMinY());
 		primaryStage.setWidth(bounds.getWidth());
@@ -1016,8 +1027,7 @@ public class LoginController extends BaseController implements Initializable {
 		taskService.start();
 		taskService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 			@Override
-			public void handle(WorkerStateEvent t) {
-
+			public void handle(final WorkerStateEvent t) {
 				if (taskService.getValue().contains(RegistrationConstants.FAILURE)) {
 					generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.SYNC_CONFIG_DATA_FAILURE);
 					if (isInitialSetUp) {

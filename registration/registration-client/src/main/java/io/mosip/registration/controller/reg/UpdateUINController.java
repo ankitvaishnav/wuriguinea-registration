@@ -66,6 +66,8 @@ public class UpdateUINController extends BaseController implements Initializable
 	@FXML
 	private Button backBtn;
 	@FXML
+	private Button 	continueBtn;
+	@FXML
 	private ImageView backImageView;
 
 	@Autowired
@@ -127,6 +129,9 @@ public class UpdateUINController extends BaseController implements Initializable
 					backImageView.setImage(backImage);
 				}
 			});
+			//Binding the Enter key to button
+			backBtn.defaultButtonProperty().bind(backBtn.focusedProperty());
+			continueBtn.defaultButtonProperty().bind(continueBtn.focusedProperty());
 		} catch (RuntimeException runtimeException) {
 			LOGGER.error(LOG_REG_UIN_UPDATE, APPLICATION_NAME, APPLICATION_ID,
 					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
