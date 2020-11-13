@@ -161,6 +161,9 @@ public class BiometricsController extends BaseController /* implements Initializ
 	@FXML
 	private Button continueBtn;
 
+	@FXML
+	private Button backBtn;
+
 	// @FXML
 	// private Label duplicateCheckLbl;
 
@@ -367,6 +370,9 @@ public class BiometricsController extends BaseController /* implements Initializ
 					ApplicationContext.applicationLanguageBundle().getString(RegistrationConstants.LOSTUINLBL));
 
 		}
+		//Key binding to back and continue button
+		continueBtn.defaultButtonProperty().bind(continueBtn.focusedProperty());
+		backBtn.defaultButtonProperty().bind(backBtn.focusedProperty());
 	}
 
 	public void populateBiometricPage(boolean isUserOnboard, boolean isGoingBack) {

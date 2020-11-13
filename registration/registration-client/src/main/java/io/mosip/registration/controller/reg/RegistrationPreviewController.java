@@ -116,6 +116,9 @@ public class RegistrationPreviewController extends BaseController implements Ini
 			registrationNavlabel.setText(
 					ApplicationContext.applicationLanguageBundle().getString(RegistrationConstants.LOSTUINLBL));
 		}
+		//Binding the Enter key to button
+		backBtn.defaultButtonProperty().bind(backBtn.focusedProperty());
+		nextButton.defaultButtonProperty().bind(nextButton.focusedProperty());
 	}
 
 	@FXML

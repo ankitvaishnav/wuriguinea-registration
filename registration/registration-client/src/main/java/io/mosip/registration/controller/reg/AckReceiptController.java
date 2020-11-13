@@ -101,6 +101,8 @@ public class AckReceiptController extends BaseController implements Initializabl
 			registrationNavLabel.setText(
 					ApplicationContext.applicationLanguageBundle().getString(RegistrationConstants.LOSTUINLBL));
 		}
+		/*Binding newReg to enter key */
+		newRegistration.defaultButtonProperty().bind(newRegistration.focusedProperty());
 
 		WebEngine engine = webView.getEngine();
 		// loads the generated HTML template content into webview

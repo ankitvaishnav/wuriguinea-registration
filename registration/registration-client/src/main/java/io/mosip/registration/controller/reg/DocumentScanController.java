@@ -183,6 +183,7 @@ public class DocumentScanController extends BaseController {
 	 *
 	 * @see javafx.fxml.Initializable#initialize()
 	 */
+
 	@FXML
 	private void initialize() {
 		LOGGER.info(RegistrationConstants.DOCUMNET_SCAN_CONTROLLER, APPLICATION_NAME,
@@ -223,6 +224,9 @@ public class DocumentScanController extends BaseController {
 			} else {
 				continueBtn.setDisable(true);
 			}
+			//Binding the Enter key to button
+			backBtn.defaultButtonProperty().bind(backBtn.focusedProperty());
+			continueBtn.defaultButtonProperty().bind(continueBtn.focusedProperty());
 
 		} catch (RuntimeException exception) {
 			LOGGER.error("REGISTRATION - DOCUMENT_SCAN_CONTROLLER", APPLICATION_NAME,
@@ -1030,17 +1034,6 @@ public class DocumentScanController extends BaseController {
 	/**
 	 * This method is to go to previous page
 	 */
-/*	@FXML
-//	private Button backBtn;
-	public void back(ActionEvent event){
-		backBtn.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent> (){
-			@Override
-			public void handle(KeyEvent event) {
-				if(KeyCode.ENTER.equals(event.getCode()))
-					System.out.println("Press");
-			}
-		});
-	}*/
 	@FXML
 	private void back() {
 		auditFactory.audit(AuditEvent.REG_DOC_BACK, Components.REG_DOCUMENTS, SessionContext.userId(),

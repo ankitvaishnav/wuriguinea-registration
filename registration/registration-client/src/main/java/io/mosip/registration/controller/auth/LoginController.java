@@ -161,6 +161,11 @@ public class LoginController extends BaseController implements Initializable {
 	@FXML
 	private ProgressIndicator progressIndicator;
 
+	@FXML
+	private Button backBtn;
+	@FXML
+	private Button operatorAuthContinue;
+
 	private Service<List<String>> taskService;
 
 	private List<String> loginList = new ArrayList<>();
@@ -233,6 +238,10 @@ public class LoginController extends BaseController implements Initializable {
 			seconds = seconds.length() < 2 ? "0" + seconds : seconds;
 			otpValidity.setText(RegistrationUIConstants.OTP_VALIDITY + " " + minutes + ":" + seconds + " "
 					+ RegistrationUIConstants.MINUTES);
+			//Button key binding
+			backBtn.defaultButtonProperty().bind(backBtn.focusedProperty());
+			operatorAuthContinue.defaultButtonProperty().bind(operatorAuthContinue.focusedProperty());
+
 		} catch (RuntimeException runtimeExceptionexception) {
 			LOGGER.error(LoggerConstants.LOG_REG_LOGIN, APPLICATION_NAME, APPLICATION_ID,
 					runtimeExceptionexception.getMessage() + ExceptionUtils.getStackTrace(runtimeExceptionexception));

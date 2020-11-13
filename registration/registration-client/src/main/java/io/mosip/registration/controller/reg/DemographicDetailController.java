@@ -158,6 +158,8 @@ public class DemographicDetailController extends BaseController {
 	private Label registrationNavlabel;
 	@FXML
 	private AnchorPane keyboardPane;
+	@FXML
+	private Button continueBtn;
     @FXML
     private AnchorPane personalInfoPane;
 	private boolean lostUIN = false;
@@ -186,13 +188,6 @@ public class DemographicDetailController extends BaseController {
 
 	@Autowired
 	private BiometricsController guardianBiometricsController;
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see javafx.fxml.Initializable#initialize()
-	 */
-
 	Button tsButton = new Button();
 	Label tsLabel= new Label();
 	HBox tsHBox = new HBox();
@@ -247,7 +242,11 @@ public class DemographicDetailController extends BaseController {
 		tsButton.prefWidthProperty().bind(tsHBox.widthProperty().divide(2));
 		tsButton.prefHeightProperty().bind(tsHBox.heightProperty());
 	}
-
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see javafx.fxml.Initializable#initialize()
+	 */
 
 	@FXML
 	private void initialize() throws IOException {
@@ -415,7 +414,7 @@ public class DemographicDetailController extends BaseController {
 			// Toggle buttion methode application
 			iniToggleButton();
 			setStyle();
-
+			continueBtn.defaultButtonProperty().bind(continueBtn.focusedProperty());
 
 		} catch (RuntimeException runtimeException) {
 			LOGGER.error("REGISTRATION - CONTROLLER", APPLICATION_NAME, RegistrationConstants.APPLICATION_ID,
