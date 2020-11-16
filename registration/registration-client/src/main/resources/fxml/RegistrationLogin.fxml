@@ -46,7 +46,6 @@
 
                   <Hyperlink fx:id="forgotUsrnme" layoutX="120.0" layoutY="222.0" mnemonicParsing="false" onAction="#forgotUsrname" styleClass="hyperLinkStyle" text="%forgotUsername" />
                   <ProgressIndicator fx:id="passwordProgressIndicator" layoutX="130.0" layoutY="50.0" progress="0.0" visible="false" />
-
                </children>
             </AnchorPane>
             <AnchorPane fx:id="otpPane" layoutX="-6.0" layoutY="151.0" prefHeight="297.0" prefWidth="366.0" styleClass="loginAnchorPaneExtendedStyle" visible="false">
@@ -58,7 +57,6 @@
                   <Button fx:id="otpSubmit" disable="true" layoutX="53.0" layoutY="195.0" mnemonicParsing="false" onAction="#validateOTP" styleClass="loginSubmitStyle" text="%submit" />
                   <Label fx:id="otpValidity" layoutX="60.0" layoutY="245.0" styleClass="loginOtpValidStyle" visible="false" />
               <Hyperlink layoutX="52.0" layoutY="234.0" mnemonicParsing="false" onAction="#back" styleClass="hyperLinkStyle" text="%back" />
-
                </children>
             </AnchorPane>
             <AnchorPane fx:id="fingerprintPane" layoutX="72.0" layoutY="220.0" prefHeight="192.0" prefWidth="207.0" styleClass="loginAnchorPaneStyle" visible="false">
@@ -72,7 +70,6 @@
       					</image>
       				</ImageView>
       				 <Hyperlink layoutX="52.0" layoutY="222.0" mnemonicParsing="false" onAction="#back" styleClass="hyperLinkStyle" text="%back" />
-
                </children>
             </AnchorPane>
             <AnchorPane fx:id="irisPane" layoutX="55.0" layoutY="231.0" prefHeight="242.0" prefWidth="379.0" styleClass="loginAnchorPaneStyle" visible="false">
@@ -86,7 +83,6 @@
       					</image>
       				</ImageView>
       				 <Hyperlink layoutX="52.0" layoutY="222.0" mnemonicParsing="false" onAction="#back" styleClass="hyperLinkStyle" text="%back" />
-
                </children>
             </AnchorPane>
             <AnchorPane fx:id="facePane" layoutX="10.0" layoutY="38.0" prefHeight="510.0" prefWidth="458.0" styleClass="loginAnchorPaneStyle" visible="false">
@@ -101,7 +97,6 @@
       					</image>
       				</ImageView>
       				 <Hyperlink layoutX="52.0" layoutY="476.0" mnemonicParsing="false" onAction="#back" styleClass="hyperLinkStyle" text="%back" />
-
                </children>
             </AnchorPane>
             <AnchorPane fx:id="errorPane" layoutX="108.0" layoutY="153.0" styleClass="loginAnchorPaneStyle" visible="false">
