@@ -74,6 +74,7 @@ public class RegistrationPreviewController extends BaseController implements Ini
 	@Autowired
 	private BiometricsController guardianBiometricsController;
 
+
 	@FXML
 	private Text registrationNavlabel;
 

@@ -224,7 +224,7 @@
 	-fx-alignment: center;
 	-fx-padding: 10.0 10.0 10.0 10.0;
 	-fx-border-width: 1.0;
-	-fx-border-color: #E8E8E8 transparent transparent transparent;
+	-fx-border-color: #020F59; transparent transparent transparent;
 	-fx-background-color: #dee2e6;
 }
 
@@ -820,6 +820,8 @@ Working on new Css by taleev
 
 .bottomFooterLogin{
 	-fx-background-color: #020F59;
+
+
 }
 
 .contiuneButton:hover {
