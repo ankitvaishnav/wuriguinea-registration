@@ -224,7 +224,7 @@
 	-fx-alignment: center;
 	-fx-padding: 10.0 10.0 10.0 10.0;
 	-fx-border-width: 1.0;
-	-fx-border-color: #020F59; transparent transparent transparent;
+	-fx-border-color: #020F59 transparent transparent transparent;
 	-fx-background-color: #dee2e6;
 }
 
@@ -953,6 +953,12 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-text-fill : #020F59;
 	-fx-font-size: 1.2em;
 }
+.demoGraphicFieldStart{
+	-fx-background-color:#ffffff;
+	-fx-border-width: 0.0;
+	-fx-text-fill : red;
+	-fx-font-size: 1.2em;
+}
 .demoGraphicTextFieldFocused{
 	-fx-border-color: #FF0000;
 	-fx-border-width: 0.0 0.0 1.0 0.0;
@@ -979,6 +985,14 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-font-size: 1.2em;
 	-fx-text-fill : #000000;
 }
+.demoGraphicTextField:focused{
+	-fx-border-color: #C9C9C9;
+	-fx-border-width: 0.0 0.0 1.0 0.0;
+	-fx-background-color: #FFFFFF;
+	-fx-prompt-text-fill: #808080;
+	-fx-font-size: 1.2em;
+	-fx-text-fill : #808080;
+}
 
 .demoGraphicTextFieldOnType{
 	-fx-border-color: #C9C9C9;
@@ -993,7 +1007,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-color: #22A8C9;
 	-fx-border-width: 0.0 0.0 2.0 0.0;
 	-fx-background-color: #FFFFFF;
-	-fx-prompt-text-fill: #020F59;
+	-fx-prompt-text-fill: #808080;
 	-fx-text-fill: #020F59;
 	-fx-font-size: 1.2em;
 }
