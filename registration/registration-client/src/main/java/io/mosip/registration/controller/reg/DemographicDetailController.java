@@ -571,6 +571,10 @@ public class DemographicDetailController extends BaseController {
 		VBox vBoxDOBLabel = new VBox();
 		vBoxDOBLabel.setMinWidth(120);
 
+		VBox startv = new VBox();
+		//startv.setMinWidth(10);
+
+
 		Label dobHiddenLabel = new Label();
 		dobHiddenLabel.setText(" ");
 		dobHiddenLabel.setVisible(false);
@@ -578,16 +582,22 @@ public class DemographicDetailController extends BaseController {
 		dobHiddenLabel.setId(fieldId + "__" + languageType + RegistrationConstants.LABEL);
 
 		Label dobLabel = new Label();
-		dobLabel.setMaxWidth(125);
-		dobLabel.setMinHeight(50);
-		dobLabel.setText(RegistrationConstants.DOBLABEL);
-		dobLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_DOBLABEL);
-		dobLabel.setId(fieldId + "__dobLabel" + languageType + RegistrationConstants.LABEL);
+		Label start = new Label();
 
+		dobLabel.setMaxWidth(120);
+		dobLabel.setMinHeight(50);
+		//start.setMaxWidth(100);
+		start.setMinHeight(60);
+		start.setText(RegistrationConstants.START);
+		dobLabel.setText(RegistrationConstants.DOBLABEL);
+
+		dobLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_DOBLABEL);
+		start.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_START);
+		dobLabel.setId(fieldId + "__dobLabel" + languageType + RegistrationConstants.LABEL);
 		vBoxDOBLabel.getChildren().addAll(dobHiddenLabel, dobLabel);
+		startv.getChildren().addAll(start);
 
 		VBox vBoxDD = new VBox();
-
 		TextField dd = new TextField();
 		dd.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		dd.setId(fieldId + "__" + RegistrationConstants.DD + languageType);
@@ -637,6 +647,7 @@ public class DemographicDetailController extends BaseController {
 		ddLabel.setText(localLanguage ? localLabelBundle.getString(RegistrationConstants.DD)
 				: applicationLabelBundle.getString(RegistrationConstants.DD));
 		mm.setPromptText(localLanguage ? localLabelBundle.getString(RegistrationConstants.MM)
+
 				: applicationLabelBundle.getString(RegistrationConstants.MM));
 		mmLabel.setText(localLanguage ? localLabelBundle.getString(RegistrationConstants.MM)
 				: applicationLabelBundle.getString(RegistrationConstants.MM));
@@ -648,8 +659,8 @@ public class DemographicDetailController extends BaseController {
 				: applicationLabelBundle.getString(RegistrationConstants.YYYY));
 
 		HBox hB = new HBox();
-		hB.setSpacing(5);
-		hB.getChildren().addAll(vBoxDOBLabel, vBoxDD, vBoxMM, vBoxYYYY);
+		hB.setSpacing(2);
+		hB.getChildren().addAll(vBoxDOBLabel,startv, vBoxDD, vBoxMM, vBoxYYYY);
 
 		VBox vboxAgeField = new VBox();
 		TextField ageField = new TextField();
@@ -694,8 +705,9 @@ public class DemographicDetailController extends BaseController {
 		fxUtils.focusedAction(hB, yyyy);
 
 		dateValidation.validateDate(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);
-		dateValidation.validateMonth(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);
-		dateValidation.validateYear(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);
+
+		/*dateValidation.validateMonth(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);
+		dateValidation.validateYear(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);*/
 
 		vB.setDisable(languageType.equals(RegistrationConstants.LOCAL_LANGUAGE));
 
@@ -716,12 +728,16 @@ public class DemographicDetailController extends BaseController {
 		Label label = new Label();
 		Label validationMessage = new Label();
 
+		Label start = new Label();
+		start.setMinHeight(10);
+		start.setText(RegistrationConstants.START);
 		VBox vbox = new VBox();
 		vbox.setId(fieldName + RegistrationConstants.Parent);
 		field.setId(fieldName + languageType);
 		field.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		label.setId(fieldName + languageType + RegistrationConstants.LABEL);
 		label.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_LABEL);
+		start.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_START);
 		label.setVisible(false);
 		validationMessage.setId(fieldName + languageType + RegistrationConstants.MESSAGE);
 		validationMessage.getStyleClass().add(RegistrationConstants.DemoGraphicFieldMessageLabel);
@@ -730,6 +746,7 @@ public class DemographicDetailController extends BaseController {
 		validationMessage.setPrefWidth(vbox.getPrefWidth());
 		vbox.setSpacing(5);
 		vbox.getChildren().add(label);
+		//vbox.getChildren().add(start);
 		vbox.getChildren().add(field);
 
 		HBox hB = new HBox();
@@ -772,9 +789,9 @@ public class DemographicDetailController extends BaseController {
 				hB.getChildren().add(imageView);
 			}
 		} else {
-			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY));
+			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.START);
 			putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
-			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY));
+			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.START);
 		}
 
 		hB.getChildren().add(validationMessage);
@@ -1023,7 +1040,7 @@ public class DemographicDetailController extends BaseController {
 					lC.setCode(RegistrationConstants.AUDIT_DEFAULT_USER);
 					lC.setName(RegistrationConstants.AUDIT_DEFAULT_USER);
 					lC.setLangCode(ApplicationContext.applicationLanguage());
-					location.getItems().add(lC);
+					location.getItems().add(lC) ;
 				} else {
 					location.getItems().addAll(locations);
 				}
@@ -1251,7 +1268,7 @@ public class DemographicDetailController extends BaseController {
 								(List<SimpleDto>) value);
 					} else
 						populateFieldValue(listOfTextField.get(schemaField.getId()),
-								listOfTextField.get(schemaField.getId() + RegistrationConstants.LOCAL_LANGUAGE),
+								listOfTextField.get(schemaField.getId() + RegistrationConstants.LOCAL_LANGUAGE ),
 								(List<SimpleDto>) value);
 					break;
 

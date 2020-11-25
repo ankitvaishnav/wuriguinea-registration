@@ -876,9 +876,8 @@ Working on new Css by taleev
 	-fx-background-color: #FFFFFF;
 	-fx-prompt-text-fill: #020F59;
 	-fx-font-size: 1.2em;
-	-fx-text-fill : #020F59;
+	-fx-text-fill : #020F59;;
 }
-
 /*
 top right bottom left
 */
@@ -945,6 +944,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-background-color:#ffffff;
 	-fx-border-width: 0.0;
 	-fx-text-fill : #020F59;
+	-fx-prompt-text-fill: #020F59;
 	-fx-font-size: 1em;
 }
 .demoGraphicFieldDobLabel{
@@ -967,7 +967,6 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-text-fill: #FF0000;
 	-fx-font-size: 1.2em;
 }
-
 .demoGraphicTextFieldFocused:focused{
 	-fx-border-color: #FF0000;
 	-fx-border-width: 0.0 0.0 2.0 0.0;
@@ -976,22 +975,12 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-text-fill: #FF0000;
 	-fx-font-size: 1.2em;
 }
-
-.demoGraphicTextField{
-	-fx-border-color: #C9C9C9;
-	-fx-border-width: 0.0 0.0 1.0 0.0;
-	-fx-background-color: #FFFFFF;
-	-fx-prompt-text-fill: #020F59;
-	-fx-font-size: 1.2em;
-	-fx-text-fill : #000000;
-}
 .demoGraphicTextField:focused{
 	-fx-border-color: #C9C9C9;
 	-fx-border-width: 0.0 0.0 1.0 0.0;
 	-fx-background-color: #FFFFFF;
 	-fx-prompt-text-fill: #808080;
 	-fx-font-size: 1.2em;
-	-fx-text-fill : #808080;
 }
 
 .demoGraphicTextFieldOnType{

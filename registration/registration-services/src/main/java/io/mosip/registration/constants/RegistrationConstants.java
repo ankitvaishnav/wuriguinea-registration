@@ -263,6 +263,7 @@ public class RegistrationConstants {
 	public static final String DOC_COMBO_BOX = "documentCombobox";
 	public static final String DEMOGRAPHIC_FIELD_LABEL = "demoGraphicFieldLabel";
 	public static final String DEMOGRAPHIC_FIELD_DOBLABEL = "demoGraphicFieldDobLabel";
+	public static final String DEMOGRAPHIC_FIELD_START = "demoGraphicFieldStart";
 	public static final String SCAN_VBOX = "scanVBox";
 	public static final String DOCUMENT_CONTENT_BUTTON = "documentContentButton";
 
@@ -1423,6 +1424,7 @@ public class RegistrationConstants {
 	public static final String QOUTE = "\"";
 	public static final String DOB_MESSAGE = "dobMessage";
 	public static final String DD = "dd";
+	public static final String START = "*";
 	public static final String DOBLABEL = "Date de naissance";
 	public static final String MM = "mm";
 	public static final String YYYY = "yyyy";
