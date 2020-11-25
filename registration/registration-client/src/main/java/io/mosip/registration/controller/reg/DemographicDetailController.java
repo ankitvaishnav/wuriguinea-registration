@@ -574,7 +574,6 @@ public class DemographicDetailController extends BaseController {
 		VBox startv = new VBox();
 		//startv.setMinWidth(10);
 
-
 		Label dobHiddenLabel = new Label();
 		dobHiddenLabel.setText(" ");
 		dobHiddenLabel.setVisible(false);
@@ -705,9 +704,8 @@ public class DemographicDetailController extends BaseController {
 		fxUtils.focusedAction(hB, yyyy);
 
 		dateValidation.validateDate(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);
-
-		/*dateValidation.validateMonth(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);
-		dateValidation.validateYear(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);*/
+		dateValidation.validateMonth(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);
+		dateValidation.validateYear(parentFlowPane, dd, mm, yyyy, validation, fxUtils, ageField, null, dobMessage);
 
 		vB.setDisable(languageType.equals(RegistrationConstants.LOCAL_LANGUAGE));
 
@@ -788,10 +786,14 @@ public class DemographicDetailController extends BaseController {
 				}
 				hB.getChildren().add(imageView);
 			}
-		} else {
-			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.START);
+		}
+		if (!(fieldName.equalsIgnoreCase("phone") || fieldName.equalsIgnoreCase("email")))
+			{
+				field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.START);
+			}else{
+			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY));
 			putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
-			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.START);
+			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY));
 		}
 
 		hB.getChildren().add(validationMessage);
