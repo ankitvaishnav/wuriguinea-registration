@@ -130,6 +130,21 @@
                                                                                                     </Button>
                                                                                                 </children>
                                                                                             </HBox>
+                                                                                        <HBox prefHeight="100.0"
+                                                                                              prefWidth="250.0"
+                                                                                              spacing="-35.0"
+                                                                                              GridPane.columnIndex="3"
+                                                                                              GridPane.rowIndex="2">
+                                                                                            <children>
+                                                                                                <Label styleClass="demographicSectionHeaderPreAsterist"
+                                                                                                       text="%asterist"
+                                                                                                       GridPane.rowIndex="1"/>
+                                                                                                <Label fx:id="legend"
+                                                                                                       styleClass="demographicSectionHeaderPreMandatory"
+                                                                                                       text="%legend_asterist"
+                                                                                                       GridPane.rowIndex="1"/>
+                                                                                            </children>
+                                                                                        </HBox>
                                                                                         </children>
                                                                                         <columnConstraints>
                                                                                             <ColumnConstraints

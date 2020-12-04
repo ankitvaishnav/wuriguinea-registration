@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import io.mosip.registration.entity.Registration;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -569,9 +570,9 @@ public class DemographicDetailController extends BaseController {
 	public VBox addContentForDobAndAge(String fieldId, String languageType) {
 
 		VBox vBoxDOBLabel = new VBox();
-		vBoxDOBLabel.setMinWidth(120);
+		vBoxDOBLabel.setMinWidth(127);
 
-		VBox startv = new VBox();
+		VBox starVbox = new VBox();
 		//startv.setMinWidth(10);
 
 		Label dobHiddenLabel = new Label();
@@ -581,21 +582,12 @@ public class DemographicDetailController extends BaseController {
 		dobHiddenLabel.setId(fieldId + "__" + languageType + RegistrationConstants.LABEL);
 
 		Label dobLabel = new Label();
-		Label start = new Label();
-
-		dobLabel.setMaxWidth(120);
-		dobLabel.setMinHeight(50);
-		//start.setMaxWidth(100);
-		start.setMinHeight(60);
-		start.setText(RegistrationConstants.START);
+		dobLabel.setMaxWidth(150);
+		dobLabel.setMinHeight(43);
 		dobLabel.setText(RegistrationConstants.DOBLABEL);
-
 		dobLabel.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_DOBLABEL);
-		start.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_START);
 		dobLabel.setId(fieldId + "__dobLabel" + languageType + RegistrationConstants.LABEL);
 		vBoxDOBLabel.getChildren().addAll(dobHiddenLabel, dobLabel);
-		startv.getChildren().addAll(start);
-
 		VBox vBoxDD = new VBox();
 		TextField dd = new TextField();
 		dd.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
@@ -659,7 +651,7 @@ public class DemographicDetailController extends BaseController {
 
 		HBox hB = new HBox();
 		hB.setSpacing(2);
-		hB.getChildren().addAll(vBoxDOBLabel,startv, vBoxDD, vBoxMM, vBoxYYYY);
+		hB.getChildren().addAll(vBoxDOBLabel,starVbox, vBoxDD, vBoxMM, vBoxYYYY);
 
 		VBox vboxAgeField = new VBox();
 		TextField ageField = new TextField();
@@ -722,20 +714,20 @@ public class DemographicDetailController extends BaseController {
             change.setText(change.getText().toUpperCase());
             return change;
         }));
-
 		Label label = new Label();
 		Label validationMessage = new Label();
-
-		Label start = new Label();
-		start.setMinHeight(10);
-		start.setText(RegistrationConstants.START);
+		Label star = new Label();
+		HBox hB = new HBox();
+		//start.setMinHeight(10);
+		star.setText(RegistrationConstants.STAR);
+		// star.setStyle("-fx-text-fill: red;-fx-prompt-text-fill: red;");
+		star.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_STAR);
 		VBox vbox = new VBox();
 		vbox.setId(fieldName + RegistrationConstants.Parent);
 		field.setId(fieldName + languageType);
 		field.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_TEXTFIELD);
 		label.setId(fieldName + languageType + RegistrationConstants.LABEL);
 		label.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_LABEL);
-		start.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_START);
 		label.setVisible(false);
 		validationMessage.setId(fieldName + languageType + RegistrationConstants.MESSAGE);
 		validationMessage.getStyleClass().add(RegistrationConstants.DemoGraphicFieldMessageLabel);
@@ -744,23 +736,19 @@ public class DemographicDetailController extends BaseController {
 		validationMessage.setPrefWidth(vbox.getPrefWidth());
 		vbox.setSpacing(5);
 		vbox.getChildren().add(label);
-		//vbox.getChildren().add(start);
-		vbox.getChildren().add(field);
-
-		HBox hB = new HBox();
-		hB.setSpacing(20);
+		//vbox.getChildren().addAll(field,star);
+        vbox.getChildren().addAll(field);
+		//HBox hB = new HBox();
+		//hB.setSpacing(20);
 
 		vbox.getChildren().add(validationMessage);
-//		if (primaryLanguage.equals(secondaryLanguage)) {
-//			vbox.setDisable(true);
-//		}
 
 		if (listOfTextField.get(fieldName) != null)
 			fxUtils.populateLocalFieldWithFocus(parentFlowPane, listOfTextField.get(fieldName), field,
 					hasToBeTransliterated, validation);
 
 		listOfTextField.put(field.getId(), field);
-		if (languageType.equals(RegistrationConstants.LOCAL_LANGUAGE)) {
+		/*if (languageType.equals(RegistrationConstants.LOCAL_LANGUAGE)) {
 			field.setPromptText(schema.getLabel().get(RegistrationConstants.SECONDARY));
 			putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.SECONDARY));
 			label.setText(schema.getLabel().get(RegistrationConstants.SECONDARY));
@@ -786,19 +774,22 @@ public class DemographicDetailController extends BaseController {
 				}
 				hB.getChildren().add(imageView);
 			}
-		}
-		if (!(fieldName.equalsIgnoreCase("phone") || fieldName.equalsIgnoreCase("email")))
+		}*/
+		if (!(fieldName.equalsIgnoreCase(
+				"phone") || fieldName.equalsIgnoreCase("email") || fieldName.equalsIgnoreCase("additionalAddressDetails")))
 			{
-				field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.START);
+				field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.STARWITHSPACE);
+				putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
+				label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.STARWITHSPACE );
 			}else{
 			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY));
 			putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
 			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY));
 		}
 
-		hB.getChildren().add(validationMessage);
+		/*hB.getChildren().add(validationMessage);
 		hB.setStyle("-fx-background-color:WHITE");
-		vbox.getChildren().add(hB);
+		vbox.getChildren().add(hB);*/
 		fxUtils.onTypeFocusUnfocusListener(parentFlowPane, field);
 		return vbox;
 	}
@@ -847,7 +838,8 @@ public class DemographicDetailController extends BaseController {
 		listOfComboBoxWithObject.put(fieldName + languageType, field);
 
 		fxUtils.onTypeFocusUnfocusListenerCombo(parentFlowPane, field);
-
+		field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.STARWITHSPACE);
+		label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.STARWITHSPACE);
 		return vbox;
 	}
 
