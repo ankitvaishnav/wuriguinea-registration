@@ -1083,7 +1083,11 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-width: 0.0 0.0 1.0 0.0;
 	-fx-border-color: #020F59;
 	-fx-font-size: 1.2em;
-}
+	-fx-pref-width: 300;
+}/*
+.documentCombobox .combo-box-popup > .list-view {
+    -fx-pref-width: 200;
+}*/
 .documentLabel{
 	-fx-text-fill : #020F59;
 }
@@ -1108,6 +1112,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-width: 0.0 0.0 1.0 0.0;
 	-fx-border-color: #BCE0FD;
 	-fx-font-size: 1.2em;
+	-fx-pref-width: 300;
 }
 
 .toggleButton{
