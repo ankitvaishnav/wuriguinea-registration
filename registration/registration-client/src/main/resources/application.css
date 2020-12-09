@@ -878,7 +878,6 @@ Working on new Css by taleev
 	-fx-font-size: 1.2em;
 	-fx-text-fill : #020F59;
 }
-
 /*
 top right bottom left
 */
@@ -930,6 +929,25 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
     -fx-insets : 0 0 0 0;
     -fx-border-insets : 0 20 0 -70;
 }
+.demographicSectionHeaderPreMandatory{
+	-fx-font-size : 1.1em;
+	-fx-text-fill : red;
+	-fx-font-style: italic;
+    -fx-padding: -5.0px -30.0px -50.0px 70.0px;
+    -fx-insets : 0 0 0 0;
+    -fx-border-insets : 0 20 0 -70;
+}
+/*top right bottom left*/
+.demographicSectionHeaderPreAsterist{
+	-fx-font-size : 1.1em;
+	-fx-text-fill : #020F59;
+	-fx-font-style: italic;
+     -fx-padding: -5.0px -30.0px -50.0px 70.0px;
+    -fx-insets : 0 0 0 0;
+    -fx-border-insets : 0 20 0 -70;
+}
+
+
 .demographicMiscTexts{
 	-fx-text-fill: #020F59;
 	-fx-font-size: 1.3em;
@@ -945,6 +963,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-background-color:#ffffff;
 	-fx-border-width: 0.0;
 	-fx-text-fill : #020F59;
+	-fx-prompt-text-fill: #020F59;
 	-fx-font-size: 1em;
 }
 .demoGraphicFieldDobLabel{
@@ -953,10 +972,8 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-text-fill : #020F59;
 	-fx-font-size: 1.2em;
 }
-.demoGraphicFieldStart{
-	-fx-background-color:#ffffff;
-	-fx-border-width: 0.0;
-	-fx-text-fill : red;
+.demoGraphicFieldStar{
+	-fx-text-fill : #020F59;
 	-fx-font-size: 1.2em;
 }
 .demoGraphicTextFieldFocused{
@@ -967,7 +984,6 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-text-fill: #FF0000;
 	-fx-font-size: 1.2em;
 }
-
 .demoGraphicTextFieldFocused:focused{
 	-fx-border-color: #FF0000;
 	-fx-border-width: 0.0 0.0 2.0 0.0;
@@ -976,22 +992,12 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-text-fill: #FF0000;
 	-fx-font-size: 1.2em;
 }
-
-.demoGraphicTextField{
-	-fx-border-color: #C9C9C9;
-	-fx-border-width: 0.0 0.0 1.0 0.0;
-	-fx-background-color: #FFFFFF;
-	-fx-prompt-text-fill: #020F59;
-	-fx-font-size: 1.2em;
-	-fx-text-fill : #000000;
-}
 .demoGraphicTextField:focused{
 	-fx-border-color: #C9C9C9;
 	-fx-border-width: 0.0 0.0 1.0 0.0;
 	-fx-background-color: #FFFFFF;
 	-fx-prompt-text-fill: #808080;
 	-fx-font-size: 1.2em;
-	-fx-text-fill : #808080;
 }
 
 .demoGraphicTextFieldOnType{
@@ -1077,7 +1083,11 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-width: 0.0 0.0 1.0 0.0;
 	-fx-border-color: #020F59;
 	-fx-font-size: 1.2em;
-}
+	-fx-pref-width: 300;
+}/*
+.documentCombobox .combo-box-popup > .list-view {
+    -fx-pref-width: 200;
+}*/
 .documentLabel{
 	-fx-text-fill : #020F59;
 }
@@ -1102,6 +1112,7 @@ top padding is 0.0px, right padding is 0.0px, bottom padding is -80px, left padd
 	-fx-border-width: 0.0 0.0 1.0 0.0;
 	-fx-border-color: #BCE0FD;
 	-fx-font-size: 1.2em;
+	-fx-pref-width: 300;
 }
 
 .toggleButton{

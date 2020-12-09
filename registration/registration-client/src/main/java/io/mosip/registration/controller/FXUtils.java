@@ -315,15 +315,16 @@ public class FXUtils {
 	}
 
 	public void focusedAction(Pane parentPane, TextField field) {
-
 		if (parentPane != null && field != null) {
 			field.focusedProperty().addListener((obsValue, oldValue, newValue) -> {
 				if (!field.isFocused()) {
-					Label fieldLabel = (Label) parentPane.lookup("#" + field.getId() + "Label");
+					/*Label fieldLabel = (Label) parentPane.lookup("#" + field.getId() + "Label");
 					fieldLabel.getStyleClass().removeIf((s) -> {
 						return s.equals("demoGraphicFieldLabelOnType");
 					});
-					fieldLabel.getStyleClass().add("demoGraphicFieldLabel");
+					fieldLabel.getStyleClass().add("demoGraphicFieldLabel");*/
+					onTypeFocusUnfocusListener(parentPane, field);
+					//onTypeFocusUnfocusForLabel(parentPane, field);
 				}
 			});
 		}
@@ -527,6 +528,8 @@ public class FXUtils {
 		toggleUIField(parentPane, field.getId() + RegistrationConstants.LABEL, true);
 		((ComboBox) parentPane.lookup(RegistrationConstants.HASH + field.getId())).setPromptText(null);
 	}
+
+
 
 
 	/**

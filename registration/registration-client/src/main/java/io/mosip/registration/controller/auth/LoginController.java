@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,11 +65,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -94,7 +90,8 @@ public class LoginController extends BaseController implements Initializable {
 
 	@FXML
 	private AnchorPane userIdPane;
-
+	@FXML
+	private Label header;
 	@FXML
 	private AnchorPane credentialsPane;
 
@@ -885,7 +882,7 @@ public class LoginController extends BaseController implements Initializable {
 	 * @param event
 	 *            event for forgot user name
 	 */
-	public void forgotUsrname(ActionEvent event) {
+	/*public void forgotUsrname(ActionEvent event) {
 		forgotUsrnme.setOnAction(e -> {
 			if (Desktop.isDesktopSupported()) {
 				try {
@@ -899,6 +896,13 @@ public class LoginController extends BaseController implements Initializable {
 				}
 			}
 		});
+	}*/
+
+	public void forgotUsrname(ActionEvent event) {
+		Image image;
+		forgotUsrnme.setOnAction(e -> {
+			generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.LOGIN_USERNAME_PASSWORD_FORGOT_ALERT);
+		});
 	}
 
 	/**
@@ -908,6 +912,11 @@ public class LoginController extends BaseController implements Initializable {
 	 *            event for reset pword
 	 */
 	public void resetPwd(ActionEvent event) {
+		resetPword.setOnAction(e -> {
+			generateAlert(RegistrationConstants.ERROR, RegistrationUIConstants.LOGIN_USERNAME_PASSWORD_FORGOT_ALERT);
+		});
+	}
+/*	public void resetPwd(ActionEvent event) {
 		resetPword.setOnAction(e -> {
 			if (Desktop.isDesktopSupported()) {
 				try {
@@ -921,7 +930,7 @@ public class LoginController extends BaseController implements Initializable {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Loading next login screen in case of multifactor authentication
