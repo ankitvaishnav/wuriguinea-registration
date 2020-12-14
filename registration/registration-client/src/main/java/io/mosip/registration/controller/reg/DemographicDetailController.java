@@ -754,11 +754,9 @@ public class DemographicDetailController extends BaseController {
 		//hB.setSpacing(20);
 
 		vbox.getChildren().add(validationMessage);
-
 		if (listOfTextField.get(fieldName) != null)
 			fxUtils.populateLocalFieldWithFocus(parentFlowPane, listOfTextField.get(fieldName), field,
 					hasToBeTransliterated, validation);
-
 		listOfTextField.put(field.getId(), field);
 		if (!(fieldName.equalsIgnoreCase(
 				"phone") || fieldName.equalsIgnoreCase("email") || fieldName.equalsIgnoreCase("additionalAddressDetails")))
@@ -770,16 +768,32 @@ public class DemographicDetailController extends BaseController {
 		 //complement address limit max caracteres 40
 		else if(fieldName.equalsIgnoreCase("additionalAddressDetails")) {
 			addTextLimiter(field,40);
-			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.LIMIT_CARACTERES);
+			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY));
 			putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
-			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.LIMIT_CARACTERES);
+			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY));
+			field.focusedProperty().addListener(new ChangeListener<Boolean>()
+			{
+				@Override
+				public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+				{
+					if (newPropertyValue)
+					{
+						field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.LIMIT_CARACTERES);
+					}
+					else
+					{
+						field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY));
+						putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
+						label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY));
+					}
+				}
+			});
 		}
 		else{
 			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY));
 			putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
 			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY));
 		}
-
 		fxUtils.onTypeFocusUnfocusListener(parentFlowPane, field);
 		return vbox;
 	}
