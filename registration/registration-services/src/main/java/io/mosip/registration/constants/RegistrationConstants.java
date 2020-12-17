@@ -1426,10 +1426,8 @@ public class RegistrationConstants {
 	public static final String DD = "dd";
 	public static final String STAR = "*";
 	public static final String STARWITHSPACE = " *";
-	public static final String LIMIT_CARACTERES = "-40 caractères aux maximums";
+	public static final String LIMIT_CARACTERES = " 40 caractères maximum";
 	public static final String DOBLABEL = "Date de naissance *";
-
-
 	public static final String MM = "mm";
 	public static final String YYYY = "yyyy";
 	public static final String DOB = "dob";
