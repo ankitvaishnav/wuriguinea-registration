@@ -198,6 +198,18 @@ public class DemographicDetailController extends BaseController {
 		return switchedOn;
 	}
 
+	/*Additional address limit to 40 */
+	public static void addTextLimiter(final TextField tf, final int maxLength) {
+		tf.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+				if (tf.getText().length() > maxLength) {
+					String s = tf.getText().substring(0, maxLength);
+					tf.setText(s);
+				}
+			}
+		});
+	}
 	/*Toggle button initilisation */
     private void iniToggleButton()
 	{
@@ -742,54 +754,46 @@ public class DemographicDetailController extends BaseController {
 		//hB.setSpacing(20);
 
 		vbox.getChildren().add(validationMessage);
-
 		if (listOfTextField.get(fieldName) != null)
 			fxUtils.populateLocalFieldWithFocus(parentFlowPane, listOfTextField.get(fieldName), field,
 					hasToBeTransliterated, validation);
-
 		listOfTextField.put(field.getId(), field);
-		/*if (languageType.equals(RegistrationConstants.LOCAL_LANGUAGE)) {
-			field.setPromptText(schema.getLabel().get(RegistrationConstants.SECONDARY));
-			putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.SECONDARY));
-			label.setText(schema.getLabel().get(RegistrationConstants.SECONDARY));
-			if (!schema.getType().equals(RegistrationConstants.SIMPLE_TYPE)) {
-				field.setDisable(true);
-			} else {
-				ImageView imageView = null;
-				try {
-					imageView = new ImageView(
-							new Image(resourceLoader.getResource("classpath:images/keyboard.png").getInputStream()));
-					imageView.setId(fieldName);
-					imageView.setFitHeight(20.00);
-					imageView.setFitWidth(22.00);
-					imageView.setOnMouseClicked((event) -> {
-						setFocusonLocalField(event);
-					});
-					vk.changeControlOfKeyboard(field);
-				} catch (IOException runtimeException) {
-					LOGGER.error("keyboard.png image not found in resource folder", APPLICATION_NAME,
-							RegistrationConstants.APPLICATION_ID,
-							runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
-
-				}
-				hB.getChildren().add(imageView);
-			}
-		}*/
 		if (!(fieldName.equalsIgnoreCase(
 				"phone") || fieldName.equalsIgnoreCase("email") || fieldName.equalsIgnoreCase("additionalAddressDetails")))
-			{
+		{
 				field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.STARWITHSPACE);
 				putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
 				label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.STARWITHSPACE );
-			}else{
+		}
+		 //complement address limit max caracteres 40
+		else if(fieldName.equalsIgnoreCase("additionalAddressDetails")) {
+			addTextLimiter(field,40);
+			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY));
+			putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
+			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY));
+			field.focusedProperty().addListener(new ChangeListener<Boolean>()
+			{
+				@Override
+				public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+				{
+					if (newPropertyValue)
+					{
+						field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY) + RegistrationConstants.LIMIT_CARACTERES);
+					}
+					else
+					{
+						field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY));
+						putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
+						label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY));
+					}
+				}
+			});
+		}
+		else{
 			field.setPromptText(schema.getLabel().get(RegistrationConstants.PRIMARY));
 			putIntoLabelMap(fieldName + languageType, schema.getLabel().get(RegistrationConstants.PRIMARY));
 			label.setText(schema.getLabel().get(RegistrationConstants.PRIMARY));
 		}
-
-		/*hB.getChildren().add(validationMessage);
-		hB.setStyle("-fx-background-color:WHITE");
-		vbox.getChildren().add(hB);*/
 		fxUtils.onTypeFocusUnfocusListener(parentFlowPane, field);
 		return vbox;
 	}
