@@ -194,8 +194,8 @@ public class UpdateUINController extends BaseController implements Initializable
 							selectedFields.put(field.getId(), field);
 						}
 						//INFO customization for age based update
-						selectedFieldGroups.add("GuardianDetails");
-						for(UiSchemaDTO field : groupedMap.get("GuardianDetails")) {
+						selectedFieldGroups.add("Info. du parent/tuteur");
+						for(UiSchemaDTO field : groupedMap.get("Info. du parent/tuteur")) {
 							selectedFields.put(field.getId(), field);
 						}
 						selectedFieldGroups.add("Nom");
