@@ -229,7 +229,6 @@ public class RegistrationController extends BaseController {
 	 * RegistrationConstants.APPLICATION_ID, ioException.getMessage() +
 	 * ExceptionUtils.getStackTrace(ioException)); } }
 	 */
-
 	/**
 	 * This method is save the biometric details
 	 */
