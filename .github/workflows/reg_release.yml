@@ -8,32 +8,31 @@ on:
       - release
 
 jobs:
-
   Build and Release:
     runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v2
-        - name: Setup branch name
-          run: |
-            # Strip git ref prefix from version
-            echo "BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')" >> $GITHUB_ENV
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup branch name
+      run: |
+          # Strip git ref prefix from version
+          echo "BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')" >> $GITHUB_ENV
 
-        - name: Package application
-          run: make global_build
+    - name: Package application
+      run: make global_build
 
-        - name: CREATE REG DIR
-          run: make make_output_dir
+    - name: CREATE REG DIR
+      run: make make_output_dir
 
-        - name: COPY NECESSARY LOGS
-          run: make copy_necessary_files
+    - name: COPY NECESSARY LOGS
+      run: make copy_necessary_files
 
-        - name:  Unzip Application
-          run: make unzip_app
+    - name:  Unzip Application
+      run: make unzip_app
 
-        - name:  Copy libraries
-          run: make copy_libs
+    - name:  Copy libraries
+      run: make copy_libs
 
-        - name:  Zip the final directory
-          run: zip_the_final_directory
+    - name:  Zip the final directory
+      run: zip_the_final_directory
 
 
