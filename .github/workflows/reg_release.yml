@@ -8,7 +8,7 @@ on:
       - release
 
 jobs:
-  Build and Release:
+  BuildandRelease:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
