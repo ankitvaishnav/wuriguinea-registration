@@ -16,14 +16,14 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-        
+
     - name: Cache Maven packages
       uses: actions/cache@v2
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-        
+
     - name: Setup branch name
       run: |
           # Strip git ref prefix from version
@@ -44,7 +44,14 @@ jobs:
     - name:  Copy libraries
       run: make copy_libs
 
+    - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          filename: 'release.zip'
+          path: "./guinean-reg-client"
+          type: zip
+
     - name:  Zip the final directory
-      run: make zip_the_final_directory
+      run: zip_the_final_directory
 
 
