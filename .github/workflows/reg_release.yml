@@ -45,11 +45,11 @@ jobs:
       run: make copy_libs
 
     - name: Archive Release
-        uses: thedoctor0/zip-release@master
-        with:
-          filename: 'release.zip'
-          path: "./guinean-reg-client"
-          type: zip
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: 'release.zip'
+        path: "./guinean-reg-client"
+        type: zip
 
     - name:  Zip the final directory
       run: zip_the_final_directory
