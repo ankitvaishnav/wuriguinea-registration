@@ -75,4 +75,6 @@ public interface MosipDeviceSpecificationProvider {
 	 */
 	public List<MdmBioDevice> getMdmDevices(String deviceInfoResponse, int port);
 
+	public boolean isDeviceAvailable(MdmBioDevice mdmBioDevice);
+
 }

@@ -1813,5 +1813,6 @@ public class RegistrationConstants {
 	public static final String LEFTTHUMB_IMG_PATH = "/images/exceptionmarks/leftThumb.png";
 	public static final String RIGHTEYE_IMG_PATH = "/images/exceptionmarks/lightBlueCrossMark.png";
 	public static final String LEFTEYE_IMG_PATH = "/images/exceptionmarks/lightBlueCrossMark.png";
+	public static final String DEVICE_STATUS_READY = "Ready";
 
 }
