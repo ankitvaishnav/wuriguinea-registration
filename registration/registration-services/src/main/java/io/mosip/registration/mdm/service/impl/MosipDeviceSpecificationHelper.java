@@ -7,7 +7,9 @@ import java.io.StringWriter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.mosip.registration.exception.RegBaseCheckedException;
 import io.mosip.registration.exception.RegistrationExceptionConstants;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MosipDeviceSpecificationHelper {
     private ObjectMapper mapper = new ObjectMapper();
 
