@@ -148,7 +148,8 @@ public class SoftwareUpdateHandler extends BaseService {
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = documentBuilderFactory.newDocumentBuilder();
 		org.w3c.dom.Document metaInfXmlDocument = db.parse(getInputStreamOf(serverMosipXmlFileUrl));
-
+		LOGGER.info(LoggerConstants.LOG_REG_UPDATE, APPLICATION_NAME, APPLICATION_ID,
+				"Latest version: "+getElementValue(metaInfXmlDocument, versionTag));
 		setLatestVersion(getElementValue(metaInfXmlDocument, versionTag));
 		setLatestVersionReleaseTimestamp(getElementValue(metaInfXmlDocument, lastUpdatedTag));
 
