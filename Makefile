@@ -29,5 +29,5 @@ copy_libs:
 
 zip_the_final_directory:
 	rm guinea-reg-client.zip || true
-	zip guinea-reg-client guinean-reg-client
+	zip -r guinea-reg-client guinean-reg-client
 	rm -r guinean-reg-client || true
