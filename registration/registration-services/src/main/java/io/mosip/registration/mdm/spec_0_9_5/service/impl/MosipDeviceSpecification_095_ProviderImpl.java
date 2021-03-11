@@ -111,7 +111,7 @@ public class MosipDeviceSpecification_095_ProviderImpl implements MosipDeviceSpe
 				if (bioDevice != null) {
 
 					LOGGER.info(loggerClassName, APPLICATION_NAME, APPLICATION_ID, "prepared bio Device");
-
+					bioDevice.setPort(port);
 					mdmBioDevices.add(bioDevice);
 
 				}
