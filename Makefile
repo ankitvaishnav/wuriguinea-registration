@@ -1,15 +1,15 @@
 reg_target = "./registration/registration-client/target"
 out_put_dir = "guinean-reg-client"
-zip_generated_name = "mosip-sw-1.1.1.zip"
+zip_generated_name = "mosip-sw-1.1.2.zip"
 
 
 all:  global_build make_output_dir copy_necessary_files unzip_app copy_libs zip_the_final_directory
 
-global_build:
+#global_build:
 	cd registration && mvn clean install -Dmaven.test.skip=true -Dgpg.skip=true
 
-#global_build:
-#	mvn clean install -Dmaven.test.skip=true -Dgpg.skip=true
+global_build:
+	mvn clean install -Dmaven.test.skip=true -Dgpg.skip=true
 
 make_output_dir:
 	rm -rf $(out_put_dir) || true
