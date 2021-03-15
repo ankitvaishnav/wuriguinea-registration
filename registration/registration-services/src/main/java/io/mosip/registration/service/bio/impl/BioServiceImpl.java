@@ -181,10 +181,12 @@ public class BioServiceImpl extends BaseService implements BioService {
 		List<BiometricsDto> biometrics = null;
 
 		if (isMdmEnabled()) {
-			if (deviceSpecificationFactory.isDeviceAvailable(mdmRequestDto.getModality())) {
+			MdmBioDevice bioDevice = deviceSpecificationFactory.isDeviceAvailable(mdmRequestDto.getModality());
+			if (bioDevice != null) {
 				biometrics = captureRealModality(mdmRequestDto);
 			} else {
-				throw new RegBaseCheckedException(RegistrationExceptionConstants.MDS_BIODEVICE_NOT_FOUND.getErrorCode(),
+				throw new RegBaseCheckedException(
+						RegistrationExceptionConstants.MDS_BIODEVICE_NOT_FOUND.getErrorCode(),
 						RegistrationExceptionConstants.MDS_BIODEVICE_NOT_FOUND.getErrorMessage());
 			}
 		} else {
