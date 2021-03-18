@@ -466,6 +466,24 @@ public class MosipDeviceSpecificationFactory {
 
 	}
 
+	public MdmBioDevice isDeviceAvailable(String modality) throws RegBaseCheckedException {
+		MdmBioDevice bioDevice = getDeviceInfoByModality(modality);
+		if (bioDevice != null) {
+			for (MosipDeviceSpecificationProvider provider : deviceSpecificationProviders) {
+				if (provider.getSpecVersion().equalsIgnoreCase(bioDevice.getSpecVersion())) {
+					if(provider.isDeviceAvailable(bioDevice)) {
+						return bioDevice;
+					} else {
+						throw new RegBaseCheckedException(RegistrationExceptionConstants.MDS_BIODEVICE_NOT_FOUND.getErrorCode(),
+								RegistrationExceptionConstants.MDS_BIODEVICE_NOT_FOUND.getErrorMessage());
+					}
+				}
+			}
+		}
+		throw new RegBaseCheckedException(RegistrationExceptionConstants.MDS_PROVIDER_NOT_FOUND.getErrorCode(),
+				RegistrationExceptionConstants.MDS_PROVIDER_NOT_FOUND.getErrorMessage());
+	}
+
 	private String getLatestVersion(String version1, String version2) {
 
 		if (version1.equalsIgnoreCase(version2)) {
