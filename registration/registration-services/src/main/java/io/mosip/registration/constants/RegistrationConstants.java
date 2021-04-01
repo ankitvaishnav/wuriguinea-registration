@@ -905,7 +905,6 @@ public class RegistrationConstants {
 	public static final String MIN_AGE = "mosip.kernel.applicant.type.age.limit";
 	public static final String MAX_AGE = "mosip.registration.max_age";
 	public static final int MajorityAge = 18;
-	public static final int InvalidAge = 18;
 	public static final String DOC_SIZE = "mosip.registration.document_size";
 	public static final String DOC_TYPE = "mosip.registration.document_scanner_doctype";
 	public static final String ACK_INSIDE_PACKET = "mosip.registration.save_ack_inside_packet";
