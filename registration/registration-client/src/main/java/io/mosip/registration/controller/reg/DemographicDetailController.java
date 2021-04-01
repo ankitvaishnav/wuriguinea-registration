@@ -889,7 +889,7 @@ public class DemographicDetailController extends BaseController {
                     ((TextField) parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianUIN"))).setText("");
                     ((TextField) parentFlowPane.lookup(RegistrationConstants.HASH.concat("parentOrGuardianRID"))).setText("");
 
-                    if (age < RegistrationConstants.MajorityAge) {
+                    if (age>=0 && age < RegistrationConstants.MajorityAge) {
                         childFlowPaneGuardian.setVisible(true);
                     } else {
                         childFlowPaneGuardian.setVisible(false);
@@ -928,10 +928,17 @@ public class DemographicDetailController extends BaseController {
 		} else {
 			return "";
 		}
-
 	}
 	public void ageValidation(Pane dobParentPane, TextField ageField, Label dobMessage, Boolean oldValue, TextField dd,
 			TextField mm, TextField yyyy) {
+		//control negatif value input
+		if(Integer.parseInt(ageField.getText() )< 0 )
+		{
+			dobMessage.setText(RegistrationUIConstants.INVALID_DATE);
+			ageField.clear();
+			dobMessage.setVisible(true);
+			dobMessage.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_MESSAGELABEL);
+		}else
 		if (ageField.getText().matches(RegistrationConstants.NUMBER_OR_NOTHING_REGEX)) {
 			if (ageField.getText().matches(RegistrationConstants.NUMBER_REGEX)) {
 				if (maxAge >= Integer.parseInt(ageField.getText())) {
@@ -1016,6 +1023,7 @@ public class DemographicDetailController extends BaseController {
 				// updatePageFlow(RegistrationConstants.GUARDIAN_BIOMETRIC, false);
 				// updatePageFlow(RegistrationConstants.FINGERPRINT_CAPTURE, true);
 				// updatePageFlow(RegistrationConstants.IRIS_CAPTURE, true);
+				//dobMessage.setText(RegistrationUIConstants.INVALID_DATE);
 				dd.clear();
 				mm.clear();
 				yyyy.clear();
@@ -1137,7 +1145,7 @@ public class DemographicDetailController extends BaseController {
 			}
 
 		} catch (RuntimeException runtimeException) {
-			LOGGER.error(" falied due to invalid field", APPLICATION_NAME, RegistrationConstants.APPLICATION_ID,
+			LOGGER.error(" failed due to invalid field", APPLICATION_NAME, RegistrationConstants.APPLICATION_ID,
 					runtimeException.getMessage() + ExceptionUtils.getStackTrace(runtimeException));
 		}
 
@@ -1292,7 +1300,8 @@ public class DemographicDetailController extends BaseController {
 					}
 				}
 			}
-			preRegistrationId.setText(registrationDTO.getPreRegistrationId());
+		preRegistrationId.setText(registrationDTO.getPreRegistrationId());
+		//	preRegistrationId.setText(preRegistrationId.getText().substring(0, 4));
 
 		} catch (RuntimeException runtimeException) {
 			LOGGER.error(RegistrationConstants.REGISTRATION_CONTROLLER, APPLICATION_NAME,

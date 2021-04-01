@@ -125,6 +125,14 @@ public class DateValidation extends BaseController {
 
 	private void populateAge(Pane parentPane, TextField date, TextField month, TextField year, TextField ageField,Label dobMessage) {
 
+		/*Negatif number format exception handling for the date*/
+		if(Integer.parseInt(date.getText())<0)
+		{
+			dobMessage.setText(RegistrationUIConstants.INVALID_DATE);
+			dobMessage.setVisible(true);
+			dobMessage.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD_MESSAGELABEL);
+
+		}
 		if (date != null && month != null && year != null) {
 			if (!date.getText().isEmpty() && !month.getText().isEmpty() && !year.getText().isEmpty()
 					&& year.getText().matches(RegistrationConstants.FOUR_NUMBER_REGEX)) {
