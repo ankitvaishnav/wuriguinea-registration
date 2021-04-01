@@ -720,6 +720,19 @@ public class DemographicDetailController extends BaseController {
 	ResourceLoader resourceLoader;
 
 	public VBox addContentWithTextField(UiSchemaDTO schema, String fieldName, String languageType) {
+		/*limit the pre registration field caracter to 14 numbers */
+		addTextLimiter(preRegistrationId,14);
+		// force the pre registration field to be numeric only
+		preRegistrationId.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue,
+								String newValue) {
+				if (!newValue.matches("\\d*")) {
+					preRegistrationId.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+
 		TextField field = new TextField();
         //Formating the TextField caps automatically
         field.setTextFormatter(new TextFormatter<>((change) -> {
@@ -1300,8 +1313,7 @@ public class DemographicDetailController extends BaseController {
 					}
 				}
 			}
-		preRegistrationId.setText(registrationDTO.getPreRegistrationId());
-		//	preRegistrationId.setText(preRegistrationId.getText().substring(0, 4));
+	preRegistrationId.setText(registrationDTO.getPreRegistrationId());
 
 		} catch (RuntimeException runtimeException) {
 			LOGGER.error(RegistrationConstants.REGISTRATION_CONTROLLER, APPLICATION_NAME,
