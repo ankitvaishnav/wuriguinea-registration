@@ -496,7 +496,7 @@ public class MapperUtils {
 	 * @throws IllegalArgumentException 
 	 */
 	public static <D> D mapJSONObjectToEntity(final JSONObject jsonObject, Class<?> entityClass) throws IllegalAccessException, InstantiationException, ParseException, IllegalArgumentException, SecurityException, JSONException {
-		LOGGER.debug(MAPPER_UTILL, APPLICATION_NAME, APPLICATION_ID, "Building entity of type : " + entityClass.getName());
+//		LOGGER.debug(MAPPER_UTILL, APPLICATION_NAME, APPLICATION_ID, "Building entity of type : " + entityClass.getName());
 		
 		Objects.requireNonNull(jsonObject, SOURCE_NULL_MESSAGE);
 		Objects.requireNonNull(entityClass, "destination class should not be null");
