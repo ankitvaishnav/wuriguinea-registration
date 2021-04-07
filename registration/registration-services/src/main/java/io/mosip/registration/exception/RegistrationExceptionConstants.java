@@ -218,9 +218,10 @@ public enum RegistrationExceptionConstants {
 	MDS_RCAPTURE_ERROR("REG-MDS-003","RCapture Failed"),
 	MDS_PROVIDER_NOT_FOUND("REG-MDS-004","MDS provider not found"),
 	MDS_JWT_INVALID("REG-MDS-005","Invalid JWT value (Header.Payload.Signature)"),
-	MDS_PAYLOAD_EMPTY("REG-MDS-006","Payload is Empty");
+	MDS_PAYLOAD_EMPTY("REG-MDS-006","Payload is Empty"),
+	MDS_STREAM_TIMEOUT("REG-MDS-007","Stream Timeout Reached");
 
-	
+
 	/**
 	 * The constructor
 	 */
