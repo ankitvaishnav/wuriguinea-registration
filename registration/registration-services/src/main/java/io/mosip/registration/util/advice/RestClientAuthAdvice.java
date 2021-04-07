@@ -96,7 +96,7 @@ public class RestClientAuthAdvice {
 			Object response = joinPoint.proceed(joinPoint.getArgs());
 
 			LOGGER.info(LoggerConstants.AUTHZ_ADVICE, APPLICATION_ID, APPLICATION_NAME,
-					"Adding authZ token to web service request header if required completed" + response);
+					"Adding authZ token to web service request header if required completed");
 			
 			if (handleInvalidTokenFromResponse(response, joinPoint)) {
 				LOGGER.info(LoggerConstants.AUTHZ_ADVICE, APPLICATION_ID, APPLICATION_NAME,
