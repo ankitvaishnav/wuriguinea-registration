@@ -8,3 +8,5 @@ logs
 /registration/registration-client/*.iml
 /registration/registration-libs/registration-libs.iml
 /registration/registration-services/registration-services.iml
+.DS_Store
+guinea-reg-client.zip

@@ -1,0 +1,15 @@
+FROM wuriguinea/artifactory-service:1.1.1
+
+WORKDIR /usr/share/nginx/html/artifactory
+
+ARG REG_VERSION=1.1.1
+
+RUN mkdir ${REG_VERSION}
+
+COPY guinea-reg-client.zip ./${REG_VERSION}/guinea-reg-client-${REG_VERSION}.zip
+
+
+
+
+
+
