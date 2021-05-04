@@ -51,8 +51,7 @@ import io.mosip.kernel.templatemanager.velocity.builder.TemplateManagerBuilderIm
 				"io.mosip.kernel.applicanttype", "io.mosip.kernel.core.pdfgenerator.spi",
 				"io.mosip.kernel.pdfgenerator.itext.impl", "io.mosip.kernel.cryptosignature",
 				"io.mosip.kernel.core.signatureutil", "io.mosip.kernel.idobjectvalidator.impl",
-				"io.mosip.kernel.packetmanager.impl", "io.mosip.kernel.packetmanager.util",
-				"io.mosip.kernel.biosdk.provider.impl" , "io.mosip.kernel.biosdk.provider.factory"})
+				"io.mosip.kernel.packetmanager.impl", "io.mosip.kernel.packetmanager.util"})
 @PropertySource(value = { "classpath:spring.properties" })
 @ImportAutoConfiguration(RefreshAutoConfiguration.class)
 @EnableConfigurationProperties
