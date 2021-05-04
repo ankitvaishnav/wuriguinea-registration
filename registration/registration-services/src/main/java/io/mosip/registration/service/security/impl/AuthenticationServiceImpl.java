@@ -64,8 +64,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Autowired
 	private OTPValidatorImpl otpValidatorImpl;
 	
-	@Autowired
-	private BioAPIFactory bioAPIFactory;
+//	@Autowired
+//	private BioAPIFactory bioAPIFactory;
 	
 	@Autowired
 	private UserDetailDAO userDetailDAO;
@@ -92,13 +92,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 				sample.add(buildBir(biometricDto.getAttributeISO(), biometricType));
 			});
 			
-			iBioProviderApi bioProvider = bioAPIFactory.getBioProvider(biometricType, BiometricFunction.MATCH);
-			if(Objects.nonNull(bioProvider)) {
-				LOGGER.info("OPERATOR_AUTHENTICATION", APPLICATION_NAME, APPLICATION_ID, 
-						modality + " >> Bioprovider instance found : " + bioProvider);
-				return bioProvider.verify(sample, record, biometricType, null);
-			}
-		} catch (BiometricException  | RuntimeException e) {
+//			iBioProviderApi bioProvider = bioAPIFactory.getBioProvider(biometricType, BiometricFunction.MATCH);
+//			if(Objects.nonNull(bioProvider)) {
+//				LOGGER.info("OPERATOR_AUTHENTICATION", APPLICATION_NAME, APPLICATION_ID,
+//						modality + " >> Bioprovider instance found : " + bioProvider);
+//				return bioProvider.verify(sample, record, biometricType, null);
+//			}
+		} catch (RuntimeException e) {
 			LOGGER.error("REGISTRATION - OPERATOR_AUTHENTICATION", APPLICATION_NAME, APPLICATION_ID, 
 					ExceptionUtils.getStackTrace(e));
 		}
