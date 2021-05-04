@@ -294,8 +294,8 @@ public class BiometricsController extends BaseController /* implements Initializ
 	@Autowired
 	private UserOnboardParentController userOnboardParentController;
 
-	@Autowired
-	private BioAPIFactory bioAPIFactory;
+//	@Autowired
+//	private BioAPIFactory bioAPIFactory;
 
 	@Autowired
 	private UserDetailDAO userDetailDAO;
@@ -2244,14 +2244,14 @@ public class BiometricsController extends BaseController /* implements Initializ
 			sample.add(buildBir(biometricDto.getAttributeISO(), biometricType));
 		});
 
-		try {
-			Map<String, Boolean> result = bioAPIFactory.getBioProvider(biometricType, BiometricFunction.MATCH)
-					.identify(sample, gallery, biometricType, null);
-			return result.entrySet().stream().anyMatch(e -> e.getValue() == true);
-		} catch (BiometricException e) {
-			LOGGER.error(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
-					"Failed to dedupe >> " + ExceptionUtils.getStackTrace(e));
-		}
+//		try {
+//			Map<String, Boolean> result = bioAPIFactory.getBioProvider(biometricType, BiometricFunction.MATCH)
+//					.identify(sample, gallery, biometricType, null);
+//			return result.entrySet().stream().anyMatch(e -> e.getValue() == true);
+//		} catch (BiometricException e) {
+//			LOGGER.error(LOG_REG_BIOMETRIC_CONTROLLER, APPLICATION_NAME, APPLICATION_ID,
+//					"Failed to dedupe >> " + ExceptionUtils.getStackTrace(e));
+//		}
 		return false;
 	}
 
