@@ -1,6 +1,6 @@
 reg_target = "./registration/registration-client/target"
 out_put_dir = "guinean-reg-client"
-zip_generated_name = "mosip-sw-1.1.2.zip"
+zip_generated_name = "mosip-sw-1.1.1.zip"
 
 
 all:  global_build make_output_dir copy_necessary_files unzip_app copy_libs zip_the_final_directory

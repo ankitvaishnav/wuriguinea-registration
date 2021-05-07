@@ -7,24 +7,24 @@
 	<parent>
 		<groupId>io.mosip.wuri.registration</groupId>
 		<artifactId>registration-parent</artifactId>
-		<version>1.1.2</version>
+		<version>1.1.1</version>
 	</parent>
 
 	<artifactId>registration-client</artifactId>
 	<packaging>jar</packaging>
-	<version>1.1.2</version>
+	<version>1.1.1</version>
 	<name>registration-client</name>
 	<description>Maven project of MOSIP Registration UI</description>
-	
+
 	<properties>
-   	<mosip.core.kernel.version>1.0.6</mosip.core.kernel.version>
-    </properties>
+		<mosip.core.kernel.version>1.0.6</mosip.core.kernel.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>io.mosip.wuri.registration</groupId>
 			<artifactId>registration-services</artifactId>
-			<version>1.1.2</version>
+			<version>1.1.1</version>
 		</dependency>
 
 		<dependency>
