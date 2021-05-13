@@ -23,12 +23,14 @@ import io.mosip.registration.mdm.service.impl.MosipDeviceSpecificationHelper;
 import io.mosip.registration.mdm.spec_0_9_5.dto.request.DeviceDiscoveryRequest;
 import io.mosip.registration.mdm.spec_0_9_5.dto.response.*;
 import org.apache.http.Consts;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,8 +141,13 @@ public class MosipDeviceSpecification_095_ProviderImpl implements MosipDeviceSpe
 					timeout);
 
 			String request = new ObjectMapper().writeValueAsString(streamRequestDTO);
-
-			CloseableHttpClient client = HttpClients.createDefault();
+			int http_timeout = Integer.parseInt(timeout) + 2;
+			RequestConfig config = RequestConfig.custom().
+					setConnectTimeout(2000).
+					setConnectionRequestTimeout(http_timeout * 1000).
+					setSocketTimeout(http_timeout * 1000).build();
+			CloseableHttpClient client = HttpClientBuilder.create()
+					.setDefaultRequestConfig(config).build();
 			StringEntity requestEntity = new StringEntity(request, ContentType.create("Content-Type", Consts.UTF_8));
 			LOGGER.info(loggerClassName, APPLICATION_NAME, APPLICATION_ID,
 					"Building Stream url...." + System.currentTimeMillis());
@@ -212,12 +219,17 @@ public class MosipDeviceSpecification_095_ProviderImpl implements MosipDeviceSpe
 			requestBody = mapper.writeValueAsString(rCaptureRequestDTO);
 
 			LOGGER.info(loggerClassName, APPLICATION_NAME, APPLICATION_ID, "Request for RCapture...." + requestBody);
-
-			CloseableHttpClient client = HttpClients.createDefault();
+			int http_timeout = mdmRequestDto.getTimeout() + 2;
+			RequestConfig config = RequestConfig.custom().
+					setConnectTimeout(2000).
+					setConnectionRequestTimeout(http_timeout * 1000).
+					setSocketTimeout(http_timeout * 1000).build();
+			CloseableHttpClient client = HttpClientBuilder.create()
+					.setDefaultRequestConfig(config).build();
 			StringEntity requestEntity = new StringEntity(requestBody,
 					ContentType.create("Content-Type", Consts.UTF_8));
 			LOGGER.info(loggerClassName, APPLICATION_NAME, APPLICATION_ID,
-					"Bulding capture url...." + System.currentTimeMillis());
+					"Building capture url...." + System.currentTimeMillis());
 			HttpUriRequest request = RequestBuilder.create("RCAPTURE")
 					.setUri(bioDevice.getCallbackId() + MosipBioDeviceConstants.CAPTURE_ENDPOINT)
 					.setEntity(requestEntity).build();
@@ -465,7 +477,13 @@ public class MosipDeviceSpecification_095_ProviderImpl implements MosipDeviceSpe
 
 			LOGGER.info(loggerClassName, APPLICATION_NAME, APPLICATION_ID, "Request for RCapture...." + requestBody);
 
-			CloseableHttpClient client = HttpClients.createDefault();
+			int http_timeout = 3;
+			RequestConfig config = RequestConfig.custom().
+					setConnectTimeout(2000).
+					setConnectionRequestTimeout(http_timeout * 1000).
+					setSocketTimeout(http_timeout * 1000).build();
+			CloseableHttpClient client = HttpClientBuilder.create()
+					.setDefaultRequestConfig(config).build();
 			StringEntity requestEntity = new StringEntity(requestBody,
 					ContentType.create("Content-Type", Consts.UTF_8));
 			LOGGER.info(loggerClassName, APPLICATION_NAME, APPLICATION_ID,
